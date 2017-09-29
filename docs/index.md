@@ -1,9 +1,9 @@
 
 ### Table of Contents
-1. [Overview](/index.md)
-2. [Introduction](/intro_specfem.md)
-3. [Part I: Setting up SPECFEM3D_GLOBE](/setup_specfem3d.md)
-4. [Part II: Continental-scale Simulations](/prepare_data.md)
+1. [總覽](/index.md)
+2. [GMT介紹及安裝](/intro_install.md)
+3. [網路資源及配套軟體](/net_software.md)
+4. [第一章: 製作底圖(投影法)](/projection.md)
 5. [Part III: Visualization](/vis_seismo.md)
 6. [Part IV: Adjoint Simulations (Bonus)](/run_adj_solver.md)
 7. [Further Work](/further_work.md)
@@ -82,6 +82,12 @@ In order to complete this tutorial, the following software must be installed
     * Get an idea of what steps are required to run adjoint simulations using
       SPECFEM3D_GLOBE
     * Learn how to generate adjoint sources
+
+
+---
+
+[Next section](/intro_specfem.md)
+ adjoint sources
 
 
 ---
