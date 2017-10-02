@@ -10,7 +10,7 @@
 
 
 <p align="center">
-  <img src="/fig/logo-gmt5.png" alt="gmt5"/>
+  <img src="fig/logo-gmt5.png" alt="gmt5"/>
 </p>
 
 
@@ -28,8 +28,11 @@ GMT(Generic Mapping Tools)，是一款開放原始碼的製圖軟體，透過指
 
 希望透過本教程，讓你多了解這款製圖工具，並對你有所幫助。
 本教程部份參考
+
 * [GMT中文手冊](http://docs.gmt-china.org/intro/overview.html)
 * [GMT教學手冊](http://gmt-tutorials.org/)
+
+
 ---
 
 [下一章](/intro_install.md)
