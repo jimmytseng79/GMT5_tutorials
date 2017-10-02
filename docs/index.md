@@ -4,14 +4,13 @@
 2. [GMT介紹及安裝](/intro_install.md)
 3. [網路資源及配套軟體](/net_software.md)
 4. [第一章: 製作底圖(投影法)](/projection.md)
-5. [Part III: Visualization](/vis_seismo.md)
-6. [Part IV: Adjoint Simulations (Bonus)](/run_adj_solver.md)
-7. [Further Work](/further_work.md)
-8. [Resources](/resources.md)
 
 
 ## 概述
-![alt text](/fig/logo-gmt5.png)
+<p align="center">
+  <img src="/fig/logo-gmt5.png" alt="gmt5">
+</p>
+
 GMT(Generic Mapping Tools)，是一款開放原始碼的製圖軟體，透過指令的方式，
 處理大量的科學資料，來達到科學家所需要的地圖製作。
 
@@ -25,7 +24,9 @@ GMT(Generic Mapping Tools)，是一款開放原始碼的製圖軟體，透過指
 及提供習題作為練習。
 
 希望透過本教程，讓你多了解這款製圖工具，並對你有所幫助。
-
+本教程部份參考
+*[GMT中文手冊](http://docs.gmt-china.org/intro/overview.html)
+*[GMT教學手冊](http://gmt-tutorials.org/)
 ---
 
 [下一章](/intro_install.md)
