@@ -17,6 +17,8 @@
 GMT(Generic Mapping Tools)，是一款開放原始碼的製圖軟體，透過指令的方式，
 處理大量的科學資料，來達到科學家所需要的地圖製作。
 
+[GMT官網連接](http://gmt.soest.hawaii.edu/projects/gmt)
+
 本教程將展示GMT5如何利用指令，將你的研究數據，轉換成各式各樣美麗的成果圖，
 像是XY分佈圖、玫瑰圖、直方圖、等高線圖等等。
 

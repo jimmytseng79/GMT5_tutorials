@@ -18,7 +18,7 @@ GMT建立於1988年，由Paul Wessel和Walter H.F. Smith共同開發，
 
 
 <p align="center">
-  <img src="fig/map_geoip_all.png"/>
+  <img src="fig/GMT5_Summit_2016.jpg"/>
 </p>
 
 
@@ -37,7 +37,7 @@ GMT作為免費、開源的製圖軟體，將大幅底減少這些花費。
 
 
 <p align="center">
-  <img src="fig/GMT5_Summit_2016.jpg"/>
+  <img src="fig/map_geoip_all.png"/>
 </p>
 
 
@@ -58,6 +58,33 @@ GMT是跨平台的軟體，可以在Linux、Windows及MAC下運行，但推薦�
 * GMT是在Linux下開發在移植到Windows，所以Windows版本會有相對多的Bug
 * Linux自帶的數據處理工具: `gawk`、`cut`、`paste`等
 
+GMT的安裝已經非常人性化了，官網也提供個平台的安裝教學，
+而其安裝檔的連結則放在[下載頁面](http://gmt.soest.hawaii.edu/projects/gmt/wiki/Download)，
+這邊簡單介紹各版本的安裝方式:
+
+* Windows: 透過`.exe`檔安裝
+* Linux: 透過`apt-get`或`.tar`檔安裝
+
+```shell
+      # by apt-get
+      sudo apt-get install gmt gmt-dcw gmt-gshhg
+      
+      # by source
+      set (CMAKE_INSTALL_PREFIX /opt/gmt)
+      set (GSHHG_ROOT <path to gshhg>)
+      set (DCW_ROOT <path to dcw>)
+      cd <path to>/gmt5-dev
+      mkdir build
+      cd build
+      cmake ..
+      make
+      make install
+```
+
+* MAC: 透過`.dmg`檔安裝
+
+上面指令欄提到的**gshhg**及**dcw**，內容為一些常用的地理資料，一樣放在下載頁面中，
+你需要先下載且指定檔案位置(Window可在安裝選項中勾選)，以下是gshhg及dcw的簡介:
 
 ---
 
