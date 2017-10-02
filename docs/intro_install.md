@@ -18,7 +18,7 @@ GMT建立於1988年，由Paul Wessel和Walter H.F. Smith共同開發，
 
 
 <p align="center">
-  <img src="fig/GMT5_Summit_2016.jpg"/>
+  <img src="fig/map_geoip_all.png"/>
 </p>
 
 
@@ -33,8 +33,7 @@ Florian Wobbe 和 Paul Wessel。
 GMT作為免費、開源的製圖軟體，將大幅底減少這些花費。
 在上手難度上，因其為仰賴指令輸入來製圖，
 較GIS (geographic information system)系列軟體難，
-但其快速的資料處理、批次處理、完全免費的特點，使其擁有一群死忠的使用者，
-非常推薦你也學習。
+但其快速的資料處理、批次處理、完全免費的特點，使其擁有一群死忠的使用者。
 
 
 <p align="center">
@@ -44,7 +43,21 @@ GMT作為免費、開源的製圖軟體，將大幅底減少這些花費。
 
 圖為GMT全球的下載量。
 
+另外GMT遵循UNIX模組化的設計思想，將繪圖及數據處理分隔到不同的模組下，
+各模組互相獨立，在更新或維護上較為容易，如果你做為一個程式開發者，
+想針對某功能進行改良，將大幅減少開發時間，也可以將這功能帶入到其他的軟體中。
+
+GMT輸出的圖檔格式為.PS格式(PostScript)，PS格式是向量圖片格式，有別於圖層格式，
+向量格式除支援高品質圖檔輸出，其各物件可以任意放大縮小而不失真，
+在轉換其他圖檔格式，也十分方便。GMT製圖工具非常推薦你也學習。
+
+
 ## 2.3 GMT安裝
+GMT是跨平台的軟體，可以在Linux、Windows及MAC下運行，但推薦在Linux使用GMT，原因如下:
+
+* GMT是在Linux下開發在移植到Windows，所以Windows版本會有相對多的Bug
+* Linux自帶的數據處理工具: `gawk`、`cut`、`paste`等
+
 
 ---
 
