@@ -1,5 +1,5 @@
 
-### Table of Contents
+### 目錄
 1. [總覽](/index.md)
 2. [GMT介紹及安裝](/intro_install.md)
 3. [網路資源及配套軟體](/net_software.md)
@@ -10,86 +10,19 @@
 8. [Resources](/resources.md)
 
 
-## Overview
+## 概述
 
-This tutorial will show you how to set up and run a continental-scale
-simulation using SPECFEM3D_GLOBE.
+本教程將展示GMT5如何利用指令，將你的研究數據，轉換成各式各樣美麗的成果圖，
+像是XY分佈圖、玫瑰圖、直方圖、等高線圖等等。
 
-The tutorial consists of four parts. In the first part, we will look at how to
-set up SPECFEM3D_GLOBE. In part two, we use SPECFEM3D_GLOBE to run a
-continental-scale simulation. In part three, we explore how to visualize the
-output simulation data using ObsPy and Paraview, and in part four, we will look 
-at how to run adjoint simulations using SPECFEM3D_GLOBE.
+本教程將分成兩個部份。
+第一部份，會介紹在各作業系統中GMT如何安裝，GMT的發展歷史，
+配套的軟體，以及網路資料庫的使用。
+第二部份，將依照各類型圖片的製作，分別進行範例的講解，
+及提供習題作為練習。
 
-The event that we will be focusing on in this tutorial is the 2014 [South Napa
-earthquake](https://en.wikipedia.org/wiki/2014_South_Napa_earthquake).
-
-
-### Requirements
-In order to complete this tutorial, the following software must be installed
-
-      Intel compilers   (version >= 16.0.4)
-      Python            (version >= 3.3.0)
-      Obspy             (version >= 1.0.3)
-      Paraview          (version >= 5.1.2)
-
-### Part I: Setting up SPECFEM3D_GLOBE: 
-
-* **Description:** In the first part of the tutorial, we will go through the steps
-  that are required to obtain the SPECFEM3D_GLOBE source code, and look at how
-  to properly configure and compile it.
-
-* **Learning goals:**
-    * Understand the steps required to set up SPECFEM3D_GLOBE
-    * Get an idea of how to set up SPECFEM3D_GLOBE in your own environment
-
-
-### Part II: Continental-scale Simulations:
-
-* **Description:** In the second part of the tutorial, we will look at how to prepare
-  the input data for the continental-scale simulation. This includes providing
-  the source characteristics, providing the station locations, and setting the
-  simulation parameters. We will also go through how to mesh the model, and how
-  to run the solver.
-
-* **Learning goals:**
-    * Understand the steps required to run a continental-scale simulation with SPECFEM3D_GLOBE
-    * Get an overview of what data must be set in order to run a simulation with SPECFEM3D_GLOBE
-    * Learn how to change the resolution of a simulation
-    * Get an idea of how to submit the mesh and solver job on the cluster
-
-
-### Part III: Visualization:
-
-* **Description:** In part three, we will look at how to visualize the
-  simulation output using ObsPy and Paraview. This includes looking at the
-  output seismograms, visualizing the model mesh, and creating a surface movie
-  for the simulation data.
-
-* **Learning goals:**
-    * Get an idea of how to plot the output seismograms using ObsPy
-    * Learn the steps needed to output and visualize the model mesh with
-      different component models (e.g. vp, vs) using Paraview
-    * Learn how to create a surface movie for the simulation data
-
-
-### Part IV: Adjoint Simulations (Bonus):
-
-* **Description:** In part four, we go through the steps that are needed to run
-  adjoint simulations using SPECFEM3D_GLOBE.
-
-* **Learning goals:**
-    * Get an idea of what steps are required to run adjoint simulations using
-      SPECFEM3D_GLOBE
-    * Learn how to generate adjoint sources
-
+希望透過本教程，讓你多了解這款製圖工具，並對你有所幫助。
 
 ---
 
-[Next section](/intro_specfem.md)
- adjoint sources
-
-
----
-
-[Next section](/intro_specfem.md)
+[Next section](/intro_install.md)
