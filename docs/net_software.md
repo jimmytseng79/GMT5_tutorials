@@ -24,8 +24,7 @@
   * [交通網路資訊倉儲系統](https://gist.motc.gov.tw): 提供台鐵、高鐵、公路等資料
 * [政府資料開放平台](https://data.gov.tw/): 包羅萬象的政府公開資訊
 
-
-###國際
+### 國際
 * [EarthExplorer](https://earthexplorer.usgs.gov): 由USGS(美國地質調查所)管理，提供全球數值地形資料
 
 ---
