@@ -18,7 +18,12 @@
 
 ### 台灣
 
-* [大氣水文資料庫](https://dbahr.narlabs.org.tw): 提供雨量、氣溫、風速等大氣及水文相關資料。
+* [大氣水文資料庫](https://dbahr.narlabs.org.tw): 提供雨量、氣溫、風速等大氣及水文相關資料
+* [地球物理資料庫](http://gdms.cwb.gov.tw/index.php): 提供強震儀、寬頻地震儀、GPS等地物相關資料
+* 地理資料庫:
+    [地理資訊倉儲中心](http://gic.wra.gov.tw/gic/homepage/index.aspx): 提供流域、地層下陷等資料
+    [交通網路資訊倉儲系統](https://gist.motc.gov.tw): 提供台鐵、高鐵、公路等資料
+* [政府資料開放平台](https://data.gov.tw/): 包羅萬象的政府公開資訊
 
 ---
 
