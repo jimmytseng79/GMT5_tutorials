@@ -46,6 +46,15 @@
 內建列塊模式編輯、語法加亮、16進位編輯等功能。
 
 ### 看圖及繪圖軟體
+* <mark>看圖</mark>[Ghostscript系列](http://pages.cs.wisc.edu/~ghost/): 為最主流開啟PS檔的自由軟體，
+在Windows系統下，需先安裝對應版本的Ghostscript，在安裝GSview，即可開啟PS檔，Linux及MAC則可直接在輸入指令gv開啟。
+* <mark>看圖</mark>[Evince](https://wiki.gnome.org/Apps/Evince): 許多Linux發行板默認安裝的文件瀏覽器，
+可直接開啟PS檔，目前只支援到Windows 7。
+* <mark>繪圖</mark>[CorelDRAW](https://www.coreldraw.com/tw/): 功能非常強大的商用向量檔處理軟體，目前僅支援Windows系統。
+* <mark>繪圖</mark>[Adobe Illustrator](http://www.adobe.com/products/illustrator.html): 另一個著名大公司的商用繪圖軟體，
+提供MAC及Windows版本。
+* <mark>繪圖</mark>[Inkscape](https://inkscape.org/en/): 
+
 
 ---
 
