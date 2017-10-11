@@ -53,7 +53,8 @@
 * <mark>繪圖</mark>[CorelDRAW](https://www.coreldraw.com/tw/): 功能非常強大的商用向量檔處理軟體，目前僅支援Windows系統。
 * <mark>繪圖</mark>[Adobe Illustrator](http://www.adobe.com/products/illustrator.html): 另一個著名大公司的商用繪圖軟體，
 提供MAC及Windows版本。
-* <mark>繪圖</mark>[Inkscape](https://inkscape.org/en/): 
+* <mark>繪圖</mark>[Inkscape](https://inkscape.org/en/): 在Linux平台上的免費繪圖軟體，支援多種檔案格式，
+功能雖不比前兩者繪圖軟體，但不失唯一個選擇。
 
 
 ---
