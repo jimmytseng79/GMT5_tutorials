@@ -19,7 +19,7 @@ GMT建立於1988年，由Paul Wessel和Walter H.F. Smith共同開發，
 
 
 <p align="center">
-  <img src="fig/GMT5_Summit_2016.jpg"/>
+  <img src="fig/2_GMT5_Summit_2016.jpg"/>
 </p>
 
 
@@ -38,7 +38,7 @@ GMT作為免費、開源的製圖軟體，將大幅底減少這些花費。
 
 
 <p align="center">
-  <img src="fig/map_geoip_all.png"/>
+  <img src="fig/2_map_geoip_all.png"/>
 </p>
 
 

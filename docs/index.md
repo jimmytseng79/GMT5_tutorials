@@ -11,7 +11,7 @@
 
 
 <p align="center">
-  <img src="fig/logo-gmt5.png"/>
+  <img src="fig/1_logo-gmt5.png"/>
 </p>
 
 
