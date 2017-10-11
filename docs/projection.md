@@ -1,13 +1,14 @@
 
-### ¥Ø¿ı
-1. [Á`Äı](/index.md)
-2. [GMT¤¶²Ğ¤Î¦w¸Ë](/intro_install.md)
-3. [ºô¸ô¸ê·½¤Î°t®M³nÅé](/net_software.md)
-4. [²Ä¹s³¹]: °ò¥»·§©À¤Î°Ñ¦Ò¸ê·½ (/basic_resource.md)
-5. [²Ä¤@³¹: »s§@©³¹Ï(§ë¼vªk)](/projection.md)
+### ç›®éŒ„
+1. [ç¸½è¦½](/index.md)
+2. [GMTä»‹ç´¹åŠå®‰è£](/intro_install.md)
+3. [ç¶²è·¯è³‡æºåŠé…å¥—è»Ÿé«”](/net_software.md)
+4. [ç¬¬é›¶ç« ]: åŸºæœ¬æ¦‚å¿µåŠåƒè€ƒè³‡æº (/basic_resource.md)
+5. [ç¬¬ä¸€ç« : è£½ä½œåº•åœ–(æŠ•å½±æ³•)](/projection.md)
 
-## 5. §ë¼vªk
+## 5. æŠ•å½±æ³•
+
 
 ---
 
-[¤W¤@³¹](/intro_install.md) -- [¤U¤@³¹](/basic_resource.md)
+[ä¸Šä¸€ç« ](/intro_install.md) -- [ä¸‹ä¸€ç« ](/basic_resource.md)
