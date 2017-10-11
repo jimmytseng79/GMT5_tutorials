@@ -77,42 +77,55 @@ GMT在讀取<mark>gmt.conf</mark>檔時，會優先讀取當前資料夾底下�
 ## 4.4 參考資訊
 這邊整理一些GMT常用的參數的表單或是圖檔。
 
-* 地圖框的設定
+* <mark>地圖框的設定</mark>
 
 <p align="center">
   <img src="fig/4_map_setting.jpg"/>
 </p>
 
-* 距離的單位
+* <mark>距離的單位</mark>
 
 <p align="center">
   <img src="fig/4_dist_unit.jpg"/>
 </p>
 
-* 時間的單位
+* <mark>時間的單位</mark>
 
 <p align="center">
   <img src="fig/4_time_unit.jpg"/>
 </p>
 
-* 字的對齊方式
+* <mark>字的對齊方式</mark>
 
 <p align="center">
   <img src="fig/4_text_placement.jpg"/>
 </p>
 
-* 字的對齊方式
-
-<p align="center">
-  <img src="fig/4_text_placement.jpg"/>
-</p>
-
-* 地質圖案(bit and hachure patterns)
+* <mark>地質圖案</mark>(bit and hachure patterns)
 
 <p align="center">
   <img src="fig/4_hachure_patterns.jpg"/>
 </p>
 
+* <mark>特殊字元或符號</mark>
+
+<p align="center">
+  <img src="fig/4_octal_code1.jpg"/>
+</p>
+
+* <mark>字體對照表</mark>
+
+<p align="center">
+  <img src="fig/4_font_type.jpg"/>
+</p>
+
+* <mark>顏色RGB對照表</mark>
+
+<p align="center">
+  <img src="fig/4_GMT_RGBchart_a4.png"/>
+</p>
+
+部份的圖檔，可以在<mark>GMT根目錄/share/doc/html/_images</mark>找到。
 
 
 ---
