@@ -29,6 +29,26 @@ GMT在投影法方面，分成兩部份，如下圖，一部份是地理投影�
 等距方位投影(Azimuthal Equidistant Projection)以及羅賓森投影法。將依序利用這四種繪製台灣、美國、
 桃園機場的航線圖以及世界行政分區地圖。
 
+
+## 5.2 學習的指令與概念
+
+* `pscoast`: 繪製海岸線
+* `gmtset`: GMT地圖參數
+* `psxy`: 繪製線、多邊形、符號
+* GMT共用選項: `-B`、`-J`、`-K`、`-O`、`-P`、`-R`
+* 不同投影法的應用
+* `psconvert`: 圖檔的輸出
+
+## 5.3 麥卡托投影
+首先可以從Google Map或是Google Earth抓出台灣的經緯度範圍，
+
+* Google Map:在選定的點上按右鍵，點選「這是哪裡?」(What's here?)，底下就會出現該點的經緯度。
+* Google Earth: 滑鼠移至目標點，即可從下方讀取到該點的經緯度。使用Google Earth的時後，
+請注意下方經緯度的表示方式，請至上方功能列中，點選工具->選項，在顯示經緯度的選項中，
+勾選十進制度小數(decimal)。
+
+
+
 ---
 
 [上一章](/basic_defaults.md) -- [下一章](/projection.md)
