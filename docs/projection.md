@@ -49,7 +49,8 @@ GMT在投影法方面，分成兩部份，如下圖，一部份是地理投影�
 
 使用十進制度小數的格式是由於數學計算上的方面以及GMT預設採用的座標表示法，關於經緯度表示格式之間的轉換關係，
 可以參考[WIKI百科](https://en.wikipedia.org/wiki/Geographic_coordinate_conversion)。
-請[開啟](basic_defaults.md#m4-1)命令提式字元(cmd.exe)或是終端機(terminal)，輸入下方指令:
+請開啟命令提式字元(cmd.exe)或是終端機(terminal)，開啟方式可參考[4-1](basic_defaults.md#m4.1)，
+接著輸入下方指令:
 ```shell
   gmt pscoast
 ```
