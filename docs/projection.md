@@ -25,7 +25,9 @@ GMT在投影法方面，分成兩部份，如下圖，一部份是地理投影�
 
 ## 5.1 目的
 
-
+本章將學習如何繪製麥卡托投影法(Mercator Projection)、蘭伯特正形圓錐投影(Lambert Conic conformal Projection)、
+等距方位投影(Azimuthal Equidistant Projection)以及羅賓森投影法。將依序利用這四種繪製台灣、美國、
+桃園機場的航線圖以及世界行政分區地圖。
 
 ---
 
