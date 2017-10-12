@@ -94,7 +94,7 @@ GMT在投影法方面，分成兩部份，如下圖，一部份是地理投影�
 * `-S`海洋的顏色。在GMT中顏色的輸入有很多種，常見的有三種，以藍色為例，
   * Hex Color，十六進位色碼(#0000FF)
   * RGB Color，十進位制色碼(0/0/255)
-  * 英文單字("blue")
+  * 英文單字(blue)
   * 英文單字與RGB色碼之間的對照表，請[參考4-4顏色RGB對照表](basic_defaults.md#m4.4c)。
 * `-W`寬度,顏色,樣式。
 
@@ -105,20 +105,28 @@ GMT在投影法方面，分成兩部份，如下圖，一部份是地理投影�
 ```
 來看看結果的圖長什麼樣。
 <p align="center">
-  <img src="fig/5_3_taiwan_1.png"/>
+  <img src="fig/5_3_taiwan_1.png" width="702" height="496"/>
 </p>
 在預設紙張大小為A4的情況下，看到台灣北部並沒有被涵蓋在A4的紙張上，是什麼原因呢？
 原來是因為GMT預設紙張方向是橫向(Landscape)，如果要改成縱向(Portrait)，需要加上`-P`這個選項。
 再來是這海岸線的解析度也太粗糙了吧！我們可以透過`-D`這個選項來改善這問題，其解析成度分別是
-詳細(**f**ull)、高度(**h**igh)、中度(**i**ntermediate)、低度(**l**ow)、粗糙(**c**rude)，
-海岸線的解析度預設值是低度(l)，也可以透過自動(**a**uto)，依照地圖尺寸來決定海岸線的解析度。
+詳細(<mark>f</mark>ull)、高度(<mark>h</mark>igh)、中度(<mark>i</mark>ntermediate)、
+低度(<mark>l</mark>ow)、粗糙(<mark>c</mark>rude)，海岸線的解析度預設值是低度(l)，
+也可以透過自動(<mark>a</mark>uto)，依照地圖尺寸來決定海岸線的解析度。
+接著陸地是白色，似乎有點單調，來試看看用`-G`英文單字，來更改陸地的顏色，
 於是乎將指令改寫如下:
 ```shell
-gmt pscoast -R119.0/122.5/21.5/26.0 -JM18 -S0/0/255 -W1 -Df -P > 5_3_taiwan.ps
+gmt pscoast -R119.0/122.5/21.5/26.0 -JM18 -S0/0/255 -Gspringgreen2 -W1 -Df -P > 5_3_taiwan.ps
 ```
 <p align="center">
-  <img src="fig/5_3_taiwan_2.png"/>
+  <img src="fig/5_3_taiwan_2.png" width="496" height="702"/>
 </p>
+看起來，這圖已經有點起色了，但好像還缺少點什麼，例如地圖比例尺(map scale)、
+地圖方向標(map directional rose)、座標框架(map boundary frame and axes attributes)等等，
+這些我們將在下一節提到。
+
+## 5.4 蘭伯特正形圓錐投影
+
 
 ---
 
