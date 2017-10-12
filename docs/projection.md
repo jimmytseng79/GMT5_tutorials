@@ -127,6 +127,15 @@ gmt pscoast -R119.0/122.5/21.5/26.0 -JM18 -S0/0/255 -Gspringgreen2 -W1 -Df -P > 
 
 ## 5.4 蘭伯特正形圓錐投影
 
+美國幅員遼闊，經度橫跨約55度，且主要在中緯度，不適合使用麥卡托投影，因此這邊介紹蘭伯特投影法。
+與前一節一樣，先初步畫出美國的國土，給定範圍在-130/-65/21/50，指令如下:
+```shell
+gmt pscoast -R-130/-65/21/50 -JM25 -S0/0/255 -Gspringgreen2 -W1 -Df > 5_4_unitedstate.ps
+```
+其結果為
+<p align="center">
+  <img src="fig/5_4_unitedstate_1.png" width="702" height="496"/>
+</p>
 
 ---
 
