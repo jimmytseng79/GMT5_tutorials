@@ -121,7 +121,7 @@ GMT在讀取<mark>gmt.conf</mark>檔時，會優先讀取當前資料夾底下�
   <img src="fig/4_font_type.jpg"/>
 </p>
 
-* <mark>顏色RGB對照表</mark>[](#m4.4c)
+* <mark>顏色RGB對照表</mark>[.](#m4.4c)
 
 <p align="center">
   <img src="fig/4_GMT_RGBchart_a4.png"/>
