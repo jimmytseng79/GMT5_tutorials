@@ -8,7 +8,7 @@
 
 ---
 
-## 4.1 基本概念[](#m4.1)
+## <a name="m4.1"></a>4.1 基本概念
 GMT是由指令輸入來製圖，那如何開啟指令輸入的環境
 
 * Windows: 點擊開始按鈕，搜尋<mark>cmd.exe</mark>或是命令提示字元，點擊後將出現命令提示字元的畫面。
@@ -121,7 +121,7 @@ GMT在讀取<mark>gmt.conf</mark>檔時，會優先讀取當前資料夾底下�
   <img src="fig/4_font_type.jpg"/>
 </p>
 
-* <mark>顏色RGB對照表</mark><a name="m4.4c"></a>
+* <a name="m4.4c"></a><mark>顏色RGB對照表</mark>
 
 <p align="center">
   <img src="fig/4_GMT_RGBchart_a4.png"/>
