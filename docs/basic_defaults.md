@@ -6,11 +6,11 @@
 4. [第零章: 基本概念及默認值](/basic_defaults.md)
 5. [第一章: 製作地圖(地理投影法)](/projection.md)
 
-## <h2 id="#4.1">4.1 基本概念</h2>
+## 4.1 基本概念
 GMT是由指令輸入來製圖，那如何開啟指令輸入的環境
 
 * Windows: 點擊開始按鈕，搜尋<mark>cmd.exe</mark>或是命令提示字元，點擊後將出現命令提示字元的畫面。
-* Linux: 按`Ctrl+Alt+T`，或是在搜尋打<mark>terminal</mark>，就可叫出指令介面。
+* Linux: 按`Ctrl+Alt+T`，或是在搜尋打<mark>terminal</mark>，就可叫出終端機。
 * MAC: 可在Applications/Utilities/下找到<mark>Terminal.app</mark>。
 
 為了避免與其他指令混用，自GMT5之後，GMT的指令輸入格式如下:
