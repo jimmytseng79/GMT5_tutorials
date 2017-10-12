@@ -6,14 +6,13 @@
 4. [第零章: 基本概念及默認值](/basic_defaults.md)
 5. [第一章: 製作地圖(地理投影法)](/projection.md)
 
+---
 
 ## 概述
-
 
 <p align="center">
   <img src="fig/1_logo-gmt5.png"/>
 </p>
-
 
 GMT(Generic Mapping Tools)，是一款開放原始碼的製圖軟體，透過指令的方式，
 處理大量的科學資料，來達到科學家所需要的地圖製作。
