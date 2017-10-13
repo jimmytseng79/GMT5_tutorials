@@ -59,21 +59,21 @@ GMT在投影法方面，分成兩部份，如下圖，一部份是地理投影�
 可以參考[WIKI百科](https://en.wikipedia.org/wiki/Geographic_coordinate_conversion)。
 請開啟命令提式字元(cmd.exe)或是終端機(terminal)，開啟方式可[參考4-1](basic_defaults.md#m4.1)，
 接著輸入下方指令:
-```shell
+```bash
 gmt pscoast
 ```
 會看到一連串關於`pscoast`的說明，如果你對各選項的意思已經了解，可以透過:
-```shell
+```bash
 gmt pscoast -
 ```
 你將只看到選項用法出現在影幕上。通常GMT指令的語法如下:
-```shell
+```bash
 gmt 模組 (輸入檔) [-選項1 -選項2 -選項3 ...] > 輸出檔名.ps
 ```
 簡單來說，先選定你要用的模組，給定輸入的資料，配合該模組底下的選項，來達到你要繪製的圖形，
 而<mark>-</mark>開頭會被GMT視作選項，沒有<mark>-</mark>開頭則被當做資料，所以其先後順序沒差，
 不過為養成好習慣，建議按照下面的範例來輸入每一行指令。
-```shell
+```bash
 # 第一行
 gmt psxy (輸入檔) -J -R [-選項1 -選項2 ...] -K  > 輸出檔名.ps
 # 中間各行
@@ -106,7 +106,7 @@ gmt psxy (輸入檔) -J -R [-選項1 -選項2 ...] -O >> 輸出檔名.ps
 
 選定好的範圍是119.0/123.0/21.5/26.0，預定地圖的寬度為15公分，海洋顏色為藍色，海岸線的寬度是1公分，
 顏色及樣式則採用預設值黑色及實線，指令如下:
-```shell
+```bash
 gmt pscoast -R119.0/122.5/21.5/26.0 -JM18 -S0/0/255 -W1 > 5_3_taiwan.ps
 ```
 來看看結果的圖長什麼樣。
@@ -121,7 +121,7 @@ gmt pscoast -R119.0/122.5/21.5/26.0 -JM18 -S0/0/255 -W1 > 5_3_taiwan.ps
 也可以透過自動(<mark>a</mark>uto)，依照地圖尺寸來決定海岸線的解析度。
 接著陸地是白色，似乎有點單調，來試看看用`-G`英文單字，來更改陸地的顏色，
 於是乎將指令改寫如下:
-```shell
+```bash
 gmt pscoast -R119.0/122.5/21.5/26.0 -JM18 -S0/0/255 -Gspringgreen2 -W1 -Df -P > 5_3_taiwan.ps
 ```
 <p align="center">
@@ -136,7 +136,7 @@ gmt pscoast -R119.0/122.5/21.5/26.0 -JM18 -S0/0/255 -Gspringgreen2 -W1 -Df -P > 
 美國幅員遼闊，經度橫跨約55度，且主要在中緯度，不適合使用麥卡托投影(`-JM`)，因此這邊介紹蘭伯特投影法(`-JL`)。
 與前一節一樣，先初步畫出美國的國土，給定範圍在-130/-66/24/52，但`-JL`的用法較不一樣，
 它需要的格式是`-JL`中心點經度/中心點緯度/固定緯度線1/固定緯度線2/寬度，指令如下:
-```shell
+```bash
 gmt pscoast -R-130/-66/24/52 -JL-98/35/33/45/25 -S0/0/255 -Gspringgreen2 -W1 -Df > 5_4_unitedstate.ps
 ```
 其結果為
@@ -164,7 +164,7 @@ gmt pscoast -R-130/-66/24/52 -JL-98/35/33/45/25 -S0/0/255 -Gspringgreen2 -W1 -Df
 
 透過上述的選項，將這張美國地圖做了一些改善，包括省略面積500km^2以下的湖泊，加上經緯度外框、網格線、
 比例尺、方向標，更改湖泊、河川的顏色，把墨西哥(MX)及加拿大(CA)國土變成灰色，以下是指令及成果圖。
-```shell
+```bash
 gmt pscoast -R-130/-66/24/52 -JL-98/35/33/45/25 -A500 -BWESN ^
 -Bxa10g10 -Bya10f5g10 -C104/210/223 -Df -EMX,CA+g210 ^
 -Gspringgreen2 -N1/2,red -S0/0/255 -Lg-125/27+c27+w500+f+l"km" ^
@@ -204,7 +204,7 @@ Linux及MAC則使用<mark>\</mark>。
 </p>
 ```bash
 set ps=5_5_TPEairline.ps
-# test
+
 gmt pscoast -Rg -JE121.2342/25.0797/12 -S0 -G50 -W.2,white -A1000 -K > %ps%
 echo 40 -45 | gmt psxy -R -JE -Sa.8 -Gred -K -O >> %ps%
 echo -80 20 | gmt psxy -R -JE -Sa.8 -Gred -K -O >> %ps%

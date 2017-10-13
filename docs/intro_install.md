@@ -67,7 +67,7 @@ GMT的安裝已經非常人性化了，官網也提供個平台的安裝教學�
 * Windows: 透過`.exe`檔安裝
 * Linux: 透過`apt-get`或`.tar`檔安裝
 
-```shell
+```bash
 # by apt-get
 sudo apt-get install gmt gmt-dcw gmt-gshhg
     
