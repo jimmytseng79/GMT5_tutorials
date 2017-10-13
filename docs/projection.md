@@ -170,7 +170,26 @@ GMT在投影法方面，分成兩部份，如下圖，一部份是地理投影�
 
 應該注意到上面的指令，多出現了一種符號<mark>^</mark>。因為使用的選項很多，造成指令過長，
 這時候就需要換行符號來告訴電腦，這指令編寫長度到這要進行換行，在Windows環境中使用<mark>^</mark>，
-Linux及MAC則使用<mark>/</mark>。
+Linux及MAC則使用<mark>\</mark>。
+
+## 5.5 等距方位投影
+在這節開始之前，先介紹在Windows的環境下什麼是批次檔(.bat)，或是在Linux或MAC環境下的shell scripts(.sh)。
+主要的原因是:
+* 連續的指令單一化: 要把一行行指令打在指令環境底下，要排序或是更改都會變得十分麻煩，
+這時後就需要有個檔案(.bat)可以彙整這些指令，透過執行批次檔來達到一行行指令的輸入。
+* 簡易的資料處理: 在GMT的資料輸入檔，常常會需要特定欄位的資料，而往往拿到的資料檔，是有非常多欄位是用不到的，
+不可能每次都改寫資料檔，這時後就可以調用awk，來達到簡單的數據資料處理。
+
+筆者在編譯此教程是預設在Windows環境底下，但為了處理資料方便，另外安裝了[Gawk for Windows](http://gnuwin32.sourceforge.net/packages/gawk.htm)，
+並把執行檔(bin)路徑加入系統環境變數下，設定方式可[參考此網頁](https://openhome.cc/Gossip/JavaEssence/WhatPath.html)，
+如果你熟悉使用Linux其他指令，也可以安裝[Cygwin](https://www.cygwin.com/)。
+
+回到本節重點，要利用等距方位投影法來繪製桃園機場的航線圖，首先要收集的是桃園機場的航班資訊，
+利用在[3.1提到](net_software.md#m3.1)的政府資料開放平台，
+找到了[桃園國際機場定期航班](https://data.gov.tw/dataset/7869)的資料檔(.csv)，依照網頁上的欄位說明，
+了解到第一欄為班機性質，本範例只選用客機起飛(PD)的資料，但這份資料缺少了各機場的經緯度資訊，
+利用Google大神，找到了提供[機場經緯度的資料](https://openflights.org/data.html)，下載好airports.dat後，
+
 
 ---
 
