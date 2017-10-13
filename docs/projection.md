@@ -162,7 +162,8 @@ GMT在投影法方面，分成兩部份，如下圖，一部份是地理投影�
   gmt pscoast -R-130/-66/24/52 -JL-98/35/33/45/25 -A500 -BWESN ^
   -Bxa10g10 -Bya10f5g10 -C104/210/223 -Df -EMX,CA+g210 ^
   -Gspringgreen2 -N1/2,red -S0/0/255 -Lg-125/27+c27+w500+f+l"km" ^
-  -I1.5/1,41/143/194,solid -Tdg-70/27+w1.5+f2 -W1 -F+g255+r > 5_4_unitedstate.ps
+  -I1.5/1,41/143/194,solid -Tdg-70/27+w1.5+f2 -W1 -F+g255+r > ^
+  5_4_unitedstate.ps
 ```
 <p align="center">
   <img src="fig/5_4_unitedstate_2.png" width="702" height="496"/>
@@ -193,7 +194,7 @@ Linux及MAC則使用<mark>\</mark>。
 分別是流水碼、班機性質、目的地、緯度、經度，也整理了一份[航線的資料](dat/TPE_airline.gmt)檔給GMT用。
 先來看成果圖及批次檔，再逐行說明:
 <p align="center">
-  <img src="fig/5_5_TPEairline_1.png" width="702" height="496"/>
+  <img src="fig/5_5_TPEairline_1.png"/>
 </p>
 ```bat
   set ps=5_5_TPEairline.ps
@@ -203,7 +204,7 @@ Linux及MAC則使用<mark>\</mark>。
   echo -80 20 | gmt psxy -R -JE -Sa.8 -Gred -K -O >> %ps%
   awk "{print $5, $4}" TPE_airline.dat | gmt psxy -R -JE -Sc.15 -G159/174/229 -K -O >> %ps%
   gmt psxy TPE_airline.gmt -R -JE -W.3,yellow -K -O >> %ps%
-
+	rem hi
   gmt pscoast -R40/-45/-80/20r -JE121.2342/15.0/12 -S0 -G50 -W.2,white -A1000 -X13.5 -K -O >> %ps%
   awk "{print $5, $4}" TPE_airline.dat | gmt psxy -R -JE -Sc.2 -G159/174/229 -K -O >> %ps%
   gmt psxy TPE_airline.gmt -R -JE -W.3,yellow -O >> %ps%
