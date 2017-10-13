@@ -159,15 +159,18 @@ GMT在投影法方面，分成兩部份，如下圖，一部份是地理投影�
 透過上述的選項，將這張美國地圖做了一些改善，包括省略面積500km^2以下的湖泊，加上經緯度外框、網格線、
 比例尺、方向標，更改湖泊、河川的顏色，把墨西哥(MX)及加拿大(CA)國土變成灰色，以下是指令及成果圖。
 ```shell
-  gmt pscoast -R-130/-66/24/52 -JL-98/35/33/45/25 -A500 -BWESN -Bxa10g10 ^
-  -Bya10f5g10 -C104/210/223 -Df -EMX,CA+g210 -Gspringgreen2 -N1/2,red ^
-  -S0/0/255 -Lg-125/27+c27+w500+f+l"km" -I1.5/1,41/143/194,solid ^
-  -Tdg-70/27+w1.5+f2 -W1 -F+g255+r > %ps%
+  gmt pscoast -R-130/-66/24/52 -JL-98/35/33/45/25 -A500 -BWESN ^
+  -Bxa10g10 -Bya10f5g10 -C104/210/223 -Df -EMX,CA+g210 ^
+  -Gspringgreen2 -N1/2,red -S0/0/255 -Lg-125/27+c27+w500+f+l"km" ^
+  -I1.5/1,41/143/194,solid -Tdg-70/27+w1.5+f2 -W1 -F+g255+r > %ps%
 ```
 <p align="center">
   <img src="fig/5_4_unitedstate_2.png" width="702" height="496"/>
 </p>
 
+應該注意到上面的指令，多出現了一種符號<mark>^</mark>。因為使用的選項很多，造成指令過長，
+這時候就需要換行符號來告訴電腦，這指令編寫長度到這要進行換行，在Windows環境中使用<mark>^</mark>，
+Linux及MAC則使用<mark>/</mark>。
 
 ---
 
