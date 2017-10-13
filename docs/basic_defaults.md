@@ -18,8 +18,8 @@ GMT是由指令輸入來製圖，那如何開啟指令輸入的環境
 為了避免與其他指令混用，自GMT5之後，GMT的指令輸入格式如下:
 
 ```shell
-  GMT [options]
-  GMT <module name> [<module-options>]
+GMT [options]
+GMT <module name> [<module-options>]
 ```
 
 <mark>options</mark>代表GMT的基本設定，例如`gmt --show-bindir`顯示執行檔的資料夾，
@@ -60,13 +60,13 @@ GMT在畫圖上有一些默認的設定，像是圖框種類、時間單位、�
 
 1. 在下 GMT 指令時，使用<mark>--長參數</mark>的語法，參數的名稱就是在這裡出現的大寫字串，例如：
 ```shell
-  gmt psxy -T -JX1/1 -R0/1/0/1 -K --PS_PAGE_ORIENTATION=portrait > out.ps
+gmt psxy -T -JX1/1 -R0/1/0/1 -K --PS_PAGE_ORIENTATION=portrait > out.ps
 ```
 2. 開啟一個畫圖腳本檔，寫入
 ```shell
-  gmt gmtset 參數名1 參數值1 [參數名2 參數值2 參數名3 參數值3...]
-  # 或是
-  gmtset 參數名1=參數值1 [參數名2=參數值2 參數名3=參數值3...]
+gmt gmtset 參數名1 參數值1 [參數名2 參數值2 參數名3 參數值3...]
+# 或是
+gmtset 參數名1=參數值1 [參數名2=參數值2 參數名3=參數值3...]
 ```
 3. 利用`gmt gmtset`叫出<mark>gmt.conf</mark>，開啟當前資料夾底下的<mark>gmt.conf</mark>，更改裡面的參數。
 4. 更改位於<mark>GMT根目錄/share/conf/gmt.conf</mark>的參數檔，但請小心，這是GMT原始的設定，

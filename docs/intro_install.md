@@ -68,20 +68,20 @@ GMT的安裝已經非常人性化了，官網也提供個平台的安裝教學�
 * Linux: 透過`apt-get`或`.tar`檔安裝
 
 ```shell
-  # by apt-get
-  sudo apt-get install gmt gmt-dcw gmt-gshhg
-      
-  # by source
-  set (CMAKE_INSTALL_PREFIX /opt/gmt)
-  set (GSHHG_ROOT <path to gshhg>)
-  set (DCW_ROOT <path to dcw>)
-      
-  cd <path to>/gmt5-dev
-  mkdir build
-  cd build
-  cmake ..
-  make
-  make install
+# by apt-get
+sudo apt-get install gmt gmt-dcw gmt-gshhg
+    
+# by source
+set (CMAKE_INSTALL_PREFIX /opt/gmt)
+set (GSHHG_ROOT <path to gshhg>)
+set (DCW_ROOT <path to dcw>)
+    
+cd <path to>/gmt5-dev
+mkdir build
+cd build
+cmake ..
+make
+make install
 ```
 
 * MAC: 透過`.dmg`檔安裝

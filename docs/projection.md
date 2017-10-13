@@ -60,29 +60,29 @@ GMT在投影法方面，分成兩部份，如下圖，一部份是地理投影�
 請開啟命令提式字元(cmd.exe)或是終端機(terminal)，開啟方式可[參考4-1](basic_defaults.md#m4.1)，
 接著輸入下方指令:
 ```shell
-  gmt pscoast
+gmt pscoast
 ```
 會看到一連串關於`pscoast`的說明，如果你對各選項的意思已經了解，可以透過:
 ```shell
-  gmt pscoast -
+gmt pscoast -
 ```
 你將只看到選項用法出現在影幕上。通常GMT指令的語法如下:
 ```shell
-  gmt 模組 (輸入檔) [-選項1 -選項2 -選項3 ...] > 輸出檔名.ps
+gmt 模組 (輸入檔) [-選項1 -選項2 -選項3 ...] > 輸出檔名.ps
 ```
 簡單來說，先選定你要用的模組，給定輸入的資料，配合該模組底下的選項，來達到你要繪製的圖形，
 而<mark>-</mark>開頭會被GMT視作選項，沒有<mark>-</mark>開頭則被當做資料，所以其先後順序沒差，
 不過為養成好習慣，建議按照下面的範例來輸入每一行指令。
 ```shell
-  # 第一行
-  gmt psxy (輸入檔) -J -R [-選項1 -選項2 ...] -K  > 輸出檔名.ps
-  # 中間各行
-  gmt psxy (輸入檔) -J -R [-選項1 -選項2 ...] -K -O >> 輸出檔名.ps
-                            .  
-                            .  
-                            .
-  # 最後一行
-  gmt psxy (輸入檔) -J -R [-選項1 -選項2 ...] -O >> 輸出檔名.ps
+# 第一行
+gmt psxy (輸入檔) -J -R [-選項1 -選項2 ...] -K  > 輸出檔名.ps
+# 中間各行
+gmt psxy (輸入檔) -J -R [-選項1 -選項2 ...] -K -O >> 輸出檔名.ps
+                          .  
+                          .  
+                          .
+# 最後一行
+gmt psxy (輸入檔) -J -R [-選項1 -選項2 ...] -O >> 輸出檔名.ps
 ```
 這樣的好處是，在debug時候，可以快速發現自己遺漏了哪個部份，而<mark>></mark>及<mark>>></mark>
 符號為輸出導向的符號，分別是「取代」與「累加」。
@@ -107,7 +107,7 @@ GMT在投影法方面，分成兩部份，如下圖，一部份是地理投影�
 選定好的範圍是119.0/123.0/21.5/26.0，預定地圖的寬度為15公分，海洋顏色為藍色，海岸線的寬度是1公分，
 顏色及樣式則採用預設值黑色及實線，指令如下:
 ```shell
-  gmt pscoast -R119.0/122.5/21.5/26.0 -JM18 -S0/0/255 -W1 > 5_3_taiwan.ps
+gmt pscoast -R119.0/122.5/21.5/26.0 -JM18 -S0/0/255 -W1 > 5_3_taiwan.ps
 ```
 來看看結果的圖長什麼樣。
 <p align="center">
@@ -122,7 +122,7 @@ GMT在投影法方面，分成兩部份，如下圖，一部份是地理投影�
 接著陸地是白色，似乎有點單調，來試看看用`-G`英文單字，來更改陸地的顏色，
 於是乎將指令改寫如下:
 ```shell
-  gmt pscoast -R119.0/122.5/21.5/26.0 -JM18 -S0/0/255 -Gspringgreen2 -W1 -Df -P > 5_3_taiwan.ps
+gmt pscoast -R119.0/122.5/21.5/26.0 -JM18 -S0/0/255 -Gspringgreen2 -W1 -Df -P > 5_3_taiwan.ps
 ```
 <p align="center">
   <img src="fig/5_3_taiwan_2.png" width="496" height="702"/>
@@ -137,7 +137,7 @@ GMT在投影法方面，分成兩部份，如下圖，一部份是地理投影�
 與前一節一樣，先初步畫出美國的國土，給定範圍在-130/-66/24/52，但`-JL`的用法較不一樣，
 它需要的格式是`-JL`中心點經度/中心點緯度/固定緯度線1/固定緯度線2/寬度，指令如下:
 ```shell
-  gmt pscoast -R-130/-66/24/52 -JL-98/35/33/45/25 -S0/0/255 -Gspringgreen2 -W1 -Df > 5_4_unitedstate.ps
+gmt pscoast -R-130/-66/24/52 -JL-98/35/33/45/25 -S0/0/255 -Gspringgreen2 -W1 -Df > 5_4_unitedstate.ps
 ```
 其結果為
 <p align="center">
@@ -165,11 +165,11 @@ GMT在投影法方面，分成兩部份，如下圖，一部份是地理投影�
 透過上述的選項，將這張美國地圖做了一些改善，包括省略面積500km^2以下的湖泊，加上經緯度外框、網格線、
 比例尺、方向標，更改湖泊、河川的顏色，把墨西哥(MX)及加拿大(CA)國土變成灰色，以下是指令及成果圖。
 ```shell
-  gmt pscoast -R-130/-66/24/52 -JL-98/35/33/45/25 -A500 -BWESN ^
-  -Bxa10g10 -Bya10f5g10 -C104/210/223 -Df -EMX,CA+g210 ^
-  -Gspringgreen2 -N1/2,red -S0/0/255 -Lg-125/27+c27+w500+f+l"km" ^
-  -I1.5/1,41/143/194,solid -Tdg-70/27+w1.5+f2 -W1 -F+g255+r > ^
-  5_4_unitedstate.ps
+gmt pscoast -R-130/-66/24/52 -JL-98/35/33/45/25 -A500 -BWESN ^
+-Bxa10g10 -Bya10f5g10 -C104/210/223 -Df -EMX,CA+g210 ^
+-Gspringgreen2 -N1/2,red -S0/0/255 -Lg-125/27+c27+w500+f+l"km" ^
+-I1.5/1,41/143/194,solid -Tdg-70/27+w1.5+f2 -W1 -F+g255+r > ^
+5_4_unitedstate.ps
 ```
 <p align="center">
   <img src="fig/5_4_unitedstate_2.png" width="702" height="496"/>
@@ -202,20 +202,20 @@ Linux及MAC則使用<mark>\</mark>。
 <p align="center">
   <img src="fig/5_5_TPEairline_1.png"/>
 </p>
-```bat
-  set ps=5_5_TPEairline.ps
+```bash
+set ps=5_5_TPEairline.ps
+# test
+gmt pscoast -Rg -JE121.2342/25.0797/12 -S0 -G50 -W.2,white -A1000 -K > %ps%
+echo 40 -45 | gmt psxy -R -JE -Sa.8 -Gred -K -O >> %ps%
+echo -80 20 | gmt psxy -R -JE -Sa.8 -Gred -K -O >> %ps%
+awk "{print $5, $4}" TPE_airline.dat | gmt psxy -R -JE -Sc.15 -G159/174/229 -K -O >> %ps%
+gmt psxy TPE_airline.gmt -R -JE -W.3,yellow -K -O >> %ps%
 
-  gmt pscoast -Rg -JE121.2342/25.0797/12 -S0 -G50 -W.2,white -A1000 -K > %ps%
-  echo 40 -45 | gmt psxy -R -JE -Sa.8 -Gred -K -O >> %ps%
-  echo -80 20 | gmt psxy -R -JE -Sa.8 -Gred -K -O >> %ps%
-  awk "{print $5, $4}" TPE_airline.dat | gmt psxy -R -JE -Sc.15 -G159/174/229 -K -O >> %ps%
-  gmt psxy TPE_airline.gmt -R -JE -W.3,yellow -K -O >> %ps%
-REM hi
-  gmt pscoast -R40/-45/-80/20r -JE121.2342/15.0/12 -S0 -G50 -W.2,white -A1000 -X13.5 -K -O >> %ps%
-  awk "{print $5, $4}" TPE_airline.dat | gmt psxy -R -JE -Sc.2 -G159/174/229 -K -O >> %ps%
-  gmt psxy TPE_airline.gmt -R -JE -W.3,yellow -O >> %ps%
+gmt pscoast -R40/-45/-80/20r -JE121.2342/15.0/12 -S0 -G50 -W.2,white -A1000 -X13.5 -K -O >> %ps%
+awk "{print $5, $4}" TPE_airline.dat | gmt psxy -R -JE -Sc.2 -G159/174/229 -K -O >> %ps%
+gmt psxy TPE_airline.gmt -R -JE -W.3,yellow -O >> %ps%
 
-  gmt psconvert %ps% -Tg -A -P
+gmt psconvert %ps% -Tg -A -P
 ```
 
 透過`set 變數名=字串`這個指令，可以設定變數供其他指令來使用，而呼叫的方式是`%變數名%`，
