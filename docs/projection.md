@@ -41,7 +41,7 @@ GMT在投影法方面，分成兩部份，如下圖，一部份是地理投影�
 * 不同投影法的應用
 * `psconvert`: 圖檔的輸出
 
-## 5.3 麥卡托投影
+## 5.3 麥卡托投影(`-Jm` `-JM`)
 首先可以從Google Map或是Google Earth抓出台灣的經緯度範圍，
 
 * Google Map:在選定的點上按右鍵，點選「這是哪裡?」(What's here?)，底下就會出現該點的經緯度。
@@ -125,7 +125,7 @@ GMT在投影法方面，分成兩部份，如下圖，一部份是地理投影�
 地圖方向標(map directional rose)、座標框架(map boundary frame and axes attributes)等等，
 這些我們將在下一節提到。
 
-## 5.4 蘭伯特正形圓錐投影
+## 5.4 蘭伯特正形圓錐投影(`-Jl` `-JL`)
 
 美國幅員遼闊，經度橫跨約55度，且主要在中緯度，不適合使用麥卡托投影(`-JM`)，因此這邊介紹蘭伯特投影法(`-JL`)。
 與前一節一樣，先初步畫出美國的國土，給定範圍在-130/-66/24/52，但`-JL`的用法較不一樣，
@@ -162,7 +162,7 @@ GMT在投影法方面，分成兩部份，如下圖，一部份是地理投影�
   gmt pscoast -R-130/-66/24/52 -JL-98/35/33/45/25 -A500 -BWESN ^
   -Bxa10g10 -Bya10f5g10 -C104/210/223 -Df -EMX,CA+g210 ^
   -Gspringgreen2 -N1/2,red -S0/0/255 -Lg-125/27+c27+w500+f+l"km" ^
-  -I1.5/1,41/143/194,solid -Tdg-70/27+w1.5+f2 -W1 -F+g255+r > %ps%
+  -I1.5/1,41/143/194,solid -Tdg-70/27+w1.5+f2 -W1 -F+g255+r > 5_4_unitedstate.ps
 ```
 <p align="center">
   <img src="fig/5_4_unitedstate_2.png" width="702" height="496"/>
@@ -172,7 +172,7 @@ GMT在投影法方面，分成兩部份，如下圖，一部份是地理投影�
 這時候就需要換行符號來告訴電腦，這指令編寫長度到這要進行換行，在Windows環境中使用<mark>^</mark>，
 Linux及MAC則使用<mark>\</mark>。
 
-## 5.5 等距方位投影
+## 5.5 等距方位投影 (`-Je` `-JE`)
 在這節開始之前，先介紹在Windows的環境下什麼是批次檔(.bat)，或是在Linux或MAC環境下的shell scripts(.sh)。
 主要的原因是:
 * 連續的指令單一化: 要把一行行指令打在指令環境底下，要排序或是更改都會變得十分麻煩，
@@ -189,7 +189,29 @@ Linux及MAC則使用<mark>\</mark>。
 找到了[桃園國際機場定期航班](https://data.gov.tw/dataset/7869)的資料檔(.csv)，依照網頁上的欄位說明，
 了解到第一欄為班機性質，本範例只選用客機起飛(PD)的資料，但這份資料缺少了各機場的經緯度資訊，
 利用Google大神，找到了提供[機場經緯度的資料](https://openflights.org/data.html)，下載好airports.dat後，
+透過Python(一種程式語言)，將兩筆資料整理合併，[完成後的檔案](dat/TPE_airline.dat)有5欄，
+分別是流水碼、班機性質、目的地、緯度、經度，也整理了一份[航線的資料](dat/TPE_airline.gmt)檔給GMT用。
+先來看成果圖及批次檔，再逐行說明:
+<p align="center">
+  <img src="fig/5_5_TPEairline_1.png" width="702" height="496"/>
+</p>
+```bat
+  set ps=5_5_TPEairline.ps
 
+  gmt pscoast -Rg -JE121.2342/25.0797/12 -S0 -G50 -W.2,white -A1000 -K > %ps%
+  echo 40 -45 | gmt psxy -R -JE -Sa.8 -Gred -K -O >> %ps%
+  echo -80 20 | gmt psxy -R -JE -Sa.8 -Gred -K -O >> %ps%
+  awk "{print $5, $4}" TPE_airline.dat | gmt psxy -R -JE -Sc.15 -G159/174/229 -K -O >> %ps%
+  gmt psxy TPE_airline.gmt -R -JE -W.3,yellow -K -O >> %ps%
+
+  gmt pscoast -R40/-45/-80/20r -JE121.2342/15.0/12 -S0 -G50 -W.2,white -A1000 -X13.5 -K -O >> %ps%
+  awk "{print $5, $4}" TPE_airline.dat | gmt psxy -R -JE -Sc.2 -G159/174/229 -K -O >> %ps%
+  gmt psxy TPE_airline.gmt -R -JE -W.3,yellow -O >> %ps%
+
+  gmt psconvert %ps% -Tg -A -P
+```
+
+透過`set 變數名=字串`這個指令，可以設定變數供其他指令來使用，而呼叫的方式是`%變數名%`，
 
 ---
 
