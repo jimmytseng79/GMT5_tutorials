@@ -27,19 +27,25 @@ GMT在投影法方面，分成兩部份，如下圖，一部份是地理投影�
 
 ## 5.1 目的
 
-本章將學習如何繪製麥卡托投影法(Mercator Projection)、蘭伯特正形圓錐投影(Lambert Conic conformal Projection)、
-等距方位投影(Azimuthal Equidistant Projection)以及羅賓森投影法。將依序利用這四種繪製台灣、美國、
-桃園機場的航線圖以及世界行政分區地圖。
+本章將學習如何繪製
+1. 麥卡托投影法(Mercator Projection)
+2. 蘭伯特正形圓錐投影(Lambert Conic conformal Projection)
+3. 等距方位投影(Azimuthal Equidistant Projection)
+4. 羅賓森投影法(Robinson Projection)
 
+將依序利用這四種繪製台灣、美國、桃園機場的航線圖以及世界行政分區地圖。
 
 ## 5.2 學習的指令與概念
 
 * `pscoast`: 繪製海岸線
 * `gmtset`: GMT地圖參數
 * `psxy`: 繪製線、多邊形、符號
-* GMT共用選項: `-B`、`-J`、`-K`、`-O`、`-P`、`-R`
-* 不同投影法的應用
 * `psconvert`: 圖檔的輸出
+* GMT共用選項: `-B`、`-J`、`-K`、`-O`、`-P`、`-R`
+* GMT各模組細部選項的介紹
+* 不同投影法的應用
+* Winodws中批次檔`batch`常用指令
+* `awk`語法的示範
 
 ## 5.3 麥卡托投影(`-Jm` `-JM`)
 首先可以從Google Map或是Google Earth抓出台灣的經緯度範圍，
@@ -125,7 +131,7 @@ GMT在投影法方面，分成兩部份，如下圖，一部份是地理投影�
 地圖方向標(map directional rose)、座標框架(map boundary frame and axes attributes)等等，
 這些我們將在下一節提到。
 
-## 5.4 蘭伯特正形圓錐投影(`-Jl` `-JL`)
+## 5.4 蘭伯特投影(`-Jl` `-JL`)
 
 美國幅員遼闊，經度橫跨約55度，且主要在中緯度，不適合使用麥卡托投影(`-JM`)，因此這邊介紹蘭伯特投影法(`-JL`)。
 與前一節一樣，先初步畫出美國的國土，給定範圍在-130/-66/24/52，但`-JL`的用法較不一樣，
@@ -204,7 +210,7 @@ Linux及MAC則使用<mark>\</mark>。
   echo -80 20 | gmt psxy -R -JE -Sa.8 -Gred -K -O >> %ps%
   awk "{print $5, $4}" TPE_airline.dat | gmt psxy -R -JE -Sc.15 -G159/174/229 -K -O >> %ps%
   gmt psxy TPE_airline.gmt -R -JE -W.3,yellow -K -O >> %ps%
-	rem hi
+	# hi
   gmt pscoast -R40/-45/-80/20r -JE121.2342/15.0/12 -S0 -G50 -W.2,white -A1000 -X13.5 -K -O >> %ps%
   awk "{print $5, $4}" TPE_airline.dat | gmt psxy -R -JE -Sc.2 -G159/174/229 -K -O >> %ps%
   gmt psxy TPE_airline.gmt -R -JE -W.3,yellow -O >> %ps%
