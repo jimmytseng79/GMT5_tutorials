@@ -127,7 +127,7 @@ GMT在讀取<mark>gmt.conf</mark>檔時，會優先讀取當前資料夾底下�
   <img src="fig/4_GMT_RGBchart_a4.png"/>
 </p>
 
-* <mark>-S符號對照表</mark>
+* <a name="m4.4s"></a><mark>-S符號對照表</mark>
 
 <p align="center">
   <img src="fig/4_symbol_gmt.jpg" width="489" height="600"/>
