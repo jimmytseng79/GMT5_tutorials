@@ -252,14 +252,60 @@ gmt psconvert %ps% -Tg -A -P
 就輕鬆地完成兩機場之間的連線。`psxy`除了能畫符號，也能透過-W來繪製線。
 * 第九行: 將-R範圍改成之前星號的經緯度並在後面加上字母r，來放大想看的區域(GMT現無支援圓形的放大)，
 -X是用來移動圖形的水平位置(正號往右；負號往左)，同理-Y則是移動垂直位置，而這指令將延續影響到後面的圖形位置。
-* 第十三行: `psconvert`是將ps檔轉換成其他圖檔格式，-T圖檔格式，常用的有.pdf(f)、.png(g)、.jpeg(j)，
+* 第十三行: `psconvert`是將ps檔轉換成其他圖檔格式，-T圖檔格式，常用的有.pdf(**f**)、.png(**g**)、.jpeg(**j**)，
 -A調整紙張邊界至最貼齊圖形，-P強制縱向模式，透過此橫向的圖將再縱向模式顯示未被旋轉。
 
 透過繪製桃園機場的航線圖，學習如何利用批次檔來完成一張圖，往後都會以此模式來介紹不同的圖形繪製。
 
 ## 5.6 羅賓森投影法(-Jn -JN)
 由羅賓森(Arthur H. Robinson)博士在1963年提出，此方法不等積、不等角，使用筆直的緯線及空間均勻分佈的經線，
-加上對經緯度線乘上一個插值表，來實現視覺上平衡。
+加上對經緯度線乘上一個插值表，來實現視覺上平衡。本節將製作全球行政分區地圖，
+透過`pscoast -E+l > CountryCode.txt`可以將各國的國碼及國名輸出成一個檔案，透過Python做了隨機排序及整檔，
+輸出這次範例所需要的[資料檔](dat/CountryCode.dat)，以及手動編輯的[顏色檔](dat/CountryCode.color)，
+但要如何利用這兩個檔案，隨機地幫不同國家上色呢？本節將會使用到`setlocal`讓批次檔現可以接受一個選向引數，
+`ENABLEDELAYEDEXPANSION`啟用延遲環境變數擴充功能，來批次設定國家的顏色。讓我們來看成果及批次檔吧！
+
+成果圖
+<p align="center">
+  <img src="fig/5_6_globalNationalBoundary_1.png"/>
+</p>
+
+批次檔
+```bash
+set ps=5_6_globalNationalBoundary.ps
+
+setlocal ENABLEDELAYEDEXPANSION
+set vidx=0
+for /F "tokens=*" %%A in (CountryCode.dat) do (
+    set /A vidx=!vidx! + 1
+    set var!vidx!=%%A
+)
+set var
+
+set vidx=0
+for /F "tokens=*" %%A in (CountryCode.color) do (
+    set /A vidx=!vidx! + 1
+    set color!vidx!=%%A
+)
+set color
+
+gmt pscoast -R-180/180/-79/90 -JN0/25 -W1 -Ba -K > %ps%
+gmt pscoast -R -JN -E%var1%+g%color1% -K -O >> %ps%
+gmt pscoast -R -JN -E%var2%+g%color2% -K -O >> %ps%
+gmt pscoast -R -JN -E%var3%+g%color3% -K -O >> %ps%
+gmt pscoast -R -JN -E%var4%+g%color4% -K -O >> %ps%
+gmt pscoast -R -JN -E%var5%+g%color5% -K -O >> %ps%
+gmt pscoast -R -JN -E%var6%+g%color6% -K -O >> %ps%
+gmt pscoast -R -JN -E%var7%+g%color7% -K -O >> %ps%
+gmt pscoast -R -JN -E%var8%+g%color8% -K -O >> %ps%
+gmt pscoast -R -JN -E%var9%+g%color9% -K -O >> %ps%
+gmt pscoast -R -JN -E%var10%+g%color10% -K -O >> %ps%
+gmt pscoast -R -JN -A10000 -N1 -W.2 -S255 -O >> %ps%
+
+gmt psconvert %ps% -Tg -A -P
+```
+
+
 
 ---
 
