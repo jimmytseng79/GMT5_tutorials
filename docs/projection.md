@@ -261,8 +261,8 @@ gmt psconvert %ps% -Tg -A -P
 由羅賓森(Arthur H. Robinson)博士在1963年提出，此方法不等積、不等角，使用筆直的緯線及空間均勻分佈的經線，
 加上對經緯度線乘上一個插值表，來實現視覺上平衡。本節將製作全球行政分區地圖，
 透過`pscoast -E+l > CountryCode.txt`可以將各國的國碼及國名輸出成一個檔案，透過Python做了隨機排序及整檔，
-輸出這次範例所需要的[資料檔](dat/CountryCode.dat)，以及手動編輯的[顏色檔](dat/CountryCode.color)，
-但要如何利用這兩個檔案，隨機地幫不同國家上色呢？本節將會使用到`setlocal`讓批次檔現可以接受一個選向引數，
+輸出這次範例所需要的[資料檔](dat/CountryCode.dat)，但要如何利用這個檔案，幫不同國家上色呢？
+本節將會使用到`setlocal`讓批次檔現可以接受一個選項引數，
 `ENABLEDELAYEDEXPANSION`啟用延遲環境變數擴充功能，來批次設定國家的顏色。讓我們來看成果及批次檔吧！
 
 成果圖
@@ -276,14 +276,14 @@ set ps=5_6_globalNationalBoundary.ps
 
 setlocal ENABLEDELAYEDEXPANSION
 set vidx=0
-for /F "tokens=*" %%A in (CountryCode.dat) do (
+for /F "tokens=2" %%A in (CountryCode.dat) do (
     set /A vidx=!vidx! + 1
     set var!vidx!=%%A
 )
 set var
 
 set vidx=0
-for /F "tokens=*" %%A in (CountryCode.color) do (
+for /F "tokens=1" %%A in (CountryCode.dat) do (
     set /A vidx=!vidx! + 1
     set color!vidx!=%%A
 )
