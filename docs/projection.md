@@ -5,6 +5,7 @@
 3. [網路資源及配套軟體](/net_software.md)
 4. [第零章: 基本概念及默認值](/basic_defaults.md)
 5. [第一章: 製作地圖(地理投影法)](/projection.md)
+6. [第二章: XY散佈圖(其他投影法)](/xy_figure.md)
 
 ---
 
@@ -320,7 +321,27 @@ gmt psconvert %ps% -Tg -A -P
 
 ## 5.7 習題
 已經學過了四種不同應用方向的投影法，接下來，將有兩個習題，來熟習GMT的用法吧！
+1. 利用政府資料開放平台，提供的[新北市公共自行車租賃系統(YouBike)資料](https://data.gov.tw/dataset/28318)，
+為.csv檔，如何利用`awk -F "," "指令"`來將經緯度資料擷取出來，用`psxy`畫出哪裡有YouBike的站點，
+經緯度範圍可用<mark>121.263/122.077/24.671/25.343</mark>，
+另外提供[縣市邊界的資料](dat/city_twd97.gmt)(未來會教導如何製作)，試著畫一張新北市YouBike的點位圖。
+<p align="center">
+  <img src="fig/5_7_youBike_1.png"/>
+</p>
+2. 透過羅賓森投影法，繪製全球地圖，將你最喜歡的國家，設為中心點經度，並用一個特別的顏色標示出來。
+<p align="center">
+  <img src="fig/5_7_favoriteCountry_1.png"/>
+</p>
+
+## 5.8 參考批次檔
+列出本章節使用的批次檔，供讀者參考使用，檔案路經可能會有些許不同，再自行修改。
+* [5_3_taiwan](bat/5_3_taiwan.bat)
+* [5_4_unitedstate](bat/5_4_unitedstate.bat)
+* [5_5_TPEairline](bat/5_5_TPEairline.bat)
+* [5_6_globalNationalBoundary](bat/5_6_globalNationalBoundary.bat)
+* [5_7_youBike](bat/5_7_favoriteCountry.bat)
+* [5_7_favoriteCountry](bat/5_7_youBike.bat)
 
 ---
 
-[上一章](/basic_defaults.md) -- [下一章](/projection.md)
+[上一章](/basic_defaults.md) -- [下一章](/xy_figure.md)
