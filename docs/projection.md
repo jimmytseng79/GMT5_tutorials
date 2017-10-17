@@ -325,13 +325,13 @@ gmt psconvert %ps% -Tg -A -P
 為.csv檔，如何利用`awk -F "," "指令"`來將經緯度資料擷取出來，用`psxy`畫出哪裡有YouBike的站點，
 經緯度範圍可用<mark>121.263/122.077/24.671/25.343</mark>，
 另外提供[縣市邊界的資料](dat/city_twd97.gmt)(未來會教導如何製作)，試著畫一張新北市YouBike的點位圖。
-<p align="center">
-  <img src="fig/5_7_youBike_1.png"/>
-</p>
+  <p align="center">
+    <img src="fig/5_7_youBike_1.png"/>
+  </p>
 2. 透過羅賓森投影法，繪製全球地圖，將你最喜歡的國家，設為中心點經度，並用一個特別的顏色標示出來。
-<p align="center">
-  <img src="fig/5_7_favoriteCountry_1.png"/>
-</p>
+  <p align="center">
+    <img src="fig/5_7_favoriteCountry_1.png"/>
+  </p>
 
 ## 5.8 參考批次檔
 列出本章節使用的批次檔，供讀者參考使用，檔案路經可能會有些許不同，再自行修改。
