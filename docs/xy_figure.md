@@ -38,7 +38,7 @@
 </p>
 
 批次檔
-```batch
+```bash
 set ps=6_3_accidentalDeath.ps
 
 # 製作底圖框架
@@ -87,7 +87,7 @@ del area
 * 第八、九行: 例用`echo`輸出一個暫存檔area。
 * 第十行: 上一章有介紹`-W`寬度,顏色,樣色，這邊提供一些參考資訊。
 
-寬度單字對照表
+**寬度單字對照表**
 
 |Word    |Width|Word    |Width|
 |--------|-----|--------|-----|
@@ -98,6 +98,13 @@ del area
 |thin    |0.75p|fattest |12p  |
 |thick   |1.0p |obese   |18p  |
 
+**線樣式表**
+
+|Style |    |
+|:----:|----|
+|-     |dash| 
+|.     |dot |
+|..-   |dot-dot-dash|
 
 ---
 
