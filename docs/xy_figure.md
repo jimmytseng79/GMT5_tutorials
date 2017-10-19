@@ -38,7 +38,7 @@
 </p>
 
 批次檔
-```bash
+```batch
 set ps=6_3_accidentalDeath.ps
 
 # 製作底圖框架
@@ -88,6 +88,7 @@ del area
 * 第十行: 上一章有介紹`-W`寬度,顏色,樣色，這邊提供一些參考資訊。
 
 寬度單字對照表
+
 |Word    |Width|Word    |Width|
 |--------|-----|--------|-----|
 |faint   |0    |thicker |1.5p |
