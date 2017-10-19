@@ -17,6 +17,7 @@
 4. 極軸(Polar)
 
 ## 6.1 目的
+將學習psxy各種圖形的應用。
 
 ## 6.2 學習的指令與概念
 
@@ -26,7 +27,7 @@
 * `gmtset`: GMT地圖參數
 * Winodws中批次檔`batch`常用指令
 
-## 6.3 線性軸
+## 6.3 線性軸(-Jx -JX)
 當我們想知道兩個變數之間的關係，常會用到XY散佈圖來表示，看兩者之間是正相關還是負相關。
 此節利用[死因統計](https://data.gov.tw/dataset/5965)，想知道意外事故死亡人數，在各年齡層之間的變化，
 以及與性別的關係。首先先來看成果圖及批次檔。
@@ -73,6 +74,29 @@ echo 6 400 Female | gmt pstext -R -JX -F+f14+jML -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del area
 ```
+
+本節學習到的新指令:
+* 第三行: `#`符號代表這行後面的字為註記，執行時會略過這行，不同的環境下所使用的符號不太一樣，
+像是Linux、MAC是使用<mark>#</mark>(bash shell)，在Windows則是用<mark>rem</mark>。
+**特別說明：因為本網頁語法無支援batch檔的hightlight，所以才用<mark>#</mark>代替<mark>rem</mark>，
+如果複製後在Windows上執行會出錯，請自行修改，或是下載最後提供的參考批次檔。**
+* 第四行: `psbasemap`製作圖形外框，其中:
+  * `-R`x軸最小值/x軸最大值/y軸最小值/y軸最大值。
+  * `-JX`寬度/高度。
+  * `-B`之中，`+l`給予標籤；`+t`給予標題。
+* 第八、九行: 例用`echo`輸出一個暫存檔area。
+* 第十行: 上一章有介紹`-W`寬度,顏色,樣色，這邊提供一些參考資訊。
+
+寬度單字對照表
+|Word    |Width|Word    |Width|
+|--------|-----|--------|-----|
+|faint   |0    |thicker |1.5p |
+|default |0.25p|thickest|2p   |
+|thinnest|0.25p|fat     |3p   |
+|thinner |0.50p|fatter  |6p   |
+|thin    |0.75p|fattest |12p  |
+|thick   |1.0p |obese   |18p  |
+
 
 ---
 
