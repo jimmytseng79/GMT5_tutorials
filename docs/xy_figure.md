@@ -15,7 +15,7 @@
 ## 6.1 目的
 本章將學習如何繪製
   1. 線性軸(Linear)
-  2. 對數軸(Logarithmic)
+  2. 指數、對數軸(Power, Logarithmic)
   3. 時間序列(Time)
   4. 極軸(Polar)
 
@@ -30,7 +30,7 @@
 ## 6.3 線性軸(-Jx -JX)
 當我們想知道兩個變數之間的關係，常會用到XY散佈圖來表示，看兩者之間是正相關還是負相關。
 此節利用[死因統計](https://data.gov.tw/dataset/5965)，想知道意外事故死亡人數，在各年齡層之間的變化，
-以及與性別的關係。首先先來看成果圖及批次檔。
+以及與性別的關係。整理好的[資料檔](dat/dead105.dat)，首先先來看成果圖及批次檔。
 
 成果圖
 <p align="center">
@@ -120,22 +120,69 @@ del area
   * `-W`設定圖框邊線
 * 第34行: `del`刪除檔案，語法為`del [檔名1 檔名2 ...]`，**強制刪除，請小心使用**。
 
-從2016台灣意外死亡人數的xy散佈圖來看，從15~20區間之後(藍色虛線之後)，男性意外死亡人數急遽增加，相對地，
+從2016台灣意外死亡人數的xy散佈圖來看，在15~20區間之後(藍色虛線之後)，男性意外死亡人數急遽增加，相對地，
 女性並沒有大幅度地增加，另一方面在75~80區間之後(粉紅色虛線之後)，意外死亡的人數開始下滑，
 從上述兩點，推測可能的原因是...(省略)。
 
 上一段的文字，示範如何利用資料作圖，並嘗試觀察出現象，來解釋其成因。當然，單單從一年份的意外死亡人數來推斷成因，
 是不夠週全的，還需要像是其他年份的死亡資料、男女比例、其他死因等等的證據，才能寫出一份全面地論述。
 
-## 6.4 對數軸
+## 6.4 指數、對數軸
 每當地震來時，大家都會提到這次地震的規模多少，規模2或3你就會聯想到這次地震不大(~~可以去PTT發地震文~~)，
 規模6或7你就會反應這次地震很大，查一下各地區的震度(**記住保命優先**)！而你想過，地震規模到底是怎麼得到的嗎？
 
-1935年發生了南加州地震，Charles Richter教授為了量化地震本身的大小，提出了芮氏地震規模M<font size="-2">L</font>(Richter magnitude)，
-或稱作近震規模(Local magnitude)。他以南加州地震為例的公式<mark>ML=logA+2.76logD-2.48</mark>，
-其中A代表地震儀紀錄最大震幅(微米)；D代表震央距(度)；2.76及2.48是區域修正常數。
-還有其他像是Mb體波規模、Ms表面波規模、Mw地震矩規模，來估算地震大小。
-讓我們來假設震央距為0.1度，不同大小的震幅所對應的芮氏規模吧！
+1935年發生了南加州地震，Charles Richter教授為了量化地震本身的大小，提出了芮氏地震規模**M<font size="-2">L</font>**(Richter magnitude)，
+或稱作近震規模(Local magnitude)。他以南加州地震為例，提出的公式<mark>M<font size="-2">L</font>=logA+2.76logD-2.48</mark>，
+其中**A**代表地震儀紀錄最大震幅(微米)；**D**代表震央距(度)；**2.76**及**2.48**是區域修正常數。
+還有其他像是**M<font size="-2">b</font>**體波規模、**M<font size="-2">s</font>**表面波規模、
+**M<font size="-2">w</font>**地震矩規模，來估算地震大小。讓我們來假設震央距為10度，不同大小的震幅所對應的芮氏規模吧！
+
+成果圖
+<p align="center">
+  <img src="fig/6_4_richter_magnitude_1.png"/>
+</p>
+
+批次檔
+```bash
+set ps=6_4_richter_magnitude.ps
+
+# 製作左側圖
+gmt psbasemap -R0/9.99/1e0/9.99e9 -JX9/15l -BWeSn -Bxa1+l"Richter Mag." ^
+-Bya1pf3+l"Maximum Amp. (Microns)" -K > %ps%
+gmt psxy richter_magnitude.dat -R -JX -W1 -K -O >> %ps%
+echo 7.3 7.3e6 1999 Jiji > tmp
+echo 6.6 6.6e5 2016 Meinong >> tmp
+gmt psxy tmp -R -JX -Sc.6 -G0 -K -O >> %ps%
+gmt pstext tmp -R -JX -F+f14p+jMR -D-.6/0 -K -O >> %ps%
+
+# 製作右側圖
+gmt psbasemap -R0/9.99/1e-2/9.99 -JX9/15p2 -BWeSn -Bxa1+l"Magnitude" ^
+-Bya1f.2g1+l"Log of Maximum Amp. (Microns)" -X12 -K -O >> %ps%
+gmt psxy richter_magnitude_log.dat -R -JX -W1 -K -O >> %ps%
+for /l %%x in (1, 1, 9) do (
+awk "$2==%%x {print $1, $2}" richter_magnitude_log.dat | ^
+gmt psxy -R -JX -Sc.5 -G255 -K -O >> %ps%)
+for /l %%x in (1, 1, 9) do (
+awk "$2==%%x {print $1, $2, %%x}" richter_magnitude_log.dat | ^
+gmt pstext -R -JX -F+f14p -K -O >> %ps%)
+echo 2.7 1.7 NOT FELT > tmp
+echo 4.2 3.4 MINOR >> tmp
+echo 5.2 4.5 SMALL >> tmp
+echo 6 5.5 MODERATE >> tmp
+echo 7 6.5 STRONG >> tmp
+echo 8 7.5 MAJOR >> tmp
+echo 8.2 8.5 GREAT >> tmp
+gmt pstext tmp -R -JX -F+f12p+jML -K -O >> %ps%
+echo 7.7 9.2 RICHTER SCALE | gmt pstext -R -JX -F+f22p,1+jMR -K -O >> %ps%
+echo 7.5 8.9 A | gmt pstext -R -JX -F+f18p,2+jMR -K -O >> %ps%
+echo 7.4 8.7 GRAPHIC | gmt pstext -R -JX -F+f18p,2+jMR -K -O >> %ps%
+echo 7.3 8.5 REPRESENTATION | gmt pstext -R -JX -F+f18p,2+jMR -K -O >> %ps%
+gmt psxy -R -JX -T -O >> %ps%
+
+gmt psconvert %ps% -Tg -A -P
+del tmp
+```
+
 
 ---
 
