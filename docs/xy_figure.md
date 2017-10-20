@@ -178,8 +178,8 @@ echo 7.7 9.2 RICHTER SCALE | gmt pstext -R -JX -F+f22p,1+jMR -K -O >> %ps%
 echo 7.5 8.9 A | gmt pstext -R -JX -F+f18p,2+jMR -K -O >> %ps%
 echo 7.4 8.7 GRAPHIC | gmt pstext -R -JX -F+f18p,2+jMR -K -O >> %ps%
 echo 7.3 8.5 REPRESENTATION | gmt pstext -R -JX -F+f18p,2+jMR -K -O >> %ps%
-gmt psxy -R -JX -T -O >> %ps%
 
+gmt psxy -R -JX -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp
 ```
@@ -192,7 +192,7 @@ del tmp
 * 第16~21行: `for /l`設定一個數字範圍迴圈，語法為`for /l %%參數 in (起始,間隔,結束) do (指令)`，
 利用1~9間隔為1的迴圈，找出芮氏規模為1~9時，對應的振幅，
 * 第31,32行: `-F`+22p,1` or `-F`+18p,2`，改變字型，請參考[4-4字體對照表](basic_defaults.md#m4.4f)。
-* 第34行: `-T`忽略所有輸入檔，往往在寫GMT畫圖時，常常需要更改或換指令的前後順序，
+* 第35行: `-T`忽略所有輸入檔，往往在寫GMT畫圖時，常常需要更改或換指令的前後順序，
 導致圖層沒有確實關閉(-O沒在最後一個畫圖指令)，利用`psxy -T`忽略輸入檔的方式，來確保圖層關閉。
 
 在芮氏規模的公式中，振福與規模存在一個10次方倍的關係，如果用線性軸來表示，會因為x,y軸量值差距過大，
@@ -204,7 +204,45 @@ del tmp
 ## 6.5 時間序列
 
 時間序列這類型的圖，主要用來表示資料與時間之間的關係，普偏地出現在平常的生活當中，股票及匯率的走勢、
-國內生產毛額(GDP)、公司各季的財務報表等等，都被稱作時間序列。本節將利用
+國內生產毛額(GDP)、公司各季的財務報表等等，都被稱作時間序列。本節將利用[大氣水文資料庫](https://dbahr.narlabs.org.tw)，
+中央氣象局自動測站C0V250(甲仙)在莫拉克颱風期間的雨量資料，來學習如何繪製時間序列圖。
+
+成果圖
+<p align="center">
+  <img src="fig/6_5_C0V250_morakot_1.png"/>
+</p>
+
+批次檔
+```bash
+set ps=6_5_C0V250_morakot.ps
+
+# 設定圖框、刻度、標題等等
+gmt gmtset ^
+FORMAT_DATE_MAP = yyyy/mm/dd ^
+MAP_FRAME_PEN = 3p ^
+MAP_TICK_PEN_PRIMARY = 3p ^
+FONT_ANNOT_PRIMARY = 16p,4,black ^
+FONT_LABEL = 20p,4,black ^
+FONT_TITLE = 26p,4,black
+
+# 繪製雨量長條圖
+gmt psbasemap -R2009-08-06T/2009-08-15T/0/150 -JX20/12 ^
+-BW+t"Station: C0V250"+g225 -Bxa2D -Bya30+l"Rainfall (mm)" -K > %ps%
+awk "{print $1,$2}" C0V250_windRain.dat | gmt psxy -R -JX -Sb.1 -G0/14/203 -K -O >> %ps%
+
+# 繪製累積雨量折線圖
+awk "{print $1,$3}" C0V250_windRain.dat | gmt psxy -R2009-08-06T/2009-08-15T/0/2200 ^
+-JX -W3.5,242/51/51 -K -O >> %ps%
+gmt psbasemap -R -JX -BESn -Bxa2D+l"Time (Year/Mon/Day)" ^
+-Bya400f200+l"Accumulated Rainfall (mm)" -K -O >> %ps%
+
+gmt psxy -R -JX -T -O >> %ps%
+gmt psconvert %ps% -Tg -A -P
+```
+
+本節學習的新指令:
+* 第4~10行: `gmtset`默認值設定，在章節4-3有提到如何修改默認值，這裡採用第二種方式，
+透過查詢[4-4地圖框的設定](basic_defaults.md#m4.4m)，
 
 ---
 

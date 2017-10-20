@@ -28,7 +28,7 @@ GMT <module name> [<module-options>]
 <mark>module name</mark>表示你用來製圖的模組，像是**psxy**(畫圖形)、**pstext**(寫字)等等，
 而<mark>module-options</mark>則對應像是**-R**(設定範圍)、**-J**(投影法)等等。
 
-試一下輸入`gmt --help`，你將可以看到一串關於module purpose的資訊，
+試一下輸入`gmt --help`，你將可以看到一串關於模組目的(module purpose)的資訊，
 或是輸入`gmt psxy`，你可以看到關於psxy模組的資訊。
 當然別忘記，當有指令不熟的時後，多加查詢[GMT官網](http://gmt.soest.hawaii.edu/doc/5.4.2/index.html)的資訊，
 像是剛剛[module purpose](http://gmt.soest.hawaii.edu/doc/5.4.2/quick_ref.html)及
@@ -46,8 +46,8 @@ GMT的作圖是利用一張張PS檔疊加在一起，示意圖如下:
 可以看到較後面圖層(3)中的黃色正方形，蓋在圖層(2)的藍色三角形上，
 各幾何圖形的圖層(1, 2, 3)都蓋在灰色底圖(0)上，GMT利用指令的先後順序，來達到圖層疊加的概念。
 
-而這邊還有一個重要的指令概念，是在module-options下的**-K**及**-O**，
-當要畫multi-layer(多層圖)時，**-K**表示後面還有圖層，**-O**表示覆蓋作圖模式，
+而這邊還有一個重要的指令概念，是在模組選項(module-options)下的**-K**及**-O**，
+當要畫多層圖(multi-layer)時，**-K**表示後面還有圖層，**-O**表示覆蓋作圖模式，
 如下圖所示，簡單來說，第一行圖層指令只加**-K**，中間的圖層指令加**-K**及**-O**，
 最後一行圖層指令只加**-O**。
 
@@ -80,7 +80,7 @@ GMT在讀取<mark>gmt.conf</mark>檔時，會優先讀取當前資料夾底下�
 ## 4.4 參考資訊
 這邊整理一些GMT常用的參數的表單或是圖檔。
 
-* <mark>地圖框的設定</mark>
+* <a name="m4.4m"></a><mark><mark>地圖框的設定</mark>
 
 <p align="center">
   <img src="fig/4_map_setting.jpg"/>
@@ -92,7 +92,7 @@ GMT在讀取<mark>gmt.conf</mark>檔時，會優先讀取當前資料夾底下�
   <img src="fig/4_dist_unit.jpg"/>
 </p>
 
-* <mark>時間的單位</mark>
+* <a name="m4.4t"></a><mark>時間的單位</mark>
 
 <p align="center">
   <img src="fig/4_time_unit.jpg"/>
