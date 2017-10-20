@@ -157,7 +157,7 @@ set ps=6_4_richter_magnitude.ps
 gmt psbasemap -R0/9.99/1e0/9.99e9 -JX9/15l -BWeSn -Bxa1+l"Richter Mag." ^
 -Bya1pf3+l"Maximum Amp. (Microns)" -K > %ps%
 gmt psxy richter_magnitude.dat -R -JX -W1 -K -O >> %ps%
-echo 7.3 7.3e6 1999 Jiji > tmp
+echo 7.3 7.3e6 1999 Chi-Chi > tmp
 echo 6.6 6.6e5 2016 Meinong >> tmp
 gmt psxy tmp -R -JX -Sc.6 -G0 -K -O >> %ps%
 gmt pstext tmp -R -JX -F+f14p+jMR -D-.6/0 -K -O >> %ps%
@@ -237,16 +237,17 @@ FONT_TITLE = 26p,4,black
 # 繪製雨量長條圖
 gmt psbasemap -R2009-08-06T/2009-08-15T/0/150 -JX20/12 ^
 -BW+t"Station: C0V250"+g225 -Bxa2D -Bya30+l"Rainfall (mm)" -K > %ps%
-awk "{print $1,$2}" C0V250_windRain.dat | gmt psxy -R -JX -Sb.1 -G0/14/203 -K -O >> %ps%
+awk "{print $1,$2}" C0V250_rain.dat | gmt psxy -R -JX -Sb.1 -G0/14/203 -K -O >> %ps%
 
 # 繪製累積雨量折線圖
-awk "{print $1,$3}" C0V250_windRain.dat | gmt psxy -R2009-08-06T/2009-08-15T/0/2200 ^
+awk "{print $1,$3}" C0V250_rain.dat | gmt psxy -R2009-08-06T/2009-08-15T/0/2200 ^
 -JX -W3.5,242/51/51 -K -O >> %ps%
 gmt psbasemap -R -JX -BESn -Bxa2D+l"Time (Year/Mon/Day)" ^
 -Bya400f200+l"Accumulated Rainfall (mm)" -K -O >> %ps%
 
 gmt psxy -R -JX -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
+del gmt.conf
 ```
 
 本節學習的新指令:
