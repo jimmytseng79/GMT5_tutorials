@@ -196,9 +196,13 @@ Linux及MAC則使用<mark>\</mark>。
 找到了[桃園國際機場定期航班](https://data.gov.tw/dataset/7869)的資料檔(.csv)，依照網頁上的欄位說明，
 了解到第一欄為班機性質，本範例只選用客機起飛(PD)的資料，但這份資料缺少了各機場的經緯度資訊，
 利用Google大神，找到了提供[機場經緯度的資料](https://openflights.org/data.html)，下載好airports.dat後，
-透過Python(一種程式語言)，將兩筆資料整理合併，[完成後的檔案](dat/TPE_airline.dat)有5欄，
-分別是流水碼、班機性質、目的地、緯度、經度，也整理了一份[航線的資料](dat/TPE_airline.gmt)檔給GMT用。
-先來看成果圖及批次檔，再逐行說明:
+透過Python(一種程式語言)，將兩筆資料整理合併，完成後的檔案有5欄，
+分別是流水碼、班機性質、目的地、緯度、經度，也整理了一份航線的資料檔給GMT用。
+先來看成果圖及批次檔，再逐行說明。
+
+使用的資料檔:
+- [桃園航班資訊](dat/TPE_airline.dat)
+- [桃園航線](dat/TPE_airline.gmt)
 
 成果圖
 <p align="center">
@@ -264,6 +268,9 @@ gmt psconvert %ps% -Tg -A -P
 輸出這次範例所需要的[資料檔](dat/CountryCode.dat)，但要如何利用這個檔案，幫不同國家上色呢？
 本節將會使用到`setlocal`讓批次檔現可以接受一個選項引數，
 `ENABLEDELAYEDEXPANSION`啟用延遲環境變數擴充功能，來批次設定國家的顏色。讓我們來看成果及批次檔吧！
+
+使用的資料檔:
+- [顏色對應國碼檔](dat/CountryCode.dat)
 
 成果圖
 <p align="center">
