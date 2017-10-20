@@ -113,7 +113,7 @@ del area
 * 第28行: `pstext`書寫圖例說明，吃的輸入檔格式為<mark>x軸位置 y軸位置 書寫的字</mark>。細部選項有:
   * `-F`: 
     * **+a**改變字的角度
-    * **+f**字大小,字形,顏色
+    * **+f**字大小,字體,顏色
     * **+j**對齊模式，可參考[4-4字的對齊模式](basic_defaults.md#m4.4j)
     * **+t**寫字，可把想寫的字串放在後面，這樣資料檔中的第三欄就會被忽略
   * `-G`顏色，包含文字的方形圖框顏色
@@ -133,9 +133,10 @@ del area
 
 1935年發生了南加州地震，Charles Richter教授為了量化地震本身的大小，提出了芮氏地震規模**M<font size="-2">L</font>**(Richter magnitude)，
 或稱作近震規模(Local magnitude)。他以南加州地震為例，提出的公式<mark>M<font size="-2">L</font>=logA+2.76logD-2.48</mark>，
-其中**A**代表地震儀紀錄最大震幅(微米)；**D**代表震央距(度)；**2.76**及**2.48**是區域修正常數。
+其中**A**代表地震儀紀錄最大振幅(微米)；**D**代表震央距(度)；**2.76**及**2.48**是區域修正常數。
 還有其他像是**M<font size="-2">b</font>**體波規模、**M<font size="-2">s</font>**表面波規模、
-**M<font size="-2">w</font>**地震矩規模，來估算地震大小。讓我們來假設震央距為10度，不同大小的震幅所對應的芮氏規模吧！
+**M<font size="-2">w</font>**地震矩規模，來估算地震大小。讓我們來假設震央距為10度，不同大小的振幅所對應的芮氏規模吧！
+本節用到的資料檔，[芮氏規模資料](dat\richter_magnitude.dat)及[取log後芮氏規模資料](dat\richter_magnitude_log.dat)。
 
 成果圖
 <p align="center">
@@ -183,9 +184,18 @@ gmt psconvert %ps% -Tg -A -P
 del tmp
 ```
 
-成果圖右側參考*<font size="-2">1</font>，
+成果圖右側參考*<font size="-1">1</font>。本節學習的新指令:
+* 第4~5行: `-JX9/15l`會將y軸設定以10次方倍為一個區間的線性軸，
+`-By`之中<mark>a1p</mark>是將y軸的註解(tick markes or annotation)變成10次方表示；
+<mark>f3</mark>當-JX設定為l時，次要刻度有兩種選項，2以線性畫刻度，3以次方倍畫刻度。
+* 第13~14行: `-JX9/15p2`會將y軸設定為資料點平方的指數軸，p後面的數字代表多少次方倍。
+* 第16~21行: `for /l`設定一個數字範圍迴圈，語法為`for /l %%參數 in (起始,間隔,結束) do (指令)`，
+利用1~9間隔為1的迴圈，找出芮氏規模為1~9時，對應的振幅，
+* 第31,32行: `-F`+22p,1` or `-F`+18p,2`，改變字型，請參考[4-4字體對照表](basic_defaults.md#m4.4f)。
+* 第34行: `-T`忽略所有輸入檔，往往在寫GMT畫圖時，常常需要更改或換指令的前後順序，
+導致圖層沒有確實關閉(-O沒在最後一個畫圖指令)，利用`psxy -T`忽略輸入檔的方式，來確保圖層關閉。
 
-> *<font size="-2">1</font> A Graphic Representation of the Richter Scale (V.J. Ansfield, 1992)
+> *<font size="-1">1</font> A Graphic Representation of the Richter Scale (V.J. Ansfield, 1992)
 
 ---
 

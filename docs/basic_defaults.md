@@ -116,7 +116,7 @@ GMT在讀取<mark>gmt.conf</mark>檔時，會優先讀取當前資料夾底下�
   <img src="fig/4_octal_code1.jpg"/>
 </p>
 
-* <mark>字體對照表</mark>
+* <a name="m4.4f"></a><mark>字體對照表</mark>
 
 <p align="center">
   <img src="fig/4_font_type.jpg"/>
