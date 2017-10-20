@@ -138,7 +138,7 @@ del area
 **M<font size="-2">w</font>**地震矩規模，來估算地震大小。讓我們來假設震央距為10度，不同大小的震幅所對應的芮氏規模吧！
 
 成果圖
->A Graphic Representation of the Richter Scale(V.J. Ansfield, 1992)
+> A Graphic Representation of the Richter Scale(V.J. Ansfield, 1992)
 <p align="center">
   <img src="fig/6_4_richter_magnitude_1.png"/>
 </p>
