@@ -10,7 +10,8 @@
 ---
 
 ## 6. XY散佈圖
-除了將資料展示在地圖上，另一個數據分析很重要的圖表格式就是XY散佈圖，本章將分成4個小節介紹
+除了將資料展示在地圖上，另一個數據分析很重要的圖表格式就是XY散佈圖，本章將分成4個小節介紹如何將資料呈現在線性、對數、時間軸上，
+以及極座標上。
 
 ## 6.1 目的
 本章將學習如何繪製
@@ -24,6 +25,7 @@
 * `psbasemap`: 繪製圖框(Frame)、刻度(Tick)、標籤(Label)等等
 * `pstext`: 在圖上進行排版文字
 * `psxy`: 繪製線、多邊形、符號
+* `pslegend`: 繪製圖例、說明
 * `gmtset`: GMT地圖參數
 * Winodws中批次檔`batch`常用指令
 
@@ -270,7 +272,74 @@ del gmt.conf
 是為了不讓累積雨量的折線，覆蓋到圖框。
 * 第25行: 為了避免<mark>gmt.conf</mark>影響到其他GMT畫圖的批次檔，將此檔刪除。
 
-為了表達在同一時間內，不同資料的變化趨勢，雙軸圖(twin axis figure)被廣泛地應用在時間序列中，
+為了表達在同一段時間內，不同資料的變化趨勢，雙軸圖(twin axis figure)被廣泛地應用在時間序列中，
+透過簡單的`-B`參數設定來達到此效果。從圖中可以看到甲仙地區，在2009/08/06晚上開始下雨(藍色長條)，
+約以每小時20~40mm的降水量持續到8號下午，8號晚間帶來80~100mm/hr的雨量，在此之後開始緩慢下降，
+從6號到15號，莫拉克颱風共帶來約2200mm的總降雨量(紅線)。透過此圖，將這災難性的颱風所帶來的雨量紀錄，
+清楚地顯示雨量集中的時間段，以及短時間內的雨量總量。
+
+## 6.6 極軸
+
+極座標軸是由角度和相對原點距離來組成，常應用在數學、物理、工程等等領域，像是岩層走向、航海雷達等。
+本節將利用[大氣水文資料庫](https://dbahr.narlabs.org.tw)中台北、台中、台南、台東，共四個氣象站的風速及方向資料，
+來展示台灣夏季及冬季的風向與風速的差異，並示範`pslegend`的用法。
+
+使用的資料檔:
+- [夏季風資料](dat/summer_wind.dat)
+- [冬季風資料](dat/winter_wind.dat)
+
+成果圖
+<p align="center">
+  <img src="fig/6_6_season_wind_1.png"/>
+</p>
+
+批次檔
+```bash
+set ps=6_6_season_wind.ps
+
+gmt psbasemap -R0/360/0/5 -JPa17 -BN+g230 -Bxa20 -Byg1 -K > %ps%
+# 466920, Taipei
+awk "$4==466920 {print $3, $2}" summer_wind.dat | gmt psxy -R -JP -Sc.3 -G161/216/132 -K -O >> %ps%
+awk "$4==466920 {print $3, $2}" winter_wind.dat | gmt psxy -R -JP -Sc.3 -G42/99/246 -K -O >> %ps%
+# 467490, Taichung
+awk "$4==467490 {print $3, $2}" summer_wind.dat | gmt psxy -R -JP -Ss.3 -G161/216/132 -K -O >> %ps%
+awk "$4==467490 {print $3, $2}" winter_wind.dat | gmt psxy -R -JP -Ss.3 -G42/99/246 -K -O >> %ps%
+# 467410, Tainan
+awk "$4==467410 {print $3, $2}" summer_wind.dat | gmt psxy -R -JP -St.3 -G161/216/132 -K -O >> %ps%
+awk "$4==467410 {print $3, $2}" winter_wind.dat | gmt psxy -R -JP -St.3 -G42/99/246 -K -O >> %ps%
+# 467660, Taitung
+awk "$4==467660 {print $3, $2}" summer_wind.dat | gmt psxy -R -JP -Sn.3 -G161/216/132 -K -O >> %ps%
+awk "$4==467660 {print $3, $2}" winter_wind.dat | gmt psxy -R -JP -Sn.3 -G42/99/246 -K -O >> %ps%
+# wind speed label
+echo -90 1 1 m/s > tmp
+echo -90 2 2 m/s >> tmp
+echo -90 3 3 m/s >> tmp
+echo -90 4 4 m/s >> tmp
+gmt pstext tmp -R -JP -F+f14p -G230 -K -O >> %ps% 
+
+# legend set
+echo H 24 Times-Roman Legend > tmp
+echo D 0.4 1p >> tmp
+echo G .2 >> tmp
+echo N 2 >> tmp
+echo S .5 c .5 0 0 1 Taipei >> tmp
+echo S .5 s .5 0 0 1 Taichung >> tmp
+echo G .1 >> tmp
+echo S .5 t .5 0 0 1 Tainan >> tmp
+echo S .5 n .5 0 0 1 Taitung >> tmp
+echo D 0.8 1p >> tmp
+echo P >> tmp
+echo G .1 >> tmp
+echo T Each symbols indicate the different city. >> tmp
+echo T The green data are in the summer (Jun., Jul., Aug.), >> tmp
+echo T and the blue points are in the winter (Dec., Jan., Feb.). >> tmp
+gmt gmtset FONT_ANNOT_PRIMARY=16p
+gmt pslegend tmp -R -JP -C.1/.1 -Dx18.5/5+w8 -F+g240+p1 -K -O >> %ps%
+
+gmt psxy -R -JX -T -O >> %ps%
+gmt psconvert %ps% -Tg -A -P
+del gmt.conf tmp
+```
 
 ---
 
