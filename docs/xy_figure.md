@@ -327,20 +327,52 @@ echo S .5 s .5 0 0 1 Taichung >> tmp
 echo G .1 >> tmp
 echo S .5 t .5 0 0 1 Tainan >> tmp
 echo S .5 n .5 0 0 1 Taitung >> tmp
-echo D 0.8 1p >> tmp
+echo D 0.8 1p,0,- >> tmp
 echo P >> tmp
 echo G .1 >> tmp
 echo T Each symbols indicate the different city. >> tmp
 echo T The green data are in the summer (Jun., Jul., Aug.), >> tmp
 echo T and the blue points are in the winter (Dec., Jan., Feb.). >> tmp
-gmt gmtset FONT_ANNOT_PRIMARY=16p
-gmt pslegend tmp -R -JP -C.1/.1 -Dx18.5/5+w8 -F+g240+p1 -K -O >> %ps%
+gmt pslegend tmp -R -JP -C.1/.1 -Dx18.5/5+w8 -F+g240+p1+s4p/-4p/gray50 ^
+--FONT_ANNOT_PRIMARY=16p -K -O >> %ps%
 
 gmt psxy -R -JX -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
-del gmt.conf tmp
+del tmp
 ```
 
+本節學習的新指令:
+* 第3行: `-JPa17`其中**a**表示由北開始，如果沒有則是從東開始；**17**設定圖寬度。
+`-R0/360/0/5`前兩個數字設定圓的角度範圍，也可以用-180/180表示，只能給整圓和半圓(0/180)；
+後面則是距離範圍。`-BN`只用給定N，大寫顯示註解、小寫則無。
+* 第5~15行: 利用`awk`讀取各城市的資料，用不同的符號來表示，季節則用不同顏色顯示。
+* 第17~21行: 寫風速的註解。
+* 第24~38行: 示範如何編寫配合`pslegend`的文檔，按順序介紹:
+  * **H**設定標題，字大小 字體 標題文字
+  * **D**繪製水平線，兩測的空白間距 線屬性
+  * **G**給一個垂直空白
+  * **N**修改圖例中的欄數，給予數量(等寬)或是數量 [欄寬1 欄寬2 ...]
+  * **S**繪製圖例符號，格式為符號左邊界距離 符號代碼 符號大小 符號顏色 符號筆觸 文字左邊界距離 文字內容
+  * **P**開啟段落模式
+  * **T**寫一段文字
+* 第39,40行: 示範`pslegend`的用法:
+  * `-C`: 設定圖例邊框與內部圖例之間的空白，默認是4p/4p。
+  * `-D`: 設定圖例框的位置及大小。
+    * **x**是參考點方式接上位移單位，共有**g**, **j**, **J**, **n**, **x**。
+      * **g**用數據的座標系
+      * **j**指定底圖的9個錨點(BL, BC, BR ...)
+      * **J**指定底圖錨點並同時給定圖例錨點。假設底圖錨點為BR、圖例錨點TL，則圖例會出現在底圖的右下角
+      * **n**正規化座標系(0~1之間)
+      * **x**用底圖的座標，類似`-X`、`-Y`的用法
+    * **+w**圖例框的寬度，可給長/高，如寬不設定或為0，則GMT會自動估算高度
+  * `-F`: 圖例框的屬性。
+    * **+g**圖例框內的底色
+    * **+p**圖例框的筆觸
+    * **+s**設定陰影
+  * `--FONT_ANNOT_...`: 改變<mark>gmtset</mark>，只對這行有效。
+
+
+  
 ---
 
 [上一章](/projection.md) -- [下一章](/xy_figure.md)
