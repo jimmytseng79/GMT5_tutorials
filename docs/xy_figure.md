@@ -379,6 +379,31 @@ del tmp
 來製作結果圖，但如何構圖、配色，來凸顯資料的特徵，則需要大量的經驗，這又是另一門學問了。
 
 ## 6.7 習題
+本次習題將使用，政府資料開放平台中的[高鐵運量統計表](https://data.gov.tw/dataset/8013)，
+來看自2007年1月5號高鐵開始通車，到2017年8月底為止，官方統計的車次數量及乘客量在時間上的變化，
+以及這兩個變數之間有什麼關係。
+* 1.繪製從2007-01-01至2017-08-31的折線圖，顯示**列車次數**及**旅客人數**在時間上的變化。
+請用雙軸的方式呈現，並嘗試更改其外框顏色，另外練習在2008-01-01畫一條垂直虛線，
+以及如何製作圖例`pslegend`，完成圖如下:
+<p align="center">
+  <img src="fig/6_7_THSRC_timeseries_1.png"/>
+</p>
+* 2.繪製**旅客人數**及**列車次數**的xy點散佈圖，從上題完成圖中可以看到2007年(第一年)，
+較之後有很大的不同，試著將2007年的點用不同的顏色表示出來。另外GMT有提供一些資料運算的功能，
+在將來將會依序用到，此題將會使用到`gmt regress`，將**旅客人數**及**列車次數**做線性回歸，
+並繪製回歸線及方程式，請試著去GMT官網找到該模組，並練習如何使用。
+<p align="center">
+  <img src="fig/6_7_THSRC_xyFigure_1.png"/>
+</p>
+
+## 6.8 參考批次檔
+列出本章節使用的批次檔，供讀者參考使用，檔案路經可能會有些許不同，再自行修改。
+* [6_3_accidentalDeath](bat/6_3_accidentalDeath.bat)
+* [6_4_richter_magnitude](bat/6_4_richter_magnitude.bat)
+* [6_5_C0V250_morakot](bat/6_5_C0V250_morakot.bat)
+* [6_6_season_wind](bat/6_6_season_wind.bat)
+* [6_7_THSRC_timeseries](bat/6_7_THSRC_timeseries.bat)
+* [6_7_THSRC_xyFigure](bat/6_7_THSRC_xyFigure.bat)
 
 ---
 
