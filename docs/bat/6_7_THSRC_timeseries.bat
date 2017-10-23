@@ -24,8 +24,8 @@ rem legend set
 echo H 20 Times-Roman Legend > tmp
 echo D 0.4 1p >> tmp
 echo G .2 >> tmp
-echo S .8 - 1 0 5,238/82/82 1.5 Passengers >> tmp
-echo S .8 - 1 0 5,71/55/255 1.5 Departures >> tmp
+echo S .8 - 1 0 5,238/82/82 1.5 Departures >> tmp
+echo S .8 - 1 0 5,71/55/255 1.5 Passengers >> tmp
 gmt pslegend tmp -R -JX -C.1/.1 -Dx14.5/.5+w5 -F+g255+p1+s4p/-4p/gray50 ^
 --FONT_ANNOT_PRIMARY=14p -K -O >> %ps%
 
