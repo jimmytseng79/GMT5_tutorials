@@ -1,4 +1,4 @@
-<title>地形圖及色階| GMT5 Tutorial</title>
+<title>地形圖及色階</title>
 ### 目錄
 1. [總覽](/index.md)
 2. [GMT介紹及安裝](/intro_install.md)
