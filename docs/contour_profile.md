@@ -1,0 +1,110 @@
+<title>地形圖及色階| GMT5 Tutorial</title>
+### 目錄
+1. [總覽](/index.md)
+2. [GMT介紹及安裝](/intro_install.md)
+3. [網路資源及配套軟體](/net_software.md)
+4. [第零章: 基本概念及默認值](/basic_defaults.md)
+5. [第一章: 製作地圖(地理投影法)](/projection.md)
+6. [第二章: XY散佈圖(其他投影法)](/xy_figure.md)
+7. [第三章: 等高線圖及剖面](/contour_profile.md)
+8. [第四章: 地形圖與色階](/topographic_cpt.md)
+
+---
+
+## 7. 等高線圖及剖面
+本章將會說明GMT所使用的網格檔如何製作，
+
+## 7.1 目的
+本章將學習如何繪製
+  1. 簡介網格檔(Grid data)
+  2. 等高線圖(Contour)
+  3. 地形剖面(Profile)
+
+## 7.2 學習的指令與概念
+
+* `grdcontour`: 繪製等高線圖
+* `grdinfo`: 從網格檔中獲取資訊
+* `grdpaste`: 合併兩個有共同邊界的網格檔
+* `grdtrack`: 對網格檔取樣
+* `grd2xyz`: 轉換網格檔至ascii檔案格式
+* `project`: 將資料投影至線、大圓或轉換座標系
+* `xyz2grd`: 轉換ascii檔案格式至網格檔
+* `gdal_translate`轉檔程式
+
+## 7.3 簡介網格檔
+在開始學習繪製等高線圖之前，要先介紹GMT在繪製網格圖時所使用的檔案格式<mark>.grd</mark>，
+它是屬於<mark>netCDF</mark>檔案格式，全名被稱做網路通用數據格式(Net Common Data Form)，
+由於一般的10進位檔案格式(ascii)，相當地占用硬碟空間，因此常會將資料儲存成2進位的格式(binary)，
+這樣可以有效地壓縮檔案所占用的空間。
+
+用實際例子來說明檔案格式的差異，本章將會使用到政府資料開放平台中的[20公尺網格數值地形模組資料](https://data.gov.tw/dataset/35430)，
+其中的不分福_全台及澎湖的資料，下載下來的<mark>.tif</mark>檔，透過一般的編譯器打開，如下圖:
+<p align="center">
+  <img src="fig/7_3_binaryView.png"/>
+</p>
+顯示出一推看不懂的亂碼，但如何想簡單的得知這個檔案理面的資料資訊，可以使用
+```bash
+gmt grdinfo 檔名
+```
+讀取<mark>Penghu_20m.tif</mark>，可得到資訊如下:
+```bash
+Penghu_20m.tif: Title: Grid imported via GDAL
+Penghu_20m.tif: Command:
+Penghu_20m.tif: Remark:
+Penghu_20m.tif: Pixel node registration used [Cartesian grid]
+Penghu_20m.tif: Grid file format: gd = Import/export through GDAL
+Penghu_20m.tif: x_min: 76661.4764748 x_max: 121061.476475 x_inc: 20 name: x nx: 2220
+Penghu_20m.tif: y_min: 2563952.79393 y_max: 2633852.79393 y_inc: 20 name: y ny: 3495
+Penghu_20m.tif: z_min: -999 z_max: 70.5 name: z
+Penghu_20m.tif: scale_factor: 1 add_offset: 0
++proj=tmerc +lat_0=0 +lon_0=121 +k=0.9999 +x_0=250000 +y_0=0 +ellps=GRS80 +units=m +no_defs
+```
+從這些資訊可以得知標題、X、Y、Z軸的範圍和間距，放大倍率(scale_factor)等等的訊息。
+但這檔案要提供給GMT使用，會遇到兩個問題，第一，檔案格式為<mark>Geotiff</mark>，
+利用[GDAL](http://www.gdal.org/index.html)(地理空間資料抽象化文庫, Geospatial Data Abstraction Library)提供的轉檔程式<mark>gdal_translate</mark>，
+透過指令，
+```bash
+gdal_translate -of XYZ [input.tif] [output.xyz]
+```
+將<mark>.tif</mark>檔轉換成<mark>.xyz</mark>檔。第二，由於內政部提供的檔案其座標系是<mark>TWD97</mark>，
+而GMT繪製地圖慣用在<mark>WGS84座標系</mark>，因此需要做座標系轉換，透過Python，將檔案轉成WGS84座標系，
+完成後再將<mark>.xyz</mark>檔轉換成<mark>.grd檔</mark>。
+```bash
+gmt xyz2grd [input.xyz] -R119.0/119.9/21.8/25.4 -I0.6s/0.6s -G[output.grd]
+```
+其中`-R`是給定檔案的X、Y軸範圍，`-I`給與X、Y軸的間隔，後面的英文字代表單位，
+**m**對應角分、**m**對應角秒、**e**對應公尺、**k**對應公里，`-G`給予輸出檔名稱。
+另外常用到的就是`-A`處理多數據重疊在某點時的方法:
+* **-Af**選第一個落在重複座標上的數值做為該座標值。
+* **-As**選最後一個落在重複座標上的數值做為該座標值。
+* **-Al**選最小...
+* **-Au**選最大...
+* **-Ad**選最大最小的差值...
+* **-Am**選平均...
+* **-Ar**選RMS(方均根)...
+* **-As**選標準差...
+* **-An**選出現次數...
+* **-Az**選總合...
+
+以及`-D`寫檔頭資訊:
+* **+x**x軸名稱，格式為名稱 [單位]，例如distance [km]。
+* **+y**、**+z**同上。
+* **+s**讀取網格數據後的放大倍率，默認值為1。
+* **+o**讀取網格數據後要加上的常數，默認值為0。
+* **+n**指定特定數值為無效值，默認為NaN。
+* **+t**網格檔的標題。
+* **+r**網格檔的註解。
+
+
+## 7.4 等高線圖
+
+## 7.5 地形剖面
+
+## 7.6 習題
+
+## 7.7 參考批次檔
+列出本章節使用的批次檔，供讀者參考使用，檔案路經可能會有些許不同，再自行修改。
+
+---
+
+[上一章](/xy_figure.md) -- [下一章](/topographic_cpt.md)

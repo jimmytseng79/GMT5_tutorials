@@ -6,7 +6,8 @@
 4. [第零章: 基本概念及默認值](/basic_defaults.md)
 5. [第一章: 製作地圖(地理投影法)](/projection.md)
 6. [第二章: XY散佈圖(其他投影法)](/xy_figure.md)
-7. [第三章: 地形圖及色階](/topographic_cpt.md)
+7. [第三章: 等高線圖及剖面](/contour_profile.md)
+8. [第四章: 地形圖與色階](/topographic_cpt.md)
 
 ---
 
