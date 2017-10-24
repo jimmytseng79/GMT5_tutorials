@@ -410,3 +410,7 @@ del tmp
 ---
 
 [上一章](/projection.md) -- [下一章](/topographic_cpt.md)
+
+---
+
+### 註腳
