@@ -1,6 +1,3 @@
-/*
-Title: 等高線圖及剖面| GMT5 Tutorial
-*/
 
 ### 目錄
 1. [總覽](/index.md)

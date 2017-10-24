@@ -194,7 +194,7 @@ gmt psconvert %ps% -Tg -A -P
 del tmp
 ```
 
-成果圖右側參考*<font size="-1">1</font>。本節學習的新指令:
+成果圖右側參考[^1]。本節學習的新指令:
 * 第4~5行: `-JX9/15l`會將y軸設定以10次方倍為一個區間的線性軸，
 `-By`之中<mark>a1p</mark>是將y軸的註解(tick markes or annotation)變成10次方表示；
 <mark>f3</mark>當-JX設定為l時，次要刻度有兩種選項，2以線性畫刻度，3以次方倍畫刻度。
@@ -209,7 +209,7 @@ del tmp
 而無法正常表示，所以左側的圖，將y軸設定為以10次方倍為一個區間，才能將這關係轉換至線性，便於表現在圖上。
 右側的圖，為了示意振幅及規模兩者之間非線性關係，先將振幅資料取log，再透過指數軸來示意兩者非線性之間的關係。
 
-> *<font size="-1">1</font> A Graphic Representation of the Richter Scale (V.J. Ansfield, 1992)
+[^1]: A Graphic Representation of the Richter Scale (V.J. Ansfield, 1992)
 
 ## 6.5 時間序列
 
