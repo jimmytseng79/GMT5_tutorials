@@ -194,7 +194,7 @@ gmt psconvert %ps% -Tg -A -P
 del tmp
 ```
 
-成果圖右側參考[^1]。本節學習的新指令:
+成果圖右側參考==Ansfield_1992==[^1]。本節學習的新指令:
 * 第4~5行: `-JX9/15l`會將y軸設定以10次方倍為一個區間的線性軸，
 `-By`之中<mark>a1p</mark>是將y軸的註解(tick markes or annotation)變成10次方表示；
 <mark>f3</mark>當-JX設定為l時，次要刻度有兩種選項，2以線性畫刻度，3以次方倍畫刻度。

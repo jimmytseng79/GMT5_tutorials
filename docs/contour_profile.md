@@ -30,6 +30,7 @@
 * `grdtrack`: 對網格檔取樣
 * `grd2xyz`: 轉換網格檔至ascii檔案格式
 * `project`: 將資料投影至線、大圓或轉換座標系
+* `pscoast`: 繪製海岸線
 * `xyz2grd`: 轉換ascii檔案格式至網格檔
 * `gdal_translate`轉檔程式
 
@@ -97,6 +98,12 @@ gmt xyz2grd [input.xyz] -R119.0/119.9/21.8/25.4 -I0.6s/0.6s -G[output.grd]
 * **+t**網格檔的標題。
 * **+r**網格檔的註解。
 
+同樣的，也可以透過
+```bash
+gmt grd2xyz input.grd > output.xyz
+```
+將網格檔轉回==.xyz==檔。
+
 透過上述方式，成功地將內政部提供的數值高程檔轉換成GMT繪圖使用的格式，在這個範例中，
 一般<mark>.xyz</mark>的檔案大小約為420MB，轉換成<mark>.grd</mark>的格式後，變成4.61MB，大大地節省硬碟空間。
 使用一樣的做法，把台灣本島的數值高程也轉換成功後，不希望之後畫圖都要分開讀取台灣本島以及澎湖，所以使用:
@@ -112,10 +119,42 @@ gmt grdpaste input1.grd input2.grd -Goutput.grd -fg
 ```bash
 gmt grdcut input.grd -Goutput.grd -R範圍
 ```
-將網格檔切割成較小的區域來做使用，接下來，繪製等高線圖的部份，將會使用以台北盆地做為範圍切割的網格檔。
+將網格檔切割成較小的區域來做使用，接下來，繪製等高線圖的部份，將會使用以花東縱谷做為範圍切割的網格檔。
 資料壓縮的方式非常多種，無法在此一一介紹，編者以使用過的經驗作為分享，請見諒。
 
 ## 7.4 等高線圖
+等高線或稱等值線圖，是將資料中等值的資料點連接起來，借此了解地勢的高低起伏，其中每條線的疏密程度，
+則可用來判斷坡度的緩急，辨識河谷、山稜線、峭壁等等的地形。設定範圍在==121.33/121.68/23.55/24.1==，
+使用`grdcut`將網格檔切割成較小的區域。
+
+使用的資料檔:
+- [花東縱谷數值地形檔](dat/east_rift_valley.grd)
+
+成果圖
+<p align="center">
+  <img src="fig/7_4_east_rift_valley_1.png"/>
+</p>
+
+批次檔
+```bash
+set ps=7_4_east_rift_valley.ps
+
+# left figure without clip
+gmt pscoast -R121.33/121.68/23.55/24.1 -JM10 -BWeSn -Bxa.2 -Bya.2 ^
+-Df -W1 -G194/250/216 -S175/243/255 -K > %ps%
+gmt grdcontour east_rift_valley.grd -R -JM -C250 -A1000+f12p -K -O >> %ps%
+
+# right figure with clip
+gmt pscoast -R121.33/121.68/23.55/24.1 -JM10 -BWeSn -Bxa.2 -Bya.2 ^
+-Df -W1 -G194/250/216 -S175/243/255 -X13 -K -O >> %ps%
+gmt pscoast -R -JM -Df -Gc -K -O >> %ps%
+gmt grdcontour east_rift_valley.grd -R -JM -C250 -A1000+an+f12p+g255/153/199 ^
+-Gd15c -Wc.5,255/110/110 -Wa1,180/13/13 -K -O >> %ps%
+gmt pscoast -R -JM -Q -K -O >> %ps%
+
+gmt psxy -R -JM -T -O >> %ps%
+gmt psconvert %ps% -Tg -A -P
+```
 
 ## 7.5 地形剖面
 
