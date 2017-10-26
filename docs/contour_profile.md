@@ -29,6 +29,7 @@
 * `grdpaste`: 合併兩個有共同邊界的網格檔
 * `grdtrack`: 對網格檔取樣
 * `grd2xyz`: 轉換網格檔至ascii檔案格式
+* `gmtinfo`: 從表格資料中讀取資訊
 * `project`: 將資料投影至線、大圓或轉換座標系
 * `pscoast`: 繪製海岸線
 * `xyz2grd`: 轉換ascii檔案格式至網格檔
@@ -259,8 +260,8 @@ set /p pr=<tmp1
 gmtinfo tmp -i2 -Cmax -o1 > tmp1
 set /p md=<tmp1
 sed -i '1i %A_lon1% %A_lat1% 0 0' tmp
-sed -i '$a\%A_lon2% %A_lat2% %md% 0' tmp
-awk "{print $3, $4}" tmp | gmt psxy -R%pr% -JX12/6 -W2 -G238/91/78 -X5 -Y.5 -K -O >> %ps%
+sed -i '$a %A_lon2% %A_lat2% %md% 0' tmp
+awk "{print $3, $4}" tmp | gmt psxy %pr% -JX12/6 -W2 -G238/91/78 -X5 -Y.5 -K -O >> %ps%
 gmt psbasemap -R -JX -BwESn+t"AA' Profile" -Bxa+l"Distance (km)" ^
 -Bya+l"Elevation (m)" -K -O --FONT_TITLE=24p,0,blue >> %ps%
 
@@ -272,8 +273,8 @@ set /p pr=<tmp1
 gmtinfo tmp -i2 -Cmax -o1 > tmp1
 set /p md=<tmp1
 sed -i '1i %B_lon1% %B_lat1% 0 0' tmp
-sed -i '$a\%B_lon2% %B_lat2% %md% 0' tmp
-awk "{print $3, $4}" tmp | gmt psxy -R%pr% -JX12/6 -W2 -G234/235/128 -Y9 -K -O >> %ps%
+sed -i '$a %B_lon2% %B_lat2% %md% 0' tmp
+awk "{print $3, $4}" tmp | gmt psxy %pr% -JX -W2 -G234/235/128 -Y9 -K -O >> %ps%
 gmt psbasemap -R -JX -BwESn+t"BB' Profile" -Bxa -Bya+l"Elevation (m)" -K -O >> %ps%
 
 gmt psxy -R -JX -T -O >> %ps%
@@ -288,15 +289,67 @@ del tmp*
 3. 呼叫AA'線段經緯度，畫出線及加上註解。
 4. 呼叫BB'線段經緯度，畫出線及加上註解。
 5. 當在製作小區域地圖時，往往需要利用全區域的小張地圖來框繪出小區域的範圍。
-6. `project`將表格式資料投影到一條線上、大圓上、別的座標系上，此區只介紹投影至線上。
-  * `-C`起始點座標
-  * `-E`結束點座標
-  * `G`取樣距離，
+6. 製作AA'剖面:
+  * `project`將表格式資料投影到一條線上、大圓上、別的座標系上，此區只介紹投影至線上。
+    * `-C`起始點座標
+    * `-E`結束點座標
+    * `-F`輸出的選量，輸出可選xyzpqrs(默認值)，代表X、Y、Z軸(以度為單位)；如果搭配使用-G，
+    輸出成rsp(以公里為單位)
+    * `-G`取樣距離
+    * `-Q`地圖的單位，轉換成KM
+  * `grdtrack`對網格檔做指定位置的取樣
+    * `-G`被取樣的網格檔
+	* 透過`project`和`grdtrack`搭配使用，將資料(x軸 y軸 距離 高度)輸出成暫存檔(tmp)。
+	* `gmtinfo`從表格資料中抓取訊息。
+	  * `-A`當有多個檔案的使用:
+	    * **-Aa**輸出全檔案的範圍
+	    * **-Af**每個檔案分開輸出範圍
+	    * **-As**當檔案屬於多重區塊檔案時，輸出每個區塊的範圍
+	  * `-C`輸出最大最小值，配合`-o`來指定輸出的欄位。
+	  * `-D`配合`-I`修改輸出的範圍
+	  * `-E`輸出最大或最小值:
+	    * **i**最小值；**I**絕對值後的最小值
+	    * **h**最大值；**H**絕對值後的最大值
+	  * `-I`類似四捨五入的方式取`-R`需要的範圍，給定x軸/y軸取捨的標準，1表示個位數，10表示10位數等等。
+	  * `-i`選擇輸入的欄位，0表示第一欄
+	  * `-o`選擇輸出的欄位，0表示第一欄
+	* 透過`gmtinfo`輸出範圍訊息至暫存檔(tmp1)，接著使用`set /p pr=<tmp1`將範圍訊息設為變數**pr**。
+	* `sed`資料處理工具，
+	詳細介紹請參考[鳥哥的Linux私房菜](http://linux.vbird.org/linux_basic/0330regularex.php#sed)。
+	  * **-i**: 直接修改讀取的檔案內容
+	  * **a**: 插入字串在目前的下一行
+	  * **i**: 插入字串在目前的上一行
+	**$**符號表示行尾，以及最後一行中的*****符號，用來表示任意一個字元與重覆字元，
+	都可以從鳥哥對正規表示法(Regular Expression)的介紹中學習。
+  * `--FONT_TITLE`改變標題的文字屬性
+7. 同6，換成BB`剖面。
+
+首先AA'剖面切過中央山脈、花東縱谷、海岸山脈，從高層剖面可以清楚地看出三個不同的區域，你也可以嘗試在圖上，
+利用`pstext`加上文字做說明，在約8km處，有一個凹陷處，從等高線來判識，應該是一河谷地形(木瓜溪)。
+另一條BB`剖面線是做為對比，展示一般山區的地形。
+
+在一開始設立一個輸入區域，可以方便你做更改，以這範例來說，如果我想換切別條剖面線，
+只要在一開始更改經緯度數值，就可以展示出不同的高程剖面，可以自己玩看看。
+
+關於`sed`以及linux其他指令在windows上如何使用，可[參考5-5](projection.md#m5.5)，編者另有安裝Cygwin。
 
 ## 7.6 習題
+玉山為東亞第一高峰，其海拔3952公尺，其景色優美、氣勢磅礡，吸引大量登山客前往。利用維基百科玉山主峰以及其他
+四個至高點(北峰、東峰、南峰、西峰)，來繪製玉山區域的等高線圖，以及主峰到其餘四峰的高度剖面。
+
+[玉山區域網格檔](dat/yuShan.grd)的製作可參考7-3的方式，或者直接使用前面連結下載。
+
+完成圖如下:
+<p align="center">
+  <img src="fig/7_6_yuShan_1.png"/>
+</p>
 
 ## 7.7 參考批次檔
 列出本章節使用的批次檔，供讀者參考使用，檔案路經可能會有些許不同，再自行修改。
+* [7_3_grd_intro](bat/7_3_grd_intro.bat)
+* [7_4_east_rift_valley](bat/7_4_east_rift_valley.bat)
+* [7_5_elevation_profile](bat/7_5_elevation_profile.bat)
+* [7_6_yuShan](bat/7_6_yuShan.bat)
 
 ---
 
