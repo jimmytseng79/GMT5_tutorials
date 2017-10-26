@@ -7,7 +7,7 @@
 5. [第一章: 製作地圖(地理投影法)](/projection.md)
 6. [第二章: XY散佈圖(其他投影法)](/xy_figure.md)
 7. [第三章: 等高線圖及剖面](/contour_profile.md)
-8. [第四章: 地形圖與色階](/topographic_cpt.md)
+8. [第四章: 地形圖與色階](/topography_cpt.md)
 
 ---
 
@@ -331,7 +331,8 @@ del tmp*
 在一開始設立一個輸入區域，可以方便你做更改，以這範例來說，如果我想換切別條剖面線，
 只要在一開始更改經緯度數值，就可以展示出不同的高程剖面，可以自己玩看看。
 
-關於`sed`以及linux其他指令在windows上如何使用，可[參考5-5](projection.md#m5.5)，編者另有安裝Cygwin。
+`sed`的使用是為了讓剖面高程的多邊形關閉，以方便著色。關於`sed`以及linux其他指令在windows上如何使用，
+可[參考5-5](projection.md#m5.5)，編者另有安裝==Cygwin==。
 
 ## 7.6 習題
 玉山為東亞第一高峰，其海拔3952公尺，其景色優美、氣勢磅礡，吸引大量登山客前往。利用維基百科玉山主峰以及其他
@@ -353,4 +354,4 @@ del tmp*
 
 ---
 
-[上一章](/xy_figure.md) -- [下一章](/topographic_cpt.md)
+[上一章](/xy_figure.md) -- [下一章](/topography_cpt.md)
