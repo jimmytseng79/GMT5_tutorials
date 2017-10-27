@@ -27,6 +27,7 @@
 
 * `grdgradient`: 計算網格檔的梯度與照明度
 * `grdimage`: 繪製色階地圖
+* `grdinfo`: 從網格檔中獲取資訊
 * `grd2cpt`: 利用網格檔資料建立色階檔
 * `psscale`: 繪製色階
 * `makecpt`: 製作色階檔
@@ -92,6 +93,7 @@ N	127.5
 學習到的指令:
 * `makecpt`:
   * `-C`輸入的色階檔。
+  * `-I`倒轉(reverse)色碼檔
   * `-T`範圍的設定，有三種方式:
     1 **最小值/最大值/間隔**
     2 **讀取一個檔案**
@@ -175,11 +177,70 @@ del tmp*
   * `-M`轉成黑白模式。
   * `-S`取消自動區分不同顏色的黑線。
 2. 將色階檔範圍改成0至1200，間距100，變成離散的色階檔，加上`-M`讓地圖與色彩條都變成黑白模式。
-3. 將色階檔範圍改成0至1200，間距100，`-Z`變成連續的色階檔，`-I`開啟彩色條照明效果。
+3. 將色階檔範圍改成0至1200，間距100，`-Z`變成連續的色階檔，`-I`開啟色彩條照明效果。
 
-
+第一張圖使用原始dem1.cpt的範圍只有到800公尺，而陽明山區域最高海拔可至約1110公尺，
+導致在高度上並沒有辦法完整呈現山頭的資訊。第二張圖，將dem1.cpt的範圍改至1200後，並改成離散化的色階，
+山頭的資訊有較明顯的呈現，但河川的訊息變得不太明顯，示範用黑白模式是由於地形圖往往是製圖的背景，
+而黑白模式可以有效表達地形差異，又不會又不會搶走之後想表達主題的光彩。第三張圖，
+則是改善一、二兩張圖的缺點，較完整地呈現該地區的地形。
 
 ## 8.5 地形暈渲面
+Hillshading暈渲法(或稱陰影法)，是一種地形圖的表示方式，應用光影的原裡，
+以色調的明暗對比來展現地形上的高低起伏，此法是假設一個光源從一特定角度照射照射強度不變的平行光線，
+地形的明暗取決於波面受光方向的夾角，迎光面會展線明亮的色調，反之背光面則陰暗，而坡度的變化，
+則會因坡陡受光少，顏色較為深色；坡度較緩則因受光多，顏色較淡。
+
+琉球海溝是菲律賓海板塊隱沒至歐亞大陸板塊所形成的版塊邊界，總長約2250公里，最大深度7507公尺。
+本節將示範如何製作暈渲地形網格檔(編者習慣稱作陰影檔)，以及繪製暈渲地形圖。
+
+在開始之前，先說明資料準備，下載由[NOAA提供的全球一角分的數值地形](https://www.ngdc.noaa.gov/mgg/global/)，
+可選擇北極與格陵蘭有冰層覆蓋，或是無覆蓋的版本，可直接下載netCDF檔，解壓縮後就可使用。
+先來看看未使用陰影檔的成果圖與批次檔。
+
+成果圖
+<p align="center">
+  <img src="fig/8_5_ryukyu_trench_n_1.png"/>
+</p>
+
+批次檔
+```bash
+set ps=8_5_ryukyu_trench_n.ps
+set data=D:\GMT_data\
+set dcpt=colomia_d.cpt
+set ucpt=colomia_u.cpt
+
+# 1. Bathymetry
+gmt grdinfo %data%ETOPO1_Bed_g_gmt5.grd -R121.2/132.0/22.88/31.0 -C -I1 > tmp
+for /f %%i in ('awk "{print $6}" tmp') do set minz=%%i
+gmt makecpt -C%dcpt% -T%minz%/0/1000 -D -Z > tmp.cpt
+# grdinfo %data%ETOPO1_Bed_g_gmt5.grd -R -T500 > tmp
+# set /p T=<tmp
+# makecpt -C%cpt% %T% -Z > tmp.cpt
+gmt grdimage %data%ETOPO1_Bed_g_gmt5.grd -R -JM17 -BWeSn -Ba ^
+-Ctmp.cpt -K > %ps%
+gmt psscale -Ctmp.cpt -Dx19/1.5+w10/.5+e+ml -Bxa1000+l"Bathymetry" -By+l"km" -K -O >> %ps%
+
+# 2. Topography
+gmt pscoast -R -JM -Di -W1 -G189/204/150 -K -O >> %ps%
+gmt pscoast -R -JM -Df -Gc -K -O >> %ps%
+gmt grdinfo %data%tw_40.grd -R -C -I1 > tmp
+for /f %%i in ('awk "{print $7}" tmp') do set maxz=%%i
+gmt makecpt -C%ucpt% -T0/%maxz%/500 -D -Z > tmp.cpt
+# gmt grd2cpt %data%tw_40.grd -C%cpt% -R > tmp.cpt
+gmt grdimage %data%tw_40.grd -R -JM -Ctmp.cpt -K -O >> %ps%
+gmt pscoast -R -JM -Df -Q -K -O >> %ps%
+gmt psscale -Ctmp.cpt -Dx22.5/1.5+w10/.5+e+ml -Bxa500+l"Topography" -By+l"km" -K -O >> %ps%
+
+gmt psxy -R -JM -T -O >> %ps%
+gmt psconvert %ps% -Tg -A -P
+del tmp*
+'''
+
+本節學習的新指令:
+1. `grdinfo`: 獲取網格檔資訊，在前一節中，製作色階檔都仰賴手動設定最大最小值，
+這邊將介紹如何利用這指令，來找出網格檔的範圍。
+  * `-C`輸出
 
 ## 8.6 習題
 
