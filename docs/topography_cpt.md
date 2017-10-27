@@ -113,7 +113,7 @@ N	127.5
 
 成果圖
 <p align="center">
-  <img src="fig/8_4_yangmingShan1.png"/>
+  <img src="fig/8_4_yangmingShan_1.png"/>
 </p>
 
 批次檔
@@ -121,22 +121,28 @@ N	127.5
 set ps=8_4_yangmingShan.ps
 set cpt=dem1.cpt
 
-rem 1. default dem1.cpt
-gmt grdimage yangmingShan.grd -R121.27/121.85/25.05/25.35 -JM13 -BWeSn -Ba -C%cpt% -P -K > %ps%
+# use default dem1.cpt
+gmt grdimage yangmingShan.grd -R121.27/121.85/25.05/25.35 -JM13 -BWeSn -Ba ^
+-C%cpt% -P -Y21 -K > %ps%
 gmt pscoast -R -JM -Df -W1 -S34/201/237 -K -O >> %ps%
 gmt psscale -C%cpt% -Dx14/0+w7/.5+e -Ba100+l"Elevation (m)" -K -O >> %ps%
+echo 121.3 25.32 1. | gmt pstext -R -JM -F+f24p -G250 -K -O >> %ps%
 
-rem 2. discrete 0~1200 dem1.cpt 
+# discrete 0~1200 dem1.cpt 
 makecpt -C%cpt% -T0/1200/100 > tmp.cpt
-gmt grdimage yangmingShan.grd -R121.27/121.85/25.05/25.35 -JM13 -BWeSn -Ba -Ctmp.cpt -Y9 -K -O >> %ps%
+gmt grdimage yangmingShan.grd -R121.27/121.85/25.05/25.35 -JM13 -BWeSn -Ba -Ctmp.cpt ^
+-M -Y-9 -K -O >> %ps%
 gmt pscoast -R -JM -Df -W1 -S34/201/237 -K -O >> %ps%
-gmt psscale -Ctmp.cpt -Dx14/0+w7/.5 -Ba200+l"Elevation (m)" -K -O >> %ps%
+gmt psscale -Ctmp.cpt -Dx14/0+w7/.5 -Ba200+l"Elevation (m)" -M -K -O >> %ps%
+echo 121.3 25.32 2. | gmt pstext -R -JM -F+f24p -G250 -K -O >> %ps%
 
-rem 3. continuous 0~1200 dem1.cpt 
+# continuous 0~1200 dem1.cpt 
 makecpt -C%cpt% -T0/1200/100 -Z > tmp.cpt
-gmt grdimage yangmingShan.grd -R121.27/121.85/25.05/25.35 -JM13 -BWeSn -Ba -Ctmp.cpt -Y9 -K -O >> %ps%
+gmt grdimage yangmingShan.grd -R121.27/121.85/25.05/25.35 -JM13 -BWeSn -Ba -Ctmp.cpt ^
+-Y-9 -K -O >> %ps%
 gmt pscoast -R -JM -Df -W1 -S34/201/237 -K -O >> %ps%
-gmt psscale -Ctmp.cpt -Dx14/0+w7/.5 -Ba200+l"Elevation (m)" -K -O >> %ps%
+gmt psscale -Ctmp.cpt -Dx14/0+w7/.5 -Ba200+l"Elevation (m)" -I -K -O >> %ps%
+echo 121.3 25.32 3. | gmt pstext -R -JM -F+f24p -G250 -K -O >> %ps%
 
 gmt psxy -R -JM -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
@@ -144,7 +150,34 @@ del tmp*
 ```
 
 本節學習到的新指令:
-1. `grdimage`
+1. 使用dem1.cpt繪製地形圖。
+  * `grdimage`投影網格或是影像(images)至地圖上:
+    * `-C`輸入色階檔。
+    * `-M`黑白畫面!!
+  * `psscale`繪製色彩條(color bar):
+    * `B`調整刻度間距。
+    * `-C`輸入色階檔。
+    * `-D`調整色彩條的位置。
+      * 參考點X位移/Y位移，其餘參考點設定可[參考6-6](xy_figure.md#m6.6)
+      * **+w**長度/寬度
+      * **+e**顯示前景色(**f**)、背景色(**b**)
+      * **+h**改成水平色彩條；**+v**垂直色彩條(默認值)
+      * **+m**將**a**(annotation, 註解), **l**(label, 標籤), **u**(unit 單位)，
+      位置改放至對面，**c**(標籤轉成垂直)
+      * **+n**在一開始加上無值的的矩形範圍
+  * `-F`加上邊框:
+    * **+g**填色
+    * **+i**間距/筆觸，在加上一個內部的邊框
+    * **+p**邊框筆觸
+    * **+r**弧度，圓角矩形邊框
+    * **+s**陰影
+  * `-I`開啟照明效果。
+  * `-M`轉成黑白模式。
+  * `-S`取消自動區分不同顏色的黑線。
+2. 將色階檔範圍改成0至1200，間距100，變成離散的色階檔，加上`-M`讓地圖與色彩條都變成黑白模式。
+3. 將色階檔範圍改成0至1200，間距100，`-Z`變成連續的色階檔，`-I`開啟彩色條照明效果。
+
+
 
 ## 8.5 地形暈渲面
 
