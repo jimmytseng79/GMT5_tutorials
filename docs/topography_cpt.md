@@ -103,6 +103,48 @@ N	127.5
 [cpt-city](http://soliton.vm.bytemark.co.uk/pub/cpt-city/)，裡面收集了大量的現成色階檔，供使用參考。
 
 ## 8.4 地形圖
+陽明山國家公園是以大屯山火山群為主的火山地型，規劃了眾多的景點，供民眾認識火山地形、地貌。
+本節將利用陽明山區域的20公尺數值地形，配合GMT內建安裝的數值檔，來演示不同的色階檔，
+對繪製地形圖所帶來的影響。
+切割的範圍`121.27/121.85/25.05/25.35`，可以自行練習`grdcut`，或者直接下載下方載點，
+
+使用的資料檔:
+- [陽明山數值高程](dat/yangmingShan.grd)
+
+成果圖
+<p align="center">
+  <img src="fig/8_4_yangmingShan1.png"/>
+</p>
+
+批次檔
+```bash
+set ps=8_4_yangmingShan.ps
+set cpt=dem1.cpt
+
+rem 1. default dem1.cpt
+gmt grdimage yangmingShan.grd -R121.27/121.85/25.05/25.35 -JM13 -BWeSn -Ba -C%cpt% -P -K > %ps%
+gmt pscoast -R -JM -Df -W1 -S34/201/237 -K -O >> %ps%
+gmt psscale -C%cpt% -Dx14/0+w7/.5+e -Ba100+l"Elevation (m)" -K -O >> %ps%
+
+rem 2. discrete 0~1200 dem1.cpt 
+makecpt -C%cpt% -T0/1200/100 > tmp.cpt
+gmt grdimage yangmingShan.grd -R121.27/121.85/25.05/25.35 -JM13 -BWeSn -Ba -Ctmp.cpt -Y9 -K -O >> %ps%
+gmt pscoast -R -JM -Df -W1 -S34/201/237 -K -O >> %ps%
+gmt psscale -Ctmp.cpt -Dx14/0+w7/.5 -Ba200+l"Elevation (m)" -K -O >> %ps%
+
+rem 3. continuous 0~1200 dem1.cpt 
+makecpt -C%cpt% -T0/1200/100 -Z > tmp.cpt
+gmt grdimage yangmingShan.grd -R121.27/121.85/25.05/25.35 -JM13 -BWeSn -Ba -Ctmp.cpt -Y9 -K -O >> %ps%
+gmt pscoast -R -JM -Df -W1 -S34/201/237 -K -O >> %ps%
+gmt psscale -Ctmp.cpt -Dx14/0+w7/.5 -Ba200+l"Elevation (m)" -K -O >> %ps%
+
+gmt psxy -R -JM -T -O >> %ps%
+gmt psconvert %ps% -Tg -A -P
+del tmp*
+```
+
+本節學習到的新指令:
+1. `grdimage`
 
 ## 8.5 地形暈渲面
 
