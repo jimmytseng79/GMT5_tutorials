@@ -25,7 +25,7 @@
 
 ## 8.2 學習的指令與概念
 
-* `grdgradient`: 計算網格檔的梯度與照明度
+* `grdgradient`: 從網格檔計算方向導數或梯度
 * `grdimage`: 繪製色階地圖
 * `grdinfo`: 從網格檔中獲取資訊
 * `grd2cpt`: 利用網格檔資料建立色階檔
@@ -194,8 +194,12 @@ Hillshading暈渲法(或稱陰影法)，是一種地形圖的表示方式，應�
 琉球海溝是菲律賓海板塊隱沒至歐亞大陸板塊所形成的版塊邊界，總長約2250公里，最大深度7507公尺。
 本節將示範如何製作暈渲地形網格檔(編者習慣稱作陰影檔)，以及繪製暈渲地形圖。
 
-在開始之前，先說明資料準備，下載由[NOAA提供的全球一角分的數值地形](https://www.ngdc.noaa.gov/mgg/global/)，
+使用的資料檔:
+- [colomia色階檔](http://soliton.vm.bytemark.co.uk/pub/cpt-city/wkp/shadowxfox/tn/colombia.png.index.html)，
+手動將0以上與以下分成**colomia_u.cpt**和**colomia_d.cpt**。
+- 在開始之前，先說明資料準備，下載由[NOAA提供的全球一角分的數值地形](https://www.ngdc.noaa.gov/mgg/global/)，
 可選擇北極與格陵蘭有冰層覆蓋，或是無覆蓋的版本，可直接下載netCDF檔，解壓縮後就可使用。
+
 先來看看未使用陰影檔的成果圖與批次檔。
 
 成果圖
@@ -236,16 +240,70 @@ gmt psxy -R -JM -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp*
 ```
-
 本節學習的新指令:
 1. `grdinfo`: 獲取網格檔資訊，在前一節中，製作色階檔都仰賴手動設定最大最小值，
 這邊將介紹如何利用這指令，來找出網格檔的範圍。
-  * `-C`輸出
+  * `-C`輸出x軸最小(w) x軸最大(e) y軸最小(s) y軸最大(n) z軸最小(z0) z軸最大(z1) x軸間隔 y軸間隔 x軸點數 y軸點數。
+  * `-F`改成通用格式顯示訊息。
+  * `-I`四捨五入輸出，搭配`-C`使用。
+  * `-L`輸出基本統計的數值。
+    * **-L0**重新掃描一次資料在輸出資訊，而非使用檔頭的資訊
+    * **-L1**回傳z軸的中位數及1.4826*中位數決對偏差(Median Absolute Deviation)
+    * **-L2**回傳z軸平均、標準差、方均根
+    * **-La**回傳上述全部資訊
+  * `-M`回傳z軸最大最小值出現的xy座標。
+  * `-R`給特定的範圍。
+  * `-T`輸出z軸最小/最大/間隔，供`makecpt -T`使用。
+2. `grd2cpt`: 從網格檔直接輸出色階檔。  
+  * `-C`對應使用的色階檔。
+  * `-D`讓前景色與背景色對應最小及最大值的色碼
+  * `-I`倒轉色階檔
+  * `-L`最小限制/最大限制，限制色階檔的範圍
+  * `-Z`製作連續的色階檔
+
+這次的批次檔中，將`grdinfo -T`及`grd2cpt`變為註釋，是因為想利用高度0公尺來區分陸地及海洋使用不同的色階檔，
+如果單純使用一種，可以直接使用該指令。GMT提供了多種方式來獲取網格檔的訊息，以及提供方便的`grd2cpt`指令，
+列出這些的使用方法，供作參考。
+
+接下來，將介紹陰影檔的製作方式，使用的指令是`grdgradient`，範例如下:
+```bash
+grdgradient ETOPO1_Bed_g_gmt5.grd -Nt1 -A300 -GETOPO1_Bed_g_gmt5_shad.grd
+```
+本節學習的新指令:
+* `grdgradient`從網格檔計算方向導數或梯度
+  * `-A`角度，光源照射的角度。
+  * `-G`輸出檔名，輸出的檔案名稱。
+  * `-N`正規化震幅。算式: gn=amp*(g-offset)/max(abs(g-offset))，g是平均値
+    * `-Ne`用cumulative Laplace distribution，算式: gn = amp * (1.0 - exp(sqrt(2) * (g - offset)/ sigma))
+    * `-Nt`用 cumulative Cauchy distribution，算式: gn = (2 * amp / PI) * atan( (g - offset)/ sigma)
+  * `-R`給特定範圍
+
+接著只要將`grdimage`模組中加入`-IETOPO1_Bed_g_gmt5_shad.grd`，就可以將剛剛做好的陰影檔一併呈現出來，
+就來看看兩者的差別吧。
+
+成果圖
+<p align="center">
+  <img src="fig/8_5_ryukyu_trench_1.png"/>
+</p>
 
 ## 8.6 習題
+大西洋中羊脊從北緯87度延伸至南緯54度，在北大西洋的部份，分離了北美洲板塊與歐亞大陸板塊，屬張裂型板塊邊界，
+透過這章學到的技巧，來繪製一張北大西洋的中洋脊地形圖吧！
+
+範圍在==-70/0/0/50==，使用的色階檔[ibcao.cpt](http://soliton.vm.bytemark.co.uk/pub/cpt-city/ibcao/tn/ibcao.png.index.html)，
+順便複習一下蘭伯特投影的用法`-JL`。
+
+完成圖如下:
+<p align="center">
+  <img src="fig/8_6_mid-atlantic_ridge_1.png"/>
+</p>
 
 ## 8.7 參考批次檔
 列出本章節使用的批次檔，供讀者參考使用，檔案路經可能會有些許不同，再自行修改。
+* [8_3_cpt](bat/8_3_cpt.bat)
+* [8_4_yangmingShan](bat/8_4_yangmingShan.bat)
+* [8_5_ryukyu_trench](bat/8_5_ryukyu_trench.bat)
+* [8_6_mid-atlantic_ridge](bat/8_6_mid-atlantic_ridge.bat)
 
 ---
 
