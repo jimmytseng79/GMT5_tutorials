@@ -34,8 +34,8 @@
 
 ## 8.3 簡介色階檔
 色階的概念是將某一區段的資料用一種顏色來表示，這種技巧被應用在很多方面，像是熱影像圖、地形圖等等。
-GMT在安裝的時後，同時有提供一些色階檔作為使用，這些檔案被安裝在==GMT根目錄/share/cpt==，
-將打開==abyss.cpt==，裡面的內容:
+GMT在安裝的時後，同時有提供一些色階檔作為使用，這些檔案被安裝在<mark>GMT根目錄/share/cpt</mark>，
+將打開<mark>abyss.cpt</mark>，裡面的內容:
 ```bash
 #       $Id$
 #
@@ -290,7 +290,7 @@ grdgradient ETOPO1_Bed_g_gmt5.grd -Nt1 -A300 -GETOPO1_Bed_g_gmt5_shad.grd
 大西洋中羊脊從北緯87度延伸至南緯54度，在北大西洋的部份，分離了北美洲板塊與歐亞大陸板塊，屬張裂型板塊邊界，
 透過這章學到的技巧，來繪製一張北大西洋的中洋脊地形圖吧！
 
-範圍在==-70/0/0/50==，使用的色階檔[ibcao.cpt](http://soliton.vm.bytemark.co.uk/pub/cpt-city/ibcao/tn/ibcao.png.index.html)，
+範圍在<mark>-70/0/0/50</mark>，使用的色階檔[ibcao.cpt](http://soliton.vm.bytemark.co.uk/pub/cpt-city/ibcao/tn/ibcao.png.index.html)，
 順便複習一下蘭伯特投影的用法`-JL`。
 
 完成圖如下:
