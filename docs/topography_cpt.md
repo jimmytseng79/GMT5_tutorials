@@ -8,10 +8,11 @@
 6. [第二章: XY散佈圖(其他投影法)](/xy_figure.md)
 7. [第三章: 等高線圖及剖面](/contour_profile.md)
 8. [第四章: 地形圖與色階](/topographic_cpt.md)
+9. [第五章: 地震活動性與機制解](/seismicity_meca.md)
 
 ---
 
-## 8. 地形圖及色階
+## 8. 地形圖與色階
 當想要呈現三維的資料，可以利用xyz座標系畫出立體圖，但如果三維資料要呈現在二維平面上時，
 除了利用等高線之外，還可以利用顏色來做為第三維度的變化，因此衍生出了色階，
 在GMT裡稱作.cpt(color palette tables)。而這種方式被廣泛利用在各種成果展示上面，
@@ -307,4 +308,4 @@ grdgradient ETOPO1_Bed_g_gmt5.grd -Nt1 -A300 -GETOPO1_Bed_g_gmt5_shad.grd
 
 ---
 
-[上一章](/contour_profile.md) -- [下一章](/topography_cpt.md)
+[上一章](/contour_profile.md) -- [下一章](/seismicity_meca.md)
