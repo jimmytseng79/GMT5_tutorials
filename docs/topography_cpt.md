@@ -124,14 +124,14 @@ N	127.5
 set ps=8_4_yangmingShan.ps
 set cpt=dem1.cpt
 
-# use default dem1.cpt
+# 1. use default dem1.cpt
 gmt grdimage yangmingShan.grd -R121.27/121.85/25.05/25.35 -JM13 -BWeSn -Ba ^
 -C%cpt% -P -Y21 -K > %ps%
 gmt pscoast -R -JM -Df -W1 -S34/201/237 -K -O >> %ps%
 gmt psscale -C%cpt% -Dx14/0+w7/.5+e -Ba100+l"Elevation (m)" -K -O >> %ps%
 echo 121.3 25.32 1. | gmt pstext -R -JM -F+f24p -G250 -K -O >> %ps%
 
-# discrete 0~1200 dem1.cpt
+# 2. discrete 0~1200 dem1.cpt
 makecpt -C%cpt% -T0/1200/100 > tmp.cpt
 gmt grdimage yangmingShan.grd -R121.27/121.85/25.05/25.35 -JM13 -BWeSn -Ba -Ctmp.cpt ^
 -M -Y-9 -K -O >> %ps%
@@ -139,7 +139,7 @@ gmt pscoast -R -JM -Df -W1 -S34/201/237 -K -O >> %ps%
 gmt psscale -Ctmp.cpt -Dx14/0+w7/.5 -Ba200+l"Elevation (m)" -M -K -O >> %ps%
 echo 121.3 25.32 2. | gmt pstext -R -JM -F+f24p -G250 -K -O >> %ps%
 
-# continuous 0~1200 dem1.cpt
+# 3. continuous 0~1200 dem1.cpt
 makecpt -C%cpt% -T0/1200/100 -Z > tmp.cpt
 gmt grdimage yangmingShan.grd -R121.27/121.85/25.05/25.35 -JM13 -BWeSn -Ba -Ctmp.cpt ^
 -Y-9 -K -O >> %ps%
@@ -153,9 +153,7 @@ del tmp*
 ```
 
 本節學習到的新指令:
-1. 使用dem1.cpt繪製地形圖。
-
-* `grdimage`投影網格或是影像(images)至地圖上:
+1. `grdimage`投影網格或是影像(images)至地圖上:
   * `-C`輸入色階檔。
   * `-M`黑白畫面!!
   * `psscale`繪製色彩條(color bar):
@@ -178,9 +176,7 @@ del tmp*
   * `-I`開啟照明效果。
   * `-M`轉成黑白模式。
   * `-S`取消自動區分不同顏色的黑線。
-
 2. 將色階檔範圍改成0至1200，間距100，變成離散的色階檔，加上`-M`讓地圖與色彩條都變成黑白模式。
-
 3. 將色階檔範圍改成0至1200，間距100，`-Z`變成連續的色階檔，`-I`開啟色彩條照明效果。
 
 第一張圖使用原始dem1.cpt的範圍只有到800公尺，而陽明山區域最高海拔可至約1110公尺，
