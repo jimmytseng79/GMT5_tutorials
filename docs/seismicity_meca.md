@@ -13,12 +13,27 @@
 ---
 
 ## 9. 地震活動性與機制解
+地震活動性是描述一段時間內，地震的空間分佈特性，包含其位置及深度，也紀錄地震強度的變化。
+震源機制解是描述地震發震機制的一種方式，地震的發生，是由於斷層發生錯動，而透過對地震訊號進行分析，
+從不同的測站得到地震波的方位角、入射角及初動的類型，把這些紀錄投影在大圓上，匯集資料得出震源機制解。
 
 ## 9.1 目的
+  1. 地震活動性(Seismicity)
+  2. 震源機制解(Focal Mechanism)
+  3. 地震剖面(Seismicity Profile)
 
 ## 9.2 學習的指令與概念
 
+* `gmtinfo`: 從表格資料中讀取資訊
+* `psmeca`: 繪製震源機制解
+* `psxy`: 繪製線、多邊形、符號
+* Windows中批次檔`batch`常用指令
+* `awk`語法的示範
+
 ## 9.3 地震活動性
+從[地球物理資料庫](http://gdms.cwb.gov.tw/index.php)下載2017台灣地區的地震目錄(catalog)，資料共4欄，
+分別是震央經度、震央緯度、深度、芮氏規模，透過GMT繪製地震活動性的地圖，
+來更加了解台灣的地震分佈與地體構造活動。
 
 使用的資料檔:
 - [2017地震活動性](dat/2017_catalog.gmt)
@@ -39,7 +54,7 @@ gmt gmtinfo 2017_catalog.gmt -i2 -T20 > tmp
 set /p cr=<tmp
 gmt makecpt -C%cpt% %cr% > tmp.cpt
 gmt psbasemap -R119/123/21/26 -JM15 -BwESn -Bxa -Bya -P -K > %ps%
-gmt pscoast -R -JM -Df -W1 -S203/211/235 -G230 -P -K -O >> %ps%
+gmt pscoast -R -JM -Df -W1 -S203/211/235 -G230 -K -O >> %ps%
 awk "{print $1,$2,$3,exp($4)*0.002}" 2017_catalog.gmt | ^
 gmt psxy -R -JM -Ctmp.cpt -Sc -K -O >> %ps%
 
@@ -83,9 +98,12 @@ gmt psconvert %ps% -Tg -A -P
 del tmp
 ```
 
-## 9.4 
+## 9.4 震源機制解
+- [BATS](http://tecws.earth.sinica.edu.tw/BATS/cmtbyform.php)，由中研院管理，提供台灣地震的震源機制解。
+- [Global CMT](http://www.globalcmt.org/CMTsearch.html)，由Lamont-Doherty Earth Observatory (LDEO) of Columbia University開發，
+提供全球的震源機制解。
 
-## 9.5 
+## 9.5 地震剖面
 
 ## 9.6 習題
 
