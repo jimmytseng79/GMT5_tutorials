@@ -227,10 +227,10 @@ echo %A_lon1% %A_lat1% > tmp
 echo %A_lon2% %A_lat2% >> tmp
 gmt psxy tmp -R -JM -W2,238/91/78 -K -O >> %ps%
 echo %A_lon1% %A_lat1% A > tmp
-gmt psxy tmp -R -JM -Sc.8 -G238/91/78 -W1 -K -O >> %ps% 
+gmt psxy tmp -R -JM -Sc.8 -G238/91/78 -W1 -K -O >> %ps%
 gmt pstext tmp -R -JM -F+f16p,0,blue -K -O >> %ps%
 echo %A_lon2% %A_lat2% A' > tmp
-gmt psxy tmp -R -JM -Sc.8 -G238/91/78 -W1 -K -O >> %ps% 
+gmt psxy tmp -R -JM -Sc.8 -G238/91/78 -W1 -K -O >> %ps%
 gmt pstext tmp -R -JM -F+f16p,0,blue -K -O >> %ps%
 
 # 4. BB' line
@@ -238,10 +238,10 @@ echo %B_lon1% %B_lat1% > tmp
 echo %B_lon2% %B_lat2% >> tmp
 gmt psxy tmp -R -JM -W2,234/235/128 -K -O >> %ps%
 echo %B_lon1% %B_lat1% B > tmp
-gmt psxy tmp -R -JM -Sc.8 -G234/235/128 -W1 -K -O >> %ps% 
+gmt psxy tmp -R -JM -Sc.8 -G234/235/128 -W1 -K -O >> %ps%
 gmt pstext tmp -R -JM -F+f16p -K -O >> %ps%
 echo %B_lon2% %B_lat2% B' > tmp
-gmt psxy tmp -R -JM -Sc.8 -G234/235/128 -W1 -K -O >> %ps% 
+gmt psxy tmp -R -JM -Sc.8 -G234/235/128 -W1 -K -O >> %ps%
 gmt pstext tmp -R -JM -F+f16p -K -O >> %ps%
 
 # 5. thumbnail map
@@ -311,17 +311,16 @@ del tmp*
     * `-E`輸出最大或最小值:
       * **i**最小值；**I**絕對值後的最小值
       * **h**最大值；**H**絕對值後的最大值
-      * `-I`類似四捨五入的方式取`-R`需要的範圍，給定x軸/y軸取捨的標準，1表示個位數，10表示10位數等等。
+    * `-I`類似四捨五入的方式取`-R`需要的範圍，給定x軸/y軸取捨的標準，1表示個位數，10表示10位數等等。
     * `-i`選擇輸入的欄位，0表示第一欄
     * `-o`選擇輸出的欄位，0表示第一欄
-  * 透過`gmtinfo`輸出範圍訊息至暫存檔(tmp1)，接著使用`set /p pr=<tmp1`將範圍訊息設為變數**pr**。
-  * `sed`資料處理工具，
-  詳細介紹請參考[鳥哥的Linux私房菜](http://linux.vbird.org/linux_basic/0330regularex.php#sed)。
+  * 透過`gmtinfo`輸出範圍訊息至暫存檔(tmp1)，接著使用`set /p pr=<tmp1`將範圍訊息設為變數**pr**使用。
+  * `sed`資料處理工具，詳細介紹請參考[鳥哥的Linux私房菜](http://linux.vbird.org/linux_basic/0330regularex.php#sed)。
     * **-i**: 直接修改讀取的檔案內容
     * **a**: 插入字串在目前的下一行
-    * **i**: 插入字串在目前的上一行
-  **$**符號表示行尾，以及最後一行中的*符號，用來表示任意一個字元與重覆字元，
-  都可以從鳥哥對正規表示法(Regular Expression)的介紹中學習。
+    * **i**: 插入字串在目前的上一行**$**符號表示行尾，
+    以及最後一行中的*符號，用來表示任意一個字元與重覆字元，
+    都可以從鳥哥對正規表示法(Regular Expression)的介紹中學習。
   * `--FONT_TITLE`改變標題的文字屬性
 7. 同6，換成BB`剖面。
 
