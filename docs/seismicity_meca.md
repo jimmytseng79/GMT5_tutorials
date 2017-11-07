@@ -145,24 +145,61 @@ del tmp*
     * 可在長度後增加`[+f][+l][+u]`等等，也可增加`-F`、`-R`等等參數，可參考`psbasemap`模組。
   * `L`增加指令的文字。格式為`L 字體大小 字體 對齊方式 文字`
 
-之前在畫地形圖的時後有提到如何在二維的平面上表現三維的資料，有提到顏色可以做為第三維度的呈現方式，
-這邊示範了利用圖案的大小，來呈現第四維度的變化，所以當`psxy`在給定`-C`及`-S`時後，
-會分別對應到資料檔的第三及第四欄，依照數值的大小去做變化。
+之前在畫地形圖的時後有提到如何在二維的平面上表現三維的資料，
+有提到顏色可以做為第三維度的呈現方式，這邊示範了利用圖案的大小，來呈現第四維度的變化，
+所以當`psxy`在給定`-C`及`-S`時後，會分別對應到資料檔的第三及第四欄，
+依照數值的大小去做變化。
 
-從圖中來看，台灣的地震主要分佈分成四塊(Wu and Chen, 2007[^1])，A表示西部地震帶，
-位在歐亞大陸版塊上，多數發生在此地區的地震，是受到活動斷層影響；B是西南部地震帶，
-本區大部份位在南中國海板塊上，是四個區塊中，地震活動性最少的；C代表東北部地震帶，
-包含了琉球隱沒帶及沖繩海溝，許多規模較大、深度較深的隱沒帶地震發生於此區，
-並有一些火山活動；D是東南部地震帶，受到歐亞板塊與菲律賓海板塊碰撞，
-造成大量的地震發生，不乏一些規模大於5的地震。
+從圖中來看，台灣的地震主要分佈分成四塊(<mark>Wu and Chen, 2007</mark>[^1])，
+A表示西部地震帶，位在歐亞大陸版塊上，多數發生在此地區的地震，是受到活動斷層影響；
+B是西南部地震帶，本區大部份位在南中國海板塊上，是四個區塊中，地震活動性最少的；
+C代表東北部地震帶，包含了琉球隱沒帶及沖繩海溝，許多規模較大、
+深度較深的隱沒帶地震發生於此區，並有一些火山活動；D是東南部地震帶，
+受到歐亞板塊與菲律賓海板塊碰撞，造成大量的地震發生，不乏一些規模大於5的地震。
 
-[^1]: Seismic reversal pattern for the 1999 Chi-Chi, Taiwan, Mw 7.6 earthquake
-(Y.M. Wu and C.C. Chen, 2007)
+[^1]: Seismic reversal pattern for the 1999 Chi-Chi, Taiwan, Mw 7.6 earthquake (Y.M. Wu and C.C. Chen, 2007)
 
 ## 9.4 震源機制解
-- [BATS](http://tecws.earth.sinica.edu.tw/BATS/cmtbyform.php)，由中研院管理，提供台灣地震的震源機制解。
-- [Global CMT](http://www.globalcmt.org/CMTsearch.html)，由Lamont-Doherty Earth Observatory (LDEO) of Columbia University開發，
+本節將示範如何將震源機制解運用海灘球(beach ball)圖示，來表示不同的斷層形態，
+並將台灣幾個較著名的災害性地震的機制解繪製出來，首先提供可以下載機制解的網頁，如下:
+- [BATS](http://tecws.earth.sinica.edu.tw/BATS/cmtbyform.php)，由中研院管理，
+提供台灣地震的震源機制解。
+- [Global CMT](http://www.globalcmt.org/CMTsearch.html)，
+由Lamont-Doherty Earth Observatory (LDEO) of Columbia University開發，
 提供全球的震源機制解。
+
+成果圖
+<p align="center">
+  <img src="fig/9_4_focal_mechanism_1.png"/>
+</p>
+
+在繪製震源機制解時，有幾種檔案格式會被提到，`-Sa`用Aki and Richards制訂的震源機制格式，
+`-Sc`Harvard CMT定義的格式等等，會在接下來詳細介紹，而上圖是利用`-Sa`完成的，
+會需要斷層的三個參數，走向(strike)、傾角(dip)、滑移角(rake)，
+而各形態的斷層分類是依據滑移角的角度，其參考表格(Cronin, 2004[^2])如下:
+
+|Rake of Slip (degree)|Fault Type                   |
+|:-------------------:|-----------------------------|
+|0 or 180             |pure strike-slip             |
+|90                   |pure dip-slip reverse        |
+|-90                  |pure dip-slip normal         |
+|-20 to 20            |left-lateral strike-slip     |
+|20 to 70             |reverse left-lateral oblique |
+|70 to 110            |reverse                      |
+|110 to 160           |reverse right-lateral oblique|
+|-160 to 160          |right-lateral strike-slip    |   
+|-110 to -160         |normal right-lateral oblique |
+|-70 to -110          |normal                       |      
+|-20 to -70           |normal left-lateral oblique  |
+
+[^2]: A draft primer on focal mechanism solutions for geologists (V. Cronin, 2004)
+
+接下來，將利用上述分類模式，將走向滑移斷層(圖中第一列)用黃色表示；
+逆斷層(圖中第二列)用紅色表示；正斷層(圖中第三列)用藍色表示，繪製由<mark>BATS</mark>提供
+1996~2017台灣地區規模大於5的震源機制解，並將幾個著名災害性地震標示出來。
+
+使用的資料檔:
+- [台灣震源機制解](dat/focal_mechanism.gmt)
 
 ## 9.5 地震剖面
 
