@@ -69,7 +69,29 @@ for /f %%i in ('awk "{print exp($1)*0.002}" tmp') do (
 )
 set var
 
-# 3. legend set
+# 3. boundary of four seismic zones
+echo 119.0 22.8 > tmp
+echo 120.8 22.8 >> tmp
+echo ^> >> tmp
+echo 120.8 21.0 >> tmp
+echo 120.8 22.8 >> tmp
+echo ^> >> tmp
+echo 120.8 22.8 >> tmp
+echo 121.5 24.2 >> tmp
+echo ^> >> tmp
+echo 121.5 26.0 >> tmp
+echo 121.5 24.2 >> tmp
+echo ^> >> tmp
+echo 123.0 23.3 >> tmp
+echo 121.5 24.2 >> tmp
+echo ^> >> tmp
+gmt psxy tmp -R -JM -W1 -K -O >> %ps%
+echo 119.8 23.8 A | gmt pstext -R -JM -F+f40p,2 -K -O >> %ps%
+echo 119.8 22.1 B | gmt pstext -R -JM -F+f40p,2 -K -O >> %ps%
+echo 122.3 25.3 C | gmt pstext -R -JM -F+f40p,2 -K -O >> %ps%
+echo 122.3 22.1 D | gmt pstext -R -JM -F+f40p,2 -K -O >> %ps%
+
+# 4. legend set
 echo H 18 1 Legend > tmp
 echo D 0.4 1p >> tmp
 echo G .7 >> tmp
@@ -95,10 +117,47 @@ gmt pslegend tmp -R -JM -C.1/.1 -Dx.1/14+w5 -F+g245+p1+s4p/-4p/gray50 ^
 
 gmt psxy -R -JM -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
-del tmp
+del tmp*
 ```
 學習到的指令:
-* `makecpt`:
+
+<mark>1</mark>繪製地震活動性底圖
+* `gmtinfo`讀取第三欄(深度)做色階的範圍。
+  * `-T`間隔，輸出成<mark>-Tz軸最小/z軸最大/z間隔<mark>。
+* `awk`將第四欄(規模)透過exp()做指數函數運算。
+* `psxy`利用`-C`色階檔，將依照第三欄(深度)做顏色的變化；
+`-Sc`在不給數值的情況下，將會讀取第四欄(規模)做圖形大小的變化。
+
+<mark>2</mark>利用迴圈設定1~7規模轉換數值後的變數
+* `echo 1 > tmp`及`for /l..`製造1~7的tmp暫存檔。
+* `awk`tmp暫存檔做規模數值轉換。
+* `set var!vidx!=%%i`迴圈設定變數。
+
+<mark>3</mark>繪製地震分區邊界
+* `echo ^> >> tmp`要把<mark>></mark>加入暫存檔中，需要多加上<mark>^</mark>符號，
+將<mark>></mark>從特殊字元轉為一般字元。
+
+<mark>4</mark>製作圖例說明
+* `pslegend`
+  * `B`繪製色彩條。格式為`B cpt檔 兩邊間隔 色彩條高度`。
+    * 可在高度後增加`[+e][+h][+m]`等等，也可增加`-B`、`-I`等等參數，可參考`psscale`模組。
+  * `M`繪製比例尺。格式為`M 經度 緯度 長度`。
+    * 可在長度後增加`[+f][+l][+u]`等等，也可增加`-F`、`-R`等等參數，可參考`psbasemap`模組。
+  * `L`增加指令的文字。格式為`L 字體大小 字體 對齊方式 文字`
+
+之前在畫地形圖的時後有提到如何在二維的平面上表現三維的資料，有提到顏色可以做為第三維度的呈現方式，
+這邊示範了利用圖案的大小，來呈現第四維度的變化，所以當`psxy`在給定`-C`及`-S`時後，
+會分別對應到資料檔的第三及第四欄，依照數值的大小去做變化。
+
+從圖中來看，台灣的地震主要分佈分成四塊(Wu and Chen, 2007[^1])，A表示西部地震帶，
+位在歐亞大陸版塊上，多數發生在此地區的地震，是受到活動斷層影響；B是西南部地震帶，
+本區大部份位在南中國海板塊上，是四個區塊中，地震活動性最少的；C代表東北部地震帶，
+包含了琉球隱沒帶及沖繩海溝，許多規模較大、深度較深的隱沒帶地震發生於此區，
+並有一些火山活動；D是東南部地震帶，受到歐亞板塊與菲律賓海板塊碰撞，
+造成大量的地震發生，不乏一些規模大於5的地震。
+
+[^1]: Seismic reversal pattern for the 1999 Chi-Chi, Taiwan, Mw 7.6 earthquake
+(Y.M. Wu and C.C. Chen, 2007)
 
 ## 9.4 震源機制解
 - [BATS](http://tecws.earth.sinica.edu.tw/BATS/cmtbyform.php)，由中研院管理，提供台灣地震的震源機制解。
@@ -116,3 +175,7 @@ del tmp
 ---
 
 [上一章](/topography_cpt.md) -- [下一章](/seismicity_histo.md)
+
+---
+
+### 註腳

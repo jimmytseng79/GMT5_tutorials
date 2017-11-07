@@ -30,7 +30,7 @@
 * `grdimage`: 繪製色階地圖
 * `grdinfo`: 從網格檔中獲取資訊
 * `grd2cpt`: 利用網格檔資料建立色階檔
-* `psscale`: 繪製色階
+* `psscale`: 繪製色彩條
 * `makecpt`: 製作色階檔
 
 ## 8.3 簡介色階檔

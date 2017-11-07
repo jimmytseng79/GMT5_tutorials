@@ -110,7 +110,7 @@ del area
 
 |Style |    |
 |:----:|----|
-|-     |dash| 
+|-     |dash|
 |.     |dot |
 |-.    |dash-dot|
 |..-   |dot-dot-dash|
@@ -119,7 +119,7 @@ del area
 * 第21~26行: 繪製圖例框，`echo`四個點時，編者習慣逆時針編輯點位置。
 在`psxy`之中，`-L`強制關閉多邊形
 * 第28行: `pstext`書寫圖例說明，吃的輸入檔格式為<mark>x軸位置 y軸位置 書寫的字</mark>。細部選項有:
-  * `-F`: 
+  * `-F`:
     * **+a**改變字的角度
     * **+f**字大小,字體,顏色
     * **+j**對齊模式，可參考[4-4字的對齊模式](basic_defaults.md#m4.4j)
@@ -195,7 +195,7 @@ gmt psconvert %ps% -Tg -A -P
 del tmp
 ```
 
-成果圖右側參考==Ansfield_1992==[^1]。本節學習的新指令:
+成果圖右側參考<mark>Ansfield_1992</mark>[^1]。本節學習的新指令:
 * 第4~5行: `-JX9/15l`會將y軸設定以10次方倍為一個區間的線性軸，
 `-By`之中<mark>a1p</mark>是將y軸的註解(tick markes or annotation)變成10次方表示；
 <mark>f3</mark>當-JX設定為l時，次要刻度有兩種選項，2以線性畫刻度，3以次方倍畫刻度。
@@ -318,7 +318,7 @@ echo -90 1 1 m/s > tmp
 echo -90 2 2 m/s >> tmp
 echo -90 3 3 m/s >> tmp
 echo -90 4 4 m/s >> tmp
-gmt pstext tmp -R -JP -F+f14p -G230 -K -O >> %ps% 
+gmt pstext tmp -R -JP -F+f14p -G230 -K -O >> %ps%
 
 # legend set
 echo H 24 Times-Roman Legend > tmp
