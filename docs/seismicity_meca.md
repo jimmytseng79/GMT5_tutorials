@@ -261,21 +261,21 @@ del tmp*
 * `psmeca`繪製震源機制解。
   * `-S`指定機制解的格式。用法為`-S資料格式尺寸/字大小/字與海灘球的間距`。
     * `-Sa`Aki and Richards制訂的格式，輸入的資料格式為
-    `震央經度 震央緯度 深度 走向 傾角 滑移角 規模 圖案經度 圖案緯度 標題`，
+    <mark>震央經度 震央緯度 深度 走向 傾角 滑移角 規模 圖案經度 圖案緯度 標題</mark>，
     圖案經度及緯度表示海灘球放置的位置。
     * `-Sc`Harvard CMT定義的格式，輸入的資料格式為
-    `震央經度 震央緯度 深度 走向1 傾角1 滑移角1 走向2 傾角2 滑移角2 地震矩張量尾數
-    地震矩張量指數 圖案經度 圖案緯度 標題`，假設地震矩張量9.21e26 dyne-cm，
+    <mark>震央經度 震央緯度 深度 走向1 傾角1 滑移角1 走向2 傾角2 滑移角2 地震矩張量尾數
+    地震矩張量指數 圖案經度 圖案緯度 標題</mark>，假設地震矩張量9.21e26 dyne-cm，
     則尾數為9.21、指數為26。
     * `-Sm|d|z`跡數為0的地震矩張量(Seismic moment tensor with zero trace)，
-    輸入的資料格式為，`震央經度 震央緯度 深度 mrr mtt mff mrt mrf mtf
-    地震矩張量指數 圖案經度 圖案緯度 標題`，**m**只繪製跡數，**d**只繪製雙力偶的部份，
+    輸入的資料格式為，<mark>震央經度 震央緯度 深度 mrr mtt mff mrt mrf mtf
+    地震矩張量指數 圖案經度 圖案緯度 標題</mark>，**m**只繪製跡數，**d**只繪製雙力偶的部份，
     **z**只繪製異相性部份。
     * `-Sp`由兩組斷層面所組成，輸入的資料格式為
-    `震央經度 震央緯度 深度 走向1 傾角1 走向2 傾角2 斷層種類 規模 圖案經度 圖案緯度 標題`，
+    <mark>震央經度 震央緯度 深度 走向1 傾角1 走向2 傾角2 斷層種類 規模 圖案經度 圖案緯度 標題</mark>，
     斷層種類分成正斷層(-1)及逆斷層(1)。
     * `-Sx`由座標軸來定義，即使用T, N, P軸，輸入的資料格式為
-    `震央經度 震央緯度 深度 T軸大小 T軸角度(azimuth) T軸傾沒角(plunge) N軸大小 N軸角度 N軸傾沒角(plunge) P軸大小 P軸角度 P軸傾沒角 地震矩張量指數 圖案經度 圖案緯度 標題`。
+    <mark>震央經度 震央緯度 深度 T軸大小 T軸角度(azimuth) T軸傾沒角(plunge) N軸大小 N軸角度 N軸傾沒角(plunge) P軸大小 P軸角度 P軸傾沒角 地震矩張量指數 圖案經度 圖案緯度 標題</mark>。
   * `-C`線的屬性P圓的大小，繪製震央經緯度及圖案經緯度的連線及震央圓點。
   * `-D`深度最小值/深度最大值，限制震源深度的範圍。
   * `-E`顏色，海灘球伸張部份的顏色，默認值是白色。
@@ -296,7 +296,91 @@ del tmp*
 
 ## 9.5 地震剖面
 
+成果圖
+<p align="center">
+  <img src="fig/9_5_focal_profile_1.png"/>
+</p>
 
+批次檔
+```bash
+set ps=9_5_focal_profile.ps
+set data=D:\GMT_data\
+set cpt=seis.cpt
+set lon1=122.3
+set lat1=25.3
+set lon2=121.1
+set lat2=21.6
+set width1=20
+set width2=20
+
+# 1. focal meca basemap
+gmt psbasemap -R119/123/21/26 -JM10 -BWeSN -Bxa -Bya -K > %ps%
+gmt grdimage %data%ETOPO1_Bed_g_gmt5.grd -R -JM -Cgebco.cpt ^
+-I%data%ETOPO1_Bed_g_gmt5_shad.grd -M -K -O >> %ps%
+gmt pscoast -R -JM -Df -W1 -K -O >> %ps%
+gmt pscoast -R -JM -Df -Gc -K -O >> %ps%
+gmt grdimage %data%tw_40.grd -R -JM -Cgebco.cpt ^
+-I%data%tw_40shad.grd -M -K -O >> %ps%
+gmt pscoast -R -JM -Df -Q -K -O >> %ps%
+gmt gmtinfo 2017_catalog.gmt -i2 -T20 > tmp
+set /p cr=<tmp
+gmt makecpt -C%cpt% %cr% > tmp.cpt
+awk "{print $1,$2,$3,exp($4)*0.002}" 2017_catalog.gmt | ^
+gmt psxy -R -JM -Ctmp.cpt -Sc -K -O >> %ps%
+awk "{print $1,$2,$3,$4,$5,$6,$7,$8,$9}" focal_mechanism.gmt | ^
+gmt psmeca -R -JM -Sa.5 -Ggray -K -O >> %ps%
+
+# 2. convert km to degree
+echo %width1% 110.4 | awk "{print $1/$2}" > tmp
+set /p wid1=<tmp
+echo %width2% 110.4 | awk "{print $1/$2}" > tmp
+set /p wid2=<tmp
+
+# 3. cross area
+gmt project 2017_catalog.gmt -C%lon1%/%lat1% -E%lon2%/%lat2% ^
+-W-%wid1%/%wid2% > catalog_profile.gmt
+gmt project focal_mechanism.gmt -C%lon1%/%lat1% -E%lon2%/%lat2% ^
+-W-%wid1%/%wid2% > focal_profile.gmt
+# left-lateral strike-slip
+awk "{if ($6>=-20 && $6<20) print $1,$2,$3,$4,$5,$6,$7,$8,$9}" focal_profile.gmt | ^
+gmt psmeca -R -JM -Sa.5 -Gyellow -K -O >> %ps%
+# right-lateral strike-slip
+awk "{if ($$6>=160 || 6<-160) print $1,$2,$3,$4,$5,$6,$7,$8,$9}" focal_profile.gmt | ^
+gmt psmeca -R -JM -Sa.5 -Gyellow -K -O >> %ps%
+# reverse fault
+awk "{if ($6>=20 && $6<160) print $1,$2,$3,$4,$5,$6,$7,$8,$9}" focal_profile.gmt | ^
+gmt psmeca -R -JM -Sa.5 -Gred -K -O >> %ps%
+# normal fault
+awk "{if ($6>=-160 && $6<-20) print $1,$2,$3,$4,$5,$6,$7,$8,$9}" focal_profile.gmt | ^
+gmt psmeca -R -JM -Sa.5 -Gblue -K -O >> %ps%
+echo %lon1% %lat1% > tmp
+echo %lon2% %lat2% >> tmp
+gmt psxy tmp -R -JM -W3 -K -O >> %ps%
+echo %lon1% %lat1% A | gmt pstext -R -JM -F+f16p,1,darkgreen -G230 -K -O >> %ps%
+echo %lon2% %lat2% A'| gmt pstext -R -JM -F+f16p,1,darkgreen -G230 -K -O >> %ps%
+
+echo 120.4 25.6 Profile Width: %width1%/%width2% km | ^
+gmt pstext -R -JM -F+14p,1+jML -K -O >> %ps%
+
+# 4. seismicity profile
+gmt psbasemap -R0/100/21/26 -JX6/13.56 -BwESn -Bxa+l"Depth (km)" ^
+-Bya+l"Latitude (degree)" -X11 -K -O >> %ps%
+awk "{print $3,$2,$3,exp($4)*0.002}" catalog_profile.gmt | ^
+gmt psxy -R -JX -Ctmp.cpt -Sc -K -O >> %ps%
+awk "{if ($6>=-20 && $6<20) print $3,$2,$3,$4,$5,$6,$7,$8,$9}" focal_profile.gmt | ^
+gmt psmeca -R -JX -Sa.5 -Gyellow -K -O >> %ps%
+awk "{if ($$6>=160 || 6<-160) print $3,$2,$3,$4,$5,$6,$7,$8,$9}" focal_profile.gmt | ^
+gmt psmeca -R -JX -Sa.5 -Gyellow -K -O >> %ps%
+awk "{if ($6>=20 && $6<160) print $3,$2,$3,$4,$5,$6,$7,$8,$9}" focal_profile.gmt | ^
+gmt psmeca -R -JX -Sa.5 -Gred -K -O >> %ps%
+awk "{if ($6>=-160 && $6<-20) print $3,$2,$3,$4,$5,$6,$7,$8,$9}" focal_profile.gmt | ^
+gmt psmeca -R -JX -Sa.5 -Gblue -K -O >> %ps%
+echo 5 25.8 AA' Profile | gmt pstext -R -JX -F+f16p,1+jML -K -O >> %ps%
+
+gmt psxy -R -J -T -O >> %ps%
+gmt psconvert %ps% -Tg -A -P
+del tmp*
+```
 
 ## 9.6 習題
 
