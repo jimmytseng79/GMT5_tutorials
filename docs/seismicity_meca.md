@@ -216,16 +216,16 @@ gmt psbasemap -R119/123/21/26 -JM15 -BWeSn -Bxa -Bya -P -K > %ps%
 gmt grdimage %data%ETOPO1_Bed_g_gmt5.grd -R -JM -Cgebco.cpt ^
 -I%data%ETOPO1_Bed_g_gmt5_shad.grd -K -O >> %ps%
 gmt pscoast -R -JM -Df -W1 -G230 -K -O >> %ps%
-rem left-lateral strike-slip
+# left-lateral strike-slip
 awk "{if ($6>=-20 && $6<20) print $1,$2,$3,$4,$5,$6,$7,$8,$9}" focal_mechanism.gmt | ^
 gmt psmeca -R -JM -Sa.5 -Gyellow -K -O >> %ps%
-rem right-lateral strike-slip
+# right-lateral strike-slip
 awk "{if ($$6>=160 || 6<-160) print $1,$2,$3,$4,$5,$6,$7,$8,$9}" focal_mechanism.gmt | ^
 gmt psmeca -R -JM -Sa.5 -Gyellow -K -O >> %ps%
-rem reverse fault
+# reverse fault
 awk "{if ($6>=20 && $6<160) print $1,$2,$3,$4,$5,$6,$7,$8,$9}" focal_mechanism.gmt | ^
 gmt psmeca -R -JM -Sa.5 -Gred -K -O >> %ps%
-rem normal fault
+# normal fault
 awk "{if ($6>=-160 && $6<-20) print $1,$2,$3,$4,$5,$6,$7,$8,$9}" focal_mechanism.gmt | ^
 gmt psmeca -R -JM -Sa.5 -Gblue -K -O >> %ps%
 
@@ -258,8 +258,45 @@ del tmp*
 學習到的指令:
 
 <mark>1</mark>繪製機制解底圖
+* `psmeca`繪製震源機制解。
+  * `-S`指定機制解的格式。用法為`-S資料格式尺寸/字大小/字與海灘球的間距`。
+    * `-Sa`Aki and Richards制訂的格式，輸入的資料格式為
+    `震央經度 震央緯度 深度 走向 傾角 滑移角 規模 圖案經度 圖案緯度 標題`，
+    圖案經度及緯度表示海灘球放置的位置。
+    * `-Sc`Harvard CMT定義的格式，輸入的資料格式為
+    `震央經度 震央緯度 深度 走向1 傾角1 滑移角1 走向2 傾角2 滑移角2 地震矩張量尾數
+    地震矩張量指數 圖案經度 圖案緯度 標題`，假設地震矩張量9.21e26 dyne-cm，
+    則尾數為9.21、指數為26。
+    * `-Sm|d|z`跡數為0的地震矩張量(Seismic moment tensor with zero trace)，
+    輸入的資料格式為，`震央經度 震央緯度 深度 mrr mtt mff mrt mrf mtf
+    地震矩張量指數 圖案經度 圖案緯度 標題`，**m**只繪製跡數，**d**只繪製雙力偶的部份，
+    **z**只繪製異相性部份。
+    * `-Sp`由兩組斷層面所組成，輸入的資料格式為
+    `震央經度 震央緯度 深度 走向1 傾角1 走向2 傾角2 斷層種類 規模 圖案經度 圖案緯度 標題`，
+    斷層種類分成正斷層(-1)及逆斷層(1)。
+    * `-Sx`由座標軸來定義，即使用T, N, P軸，輸入的資料格式為
+    `震央經度 震央緯度 深度 T軸大小 T軸角度(azimuth) T軸傾沒角(plunge) N軸大小 N軸角度 N軸傾沒角(plunge) P軸大小 P軸角度 P軸傾沒角 地震矩張量指數 圖案經度 圖案緯度 標題`。
+  * `-C`線的屬性P圓的大小，繪製震央經緯度及圖案經緯度的連線及震央圓點。
+  * `-D`深度最小值/深度最大值，限制震源深度的範圍。
+  * `-E`顏色，海灘球伸張部份的顏色，默認值是白色。
+  * `-G`顏色，海灘球壓縮部份的顏色，默認值是黑色。
+  * `-L`線的屬性，海灘球外部輪廓線。
+  * `-M`統一海灘球的大小，由`-S`中尺寸來決定。
+  * `-N`可以繪製超出`-R`的範圍外。
+  * `-W`線的屬性，設定所有線條及標題的顏色。
+  * `-Z`色階檔，指定深度變化的色階檔，繪製在壓縮部份。
+
+<mark>2</mark>將幾個災害性地震的機制解放大後，放置在最上方。
+
+<mark>3</mark>繪製三種斷層形態的圖例。
+
+一般來說上，聚合型版塊邊界，以逆斷層地震為主，所以在菲律賓海板塊隱沒至歐亞大陸板塊的地區，
+以及琉球隱沒帶，有一大群逆斷層型態的地震。而在宜蘭外海附近，由於弧後張裂的作用，
+可以觀察到一系列正斷層型態的地震。
 
 ## 9.5 地震剖面
+
+
 
 ## 9.6 習題
 
