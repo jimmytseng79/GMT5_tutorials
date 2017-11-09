@@ -25,6 +25,7 @@
 ## 9.2 學習的指令與概念
 
 * `gmtinfo`: 從表格資料中讀取資訊
+* `project`: 將表格資料投影到一條線上、大圓上、別的座標系上。
 * `psmeca`: 繪製震源機制解
 * `psxy`: 繪製線、多邊形、符號
 * Windows中批次檔`batch`常用指令
@@ -313,7 +314,7 @@ set lat2=21.6
 set width1=20
 set width2=20
 
-# 1. focal meca basemap
+# 1. focal meca and seismicity basemap
 gmt psbasemap -R119/123/21/26 -JM10 -BWeSN -Bxa -Bya -K > %ps%
 gmt grdimage %data%ETOPO1_Bed_g_gmt5.grd -R -JM -Cgebco.cpt ^
 -I%data%ETOPO1_Bed_g_gmt5_shad.grd -M -K -O >> %ps%
@@ -381,6 +382,27 @@ gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp*
 ```
+學習到的指令:
+
+<mark>1</mark>繪製地震活動性及機制解底圖，利用前兩節與地形圖學到的方法，
+製作底圖。
+
+<mark>2</mark>將寬度單位從公里，轉為度，假設1度=110.4公里。
+
+<mark>3</mark>假設起始點、結束點及寬度，繪製橫截面區域。
+* `project`將地震點及海灘球投影至剖面線上，部份選項以在第三章中介紹，故不重覆說明。
+  * `-L`長度最小值/長度最大值，從起點開始算起的長度，
+  限制多少長度之間的數據，會被投影到線上。
+  * `-S`按照投影後的點位增序排序。
+  * `-W`寬度最小值/寬度最大值，限制多少寬度內的數據會被投影至線上。
+* 利用`project`模組，將<mark>2017_catalog.gmt</mark>中的數據篩選後，投影至線上，
+並新增檔案<mark>catalog_profile.gmt</mark>來儲存，
+同理<mark>focal_mechanism.gmt</mark>。
+
+<mark>4</mark>深度剖面。製作深度/緯度的底圖，利用`awk`讀取篩選後的數據，繪製在剖面圖上。
+
+從剖面圖中可以清楚地觀察到，菲律賓海板塊隱沒至歐亞大陸板塊所造成的一系列地震，
+以及弧後張裂作用所發生的深度及正斷層型態的地震。
 
 ## 9.6 習題
 

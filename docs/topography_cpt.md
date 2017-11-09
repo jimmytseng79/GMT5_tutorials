@@ -295,7 +295,7 @@ grdgradient ETOPO1_Bed_g_gmt5.grd -Nt1 -A300 -GETOPO1_Bed_g_gmt5_shad.grd
 </p>
 
 ## 8.6 習題
-大西洋中羊脊從北緯87度延伸至南緯54度，在北大西洋的部份，分離了北美洲板塊與歐亞大陸板塊，屬張裂型板塊邊界，
+大西洋中洋脊從北緯87度延伸至南緯54度，在北大西洋的部份，分離了北美洲板塊與歐亞大陸板塊，屬張裂型板塊邊界，
 透過這章學到的技巧，來繪製一張北大西洋的中洋脊地形圖吧！
 
 範圍在<mark>-70/0/0/50</mark>，使用的色階檔[ibcao.cpt](http://soliton.vm.bytemark.co.uk/pub/cpt-city/ibcao/tn/ibcao.png.index.html)，
