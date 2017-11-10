@@ -9,6 +9,7 @@
 7. [第三章: 等高線圖及剖面](/contour_profile.md)
 8. [第四章: 地形圖與色階](/topography_cpt.md)
 9. [第五章: 地震活動性與機制解](/seismicity_meca.md)
+10. [第六章: 箭頭與速度場](/arrow_velocity.md)
 
 ---
 
@@ -68,12 +69,12 @@ GMT的安裝已經非常人性化了，官網也提供個平台的安裝教學�
 ```bash
 # by apt-get
 sudo apt-get install gmt gmt-dcw gmt-gshhg
-    
+
 # by source
 set (CMAKE_INSTALL_PREFIX /opt/gmt)
 set (GSHHG_ROOT <path to gshhg>)
 set (DCW_ROOT <path to dcw>)
-    
+
 cd <path to>/gmt5-dev
 mkdir build
 cd build
@@ -89,7 +90,7 @@ make install
 
 * <mark>DCW</mark>(**Digital Chart of the World**): 提供一些基本的向量形式資料，像是國界、
 人口密集地、道路、水文資料、地標、植被等等。
-* <mark>GSHHG</mark>(**Global Self-consistent, Hierarchical, High-resolution Geography**): 
+* <mark>GSHHG</mark>(**Global Self-consistent, Hierarchical, High-resolution Geography**):
 提供數種解析度的向量形式資料，像是海岸線、河湖水系、國界與州界等等。
 
 ---

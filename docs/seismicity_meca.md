@@ -9,6 +9,7 @@
 7. [第三章: 等高線圖及剖面](/contour_profile.md)
 8. [第四章: 地形圖與色階](/topography_cpt.md)
 9. [第五章: 地震活動性與機制解](/seismicity_meca.md)
+10. [第六章: 箭頭與速度場](/arrow_velocity.md)
 
 ---
 
@@ -428,7 +429,7 @@ del tmp*
 
 ---
 
-[上一章](/topography_cpt.md) -- [下一章](/seismicity_meca.md)
+[上一章](/topography_cpt.md) -- [下一章](/arrow_velocity.md)
 
 ---
 

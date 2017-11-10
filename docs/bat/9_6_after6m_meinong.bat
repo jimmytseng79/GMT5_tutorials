@@ -45,6 +45,8 @@ echo %lon1% %tmplat2% >> tmp
 echo %lon2% %tmplat2% >> tmp
 echo %lon2% %tmplat1% >> tmp
 gmt psxy tmp -R -JM -W1,- -L -K -O >> %ps%
+echo %lon1% %lat1% A | gmt pstext -R -JM -F+f14p,1,darkgreen -G230 -K -O >> %ps%
+echo %lon2% %lat2% A'| gmt pstext -R -JM -F+f14p,1,darkgreen -G230 -K -O >> %ps%
 
 rem 3. insert map
 gmt pscoast -R119.6/122.1/21.8/25.4 -JM2 -B0 -Df -G230 -S255 -W.5 ^

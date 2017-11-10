@@ -9,6 +9,7 @@
 7. [第三章: 等高線圖及剖面](/contour_profile.md)
 8. [第四章: 地形圖與色階](/topography_cpt.md)
 9. [第五章: 地震活動性與機制解](/seismicity_meca.md)
+10. [第六章: 箭頭與速度場](/arrow_velocity.md)
 
 ---
 
@@ -32,6 +33,7 @@
 * `grd2xyz`: 轉換網格檔至ascii檔案格式
 * `gmtinfo`: 從表格資料中讀取資訊
 * `project`: 將資料投影至線、大圓或轉換座標系
+* `psbasemap`: 繪製圖框、刻度、標籤等等
 * `pscoast`: 繪製海岸線
 * `xyz2grd`: 轉換ascii檔案格式至網格檔
 * `gdal_translate`轉檔程式
