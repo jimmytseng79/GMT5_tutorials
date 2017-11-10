@@ -39,14 +39,10 @@ echo %B_lon2% %B_lat2% B' > tmp
 gmt psxy tmp -R -JM -Sc.8 -G234/235/128 -W1 -K -O >> %ps% 
 gmt pstext tmp -R -JM -F+f16p -K -O >> %ps%
 
-rem 5. thumbnail map
+rem 5. insert map
 gmt pscoast -R119.9/122.1/21.8/25.4 -JM3 -Bwesn -Ba -Df -W1 -S255 -G230 ^
 -X7 -K -O --MAP_FRAME_TYPE=inside >> %ps%
-echo 121.33 23.55 > tmp
-echo 121.68 23.55 >> tmp
-echo 121.68 24.1 >> tmp
-echo 121.33 24.1 >> tmp
-gmt psxy tmp -R -JM -W2 -L -K -O >> %ps%
+gmt psbasemap -R -JM -D121.33/121.68/23.55/24.1 -F+p2 -K -O >> %ps%
 
 rem 6. AA' profile
 gmt project -C%A_lon1%/%A_lat1% -E%A_lon2%/%A_lat2% -G0.1 -Q | ^
@@ -73,6 +69,6 @@ sed -i '$a %B_lon2% %B_lat2% %md% 0' tmp
 awk "{print $3, $4}" tmp | gmt psxy %pr% -JX -W2 -G234/235/128 -Y9 -K -O >> %ps%
 gmt psbasemap -R -JX -BwESn+t"BB' Profile" -Bxa -Bya+l"Elevation (m)" -K -O >> %ps%
 
-gmt psxy -R -JX -T -O >> %ps%
+gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp*

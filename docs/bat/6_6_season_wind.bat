@@ -39,6 +39,6 @@ echo T and the blue points are in the winter (Dec., Jan., Feb.). >> tmp
 gmt pslegend tmp -R -JP -C.1/.1 -Dx18.5/5+w8 -F+g240+p1+s4p/-4p/gray50 ^
 --FONT_ANNOT_PRIMARY=16p -K -O >> %ps%
 
-gmt psxy -R -JX -T -O >> %ps%
+gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp

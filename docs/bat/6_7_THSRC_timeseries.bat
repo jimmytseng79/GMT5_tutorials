@@ -29,6 +29,6 @@ echo S .8 - 1 0 5,71/55/255 1.5 Passengers >> tmp
 gmt pslegend tmp -R -JX -C.1/.1 -Dx14.5/.5+w5 -F+g255+p1+s4p/-4p/gray50 ^
 --FONT_ANNOT_PRIMARY=14p -K -O >> %ps%
 
-gmt psxy -R -JX -T -O >> %ps%
+gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp

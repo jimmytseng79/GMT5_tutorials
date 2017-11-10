@@ -32,6 +32,6 @@ echo 7.5 8.9 A | gmt pstext -R -JX -F+f18p,2+jMR -K -O >> %ps%
 echo 7.4 8.7 GRAPHIC | gmt pstext -R -JX -F+f18p,2+jMR -K -O >> %ps%
 echo 7.3 8.5 REPRESENTATION | gmt pstext -R -JX -F+f18p,2+jMR -K -O >> %ps%
 
-gmt psxy -R -JX -T -O >> %ps%
+gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp

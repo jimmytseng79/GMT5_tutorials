@@ -19,6 +19,6 @@ for /f %%i in (^
 set var
 echo 1500 4e6 y=%var1%x%var2% | gmt pstext -R -JX -F+f16p+jML -G255 -K -O >> %ps%
 
-gmt psxy -R -JX -T -O >> %ps%
+gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp

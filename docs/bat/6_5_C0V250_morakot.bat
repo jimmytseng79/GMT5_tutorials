@@ -20,6 +20,6 @@ awk "{print $1,$3}" C0V250_rain.dat | gmt psxy -R2009-08-06T/2009-08-15T/0/2200 
 gmt psbasemap -R -JX -BESn -Bxa2D+l"Time (Year/Mon/Day)" ^
 -Bya400f200+l"Accumulated Rainfall (mm)" -K -O >> %ps%
 
-gmt psxy -R -JX -T -O >> %ps%
+gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del gmt.conf

@@ -25,6 +25,6 @@ gmt grdimage %data%tw_40.grd -R -JM -Ctmp.cpt -I%data%tw_40shad.grd -K -O >> %ps
 gmt pscoast -R -JM -Df -Q -K -O >> %ps%
 gmt psscale -Ctmp.cpt -Dx22.5/1.5+w10/.5+e+ml -Bxa500+l"Topography" -By+l"km" -K -O >> %ps%
 
-gmt psxy -R -JM -T -O >> %ps%
+gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp*

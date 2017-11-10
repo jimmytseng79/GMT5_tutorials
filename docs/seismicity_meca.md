@@ -405,14 +405,30 @@ del tmp*
 以及弧後張裂作用所發生的深度及正斷層型態的地震。
 
 ## 9.6 習題
+2016年2月6日上午3點57分26秒(UTC+8)發生芮氏規模6.6的美濃地震，造成117人死亡、551人受傷，
+此次習題將繪製出美濃地震發生後半年的餘震分佈以及地震剖面圖，
+並畫出[CWB](http://www.cwb.gov.tw/V7/earthquake/rtd_eq.htm)、BATS、GCMT
+三個不同的資料庫所提供的震源機制解。另外複習一下如何繪製高度剖面。
+
+範圍在<mark>119.8/121.1/22.3/23.6</mark>，剖面線經度為120.0至121.05，緯度定在22.93，
+寬度往北30km，往南20km。
+
+完成圖如下:
+<p align="center">
+  <img src="fig/9_6_after6m_meinong_1.png"/>
+</p>
 
 ## 9.7 參考批次檔
 列出本章節使用的批次檔，供讀者參考使用，檔案路經可能會有些許不同，再自行修改。
-
+* [9_3_seismicity](bat/9_3_seismicity.bat)
+* [9_4_focal_mechanism](bat/9_4_focal_mechanism.bat)
+* [9_4_taiwan_focal](bat/9_4_taiwan_focal.bat)
+* [9_5_focal_profile](bat/9_5_focal_profile.bat)
+* [9_6_after6m_meinong](bat/9_6_after6m_meinong.bat)
 
 ---
 
-[上一章](/topography_cpt.md) -- [下一章](/seismicity_histo.md)
+[上一章](/topography_cpt.md) -- [下一章](/seismicity_meca.md)
 
 ---
 

@@ -258,6 +258,7 @@ gmt psscale -Ctmp1.cpt -Dx16/4+w6/0.5+h+ml -Ba+l%name% -S -K -O ^
 gmt psscale -Ctmp2.cpt -Dx16/3.5+w6/0.5+h -Baf -K -O >> %ps%
 
 echo .2 .5 GMT Default Color Bar | gmt pstext -R0/1/0/1 -JX15/2 -F+f24p,1+jML -X3.6 -Y.3 -K -O >> %ps%
-gmt psxy -R -JX -T -O >> %ps%
+
+gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp* gmt.conf

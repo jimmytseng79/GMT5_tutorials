@@ -13,5 +13,5 @@ gmt grdcontour east_rift_valley.grd -R -JM -C250 -A1000+an+f12p+g255/153/199 ^
 -Gd15c -Wc.5,255/110/110 -Wa1,180/13/13 -Q180 -K -O >> %ps%
 gmt pscoast -R -JM -Q -K -O >> %ps%
 
-gmt psxy -R -JM -T -O >> %ps%
+gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P

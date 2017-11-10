@@ -249,14 +249,10 @@ echo %B_lon2% %B_lat2% B' > tmp
 gmt psxy tmp -R -JM -Sc.8 -G234/235/128 -W1 -K -O >> %ps%
 gmt pstext tmp -R -JM -F+f16p -K -O >> %ps%
 
-# 5. thumbnail map
+# 5. insert map
 gmt pscoast -R119.9/122.1/21.8/25.4 -JM3 -Bwesn -Ba -Df -W1 -S255 -G230 ^
 -X7 -K -O --MAP_FRAME_TYPE=inside >> %ps%
-echo 121.33 23.55 > tmp
-echo 121.68 23.55 >> tmp
-echo 121.68 24.1 >> tmp
-echo 121.33 24.1 >> tmp
-gmt psxy tmp -R -JM -W2 -L -K -O >> %ps%
+gmt psbasemap -R -JM -D121.33/121.68/23.55/24.1 -F+p2 -K -O >> %ps%
 
 # 6. AA' profile
 gmt project -C%A_lon1%/%A_lat1% -E%A_lon2%/%A_lat2% -G0.1 -Q | ^
@@ -300,6 +296,21 @@ del tmp*
 <mark>4</mark> 呼叫BB'線段經緯度，畫出線及加上註解。
 
 <mark>5</mark> 當在製作小區域地圖時，往往需要利用全區域的小張地圖來框繪出小區域的範圍。
+* `psbasemap`
+  * `-D`x軸最小/x軸最大/y軸最小/y軸最大。
+  * `-D`參考點模式，可參考[6-6](xy_figure.md#m6.6)。
+    * **+w**x軸寬度/y軸寬度，外框的寬度
+    * **+j**指定insert map的參考點
+    * **+o**x軸偏移量/y軸偏移量
+    * **+s**檔名，輸出左下角點位及長寬
+    * **+t**將繪圖原點改至insert map的左下角
+  * `-F`**d**、**l**、**t**，對應地圖邊界(`-D`)、比例尺(`-L`)、方向標(`-T`)，
+  默認值是三者設定。
+    * **+c**小圖與外框間隔
+    * **+g**填滿顏色
+    * **+p**外框線屬性
+    * **+r**圓角矩形外框
+    * **+s**加陰影
 
 <mark>6</mark> 製作AA'剖面:
 * `project`將表格式資料投影到一條線上、大圓上、別的座標系上，此區只介紹投影至線上。
