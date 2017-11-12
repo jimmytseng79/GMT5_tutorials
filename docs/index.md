@@ -39,7 +39,7 @@ GMT(Generic Mapping Tools)，是一款開放原始碼的製圖軟體，透過指
 
 * [GMT中文手冊](http://docs.gmt-china.org/index.html)
 * [GMT教學手冊](http://gmt-tutorials.org/)
-
+* [GMT模組手冊](http://modules.gmt-china.org/index.html)
 
 ---
 
