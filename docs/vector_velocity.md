@@ -206,7 +206,7 @@ del tmp*
 ```
 學習到的指令:
 
-*　`Surface`將xyz三欄的表格資料，
+* `Surface`將xyz三欄的表格資料，
 透過<mark>(1-T)*L(L(z))+T*L(z)<mark>運算式(<mark>Smith and Wessel, 1990</mark>[^1])，
 轉換成網格檔，其中T代表張量參數(Tension Factor)，L是拉普拉斯運算子(Laplacian Operator)。
   * `-G`輸出檔名。
@@ -224,7 +224,12 @@ del tmp*
 
 [^1]: Gridding with continuous curvature splines in tension (W.H.F. Smith and P. Wessel, 1990)
 
-## 10.5
+## 10.5 網格速度場
+
+成果圖
+<p align="center">
+  <img src="fig/10_5_grid_vector_1.png"/>
+</p>
 
 ## 10.6 習題
 
