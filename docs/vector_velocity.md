@@ -207,8 +207,8 @@ del tmp*
 學習到的指令:
 
 * `Surface`將xyz三欄的表格資料，
-透過<mark>(1-T)*L(L(z))+T*L(z)<mark>運算式(<mark>Smith and Wessel, 1990</mark>[^1])，
-轉換成網格檔，其中T代表張量參數(Tension Factor)，L是拉普拉斯運算子(Laplacian Operator)。
+透過<mark>(1-T)*L(L(z))+T*L(z)<mark>運算式，轉換成網格檔，
+其中T代表張量參數(Tension Factor)，L是拉普拉斯運算子(Laplacian Operator)。
   * `-G`輸出檔名。
   * `-I`x軸網格間距[單位]/y軸間距[單位]。
   * `-R`x軸最小範圍/x軸最大範圍/y軸最小範圍/y軸最大範圍。
@@ -221,6 +221,9 @@ del tmp*
 <mark>1</mark>繪製地形及氣壓等值線
 
 <mark>2</mark>繪製向量(風速和方向)及颱風路徑
+
+上述的公式來自<mark>Smith and Wessel, 1990</mark>[^1]，有興趣的話，
+可以到註腳找到該文章題目，自行下載研讀。
 
 [^1]: Gridding with continuous curvature splines in tension (W.H.F. Smith and P. Wessel, 1990)
 
