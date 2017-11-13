@@ -207,7 +207,7 @@ del tmp*
 學習到的指令:
 
 * `Surface`將xyz三欄的表格資料，
-透過<mark>(1-T)\timesL(L(z))+T\timesL(z)</mark>運算式，轉換成網格檔，
+透過<mark>$ (1-T)\timesL(L(z))+T\timesL(z) $</mark>運算式，轉換成網格檔，
 其中T代表張量參數(Tension Factor)，L是拉普拉斯運算子(Laplacian Operator)。
   * `-G`輸出檔名。
   * `-I`x軸網格間距[單位]/y軸間距[單位]。
