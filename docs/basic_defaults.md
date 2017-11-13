@@ -138,8 +138,13 @@ GMT在讀取<mark>gmt.conf</mark>檔時，會優先讀取當前資料夾底下�
   <img src="fig/4_symbol_gmt.jpg" width="489" height="600"/>
 </p>
 
-部份的圖檔，可以在<mark>GMT根目錄/share/doc/html/_images</mark>找到。
+* <a name="m4.4sk"></a><mark>-Sk自訂符號對照表</mark>
 
+<p align="center">
+  <img src="fig/4_custom_symbol.jpg"/>
+</p>
+
+部份的圖檔，可以在<mark>GMT根目錄/share/doc/html/_images</mark>找到。
 
 ---
 
