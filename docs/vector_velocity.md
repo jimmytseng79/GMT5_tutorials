@@ -23,10 +23,14 @@
 本章將學習如何繪製
   1. 向量(Vector)
   2. 速度場(Velocity Field)
+  3. 網格速度場(Grid Velocity Field)
 
 ## 10.2 學習的指令與概念
 
+* `psvelo`: 繪製向量場
 * `psxy`: 繪製線、多邊形、符號
+* `surface`: 利用可調整張力的連續彎曲曲線(adjustable tension continuous curvature splines)來網格化表格式資料
+* `grdvector`: 繪製網格向量場
 
 ## 10.3 向量
 在開始將向量繪製在地圖上前，首先先熟習GMT在繪製箭頭上的語法，使用的模組是`psxy`，
@@ -141,11 +145,13 @@ del tmp*
 從大氣水文資料庫得到莫拉克颱風期間的氣象測站資料(局屬和自動測站)，
 統計各測站在2009/08/08這天0點~12點的氣壓(PS01)、平均風風速(WD01)及平均風風向(WD02)，
 利用python計算12小時內東西及南北方向的平均風速及一倍標準差(1 sigma)，
-還有12小時內的平均氣壓，最後整理成GMT畫圖所對應的格式。
+還有12小時內的平均氣壓，最後整理成GMT畫圖所對應的格式。莫拉克颱風的路徑，
+透過氣象局[颱風資料庫](http://rdc28.cwb.gov.tw/)下載取得。
 
 使用的資料檔:
 - [莫拉克颱風風速](dat/morakot_wind.gmt)
 - [莫拉克颱風氣壓](dat/morakot_presure.gmt)
+- [莫拉克颱風路徑](dat/morakot_track.dat)
 
 成果圖
 <p align="center">
@@ -158,7 +164,7 @@ set ps=10_4_morakot_wind.ps
 set data=D:\GMT_data\
 set cpt=gebco.cpt
 
-gmt surface morakot_presure.gmt -R119/123/21/26 -I.01 -Gmorakot_presure.grd
+gmt surface morakot_presure.gmt -R119/123/21/26 -I.01  -Gmorakot_presure.grd
 
 # 1. topography & presure contour
 gmt psbasemap -R119/123/21/26 -JM15 -BWeSn -Bxa -Bya -P -K > %ps%
@@ -198,6 +204,25 @@ gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp*
 ```
+學習到的指令:
+
+*　`Surface`將xyz三欄的表格資料，
+透過<mark>(1-T)*L(L(z))+T*L(z)<mark>運算式(<mark>Smith and Wessel, 1990</mark>[^1])，
+轉換成網格檔，其中T代表張量參數(Tension Factor)，L是拉普拉斯運算子(Laplacian Operator)。
+  * `-G`輸出檔名。
+  * `-I`x軸網格間距[單位]/y軸間距[單位]。
+  * `-R`x軸最小範圍/x軸最大範圍/y軸最小範圍/y軸最大範圍。
+  * `-C`收斂限制百分比，和z軸資料同單位。
+  * `-T`張量參數，0~1之間，0表示最小曲率解(minimum curvature solution)，
+  容易造成不希望的振盪，形成假的局部最大值或最小值，1則是給一個諧和曲面(harmonic surface)，
+  不會有最大最小值出現，除了在原始控制點上，一般建議T設定為0.25，如果資料變化較為劇烈，
+  可以設定為0.35。
+
+<mark>1</mark>繪製地形及氣壓等值線
+
+<mark>2</mark>繪製向量(風速和方向)及颱風路徑
+
+[^1]: Gridding with continuous curvature splines in tension (W.H.F. Smith and P. Wessel, 1990)
 
 ## 10.5
 
@@ -211,3 +236,5 @@ del tmp*
 [上一章](/seismicity_meca.md) -- [下一章](/vector_velocity.md)
 
 ---
+
+### 註腳
