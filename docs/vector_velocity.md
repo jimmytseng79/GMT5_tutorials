@@ -27,7 +27,7 @@
 
 ## 10.2 學習的指令與概念
 
-* `psvelo`: 繪製向量場
+* `psvelo`: 在地圖上繪製向量場
 * `psxy`: 繪製線、多邊形、符號
 * `surface`: 利用可調整張力的連續彎曲曲線(adjustable tension continuous curvature splines)來網格化表格式資料
 * `grdvector`: 繪製網格向量場
@@ -207,7 +207,7 @@ del tmp*
 學習到的指令:
 
 * `Surface`將xyz三欄的表格資料，
-透過<mark>(1-T)*L(L(z))+T*L(z)<mark>運算式，轉換成網格檔，
+透過(1-T)*L(L(z))+T*L(z)<mark>運算式，轉換成網格檔，
 其中T代表張量參數(Tension Factor)，L是拉普拉斯運算子(Laplacian Operator)。
   * `-G`輸出檔名。
   * `-I`x軸網格間距[單位]/y軸間距[單位]。
@@ -221,18 +221,86 @@ del tmp*
 <mark>1</mark>繪製地形及氣壓等值線
 
 <mark>2</mark>繪製向量(風速和方向)及颱風路徑
+* `psvelo`在地圖上繪製向量場
+  * `-Se`向量尺寸/誤差橢圓尺寸/標題字大小，對應的輸入資料格式為<mark>經度 緯度
+  東西向數值 南北向數值 東西向誤差 南北向誤差 東西向與南北向的相關性 標題名</mark>。
+  * `-Sr`與`-Se`一致，差別在輸入的資料格式<mark>經度 緯度
+  東西向數值 南北向數值 橢圓的半長軸 橢圓的半短軸 長軸從水平向逆時針旋轉的角度
+  標題名</mark>。
+  * `-Sn`尺寸，異向性的向量(Anisotropy bars)，輸入資料格式為<mark>經度 緯度 東西向數值
+  南北向數值</mark>。
+  * `-Sw`扇形尺寸/規模，輸入資料格式為<mark>經度 緯度 旋轉的角度(radians為單位)
+  旋轉的誤差角度</mark>。
+  * `-Sx`十字線尺吋，常用於繪製應變軸，輸入資料格式為<mark>經度 緯度 應變擴張軸數值
+  應變壓縮軸數值 旋轉角度(從北順時鐘，degree為單位)</mark>。
+  * `-A`修改向量頭的屬性，同上一節介紹。
+  * `-F`邊框和標題字的顏色。
+  * `-G`向量頭及誤差橢圓的顏色。
+  * `-W`向量頭、誤差橢圓及線段的筆觸。
+* `psxy`繪製線、多邊形、符號。
+  * `-Sk`自訂義符號名稱/大小，可參考[4-4自訂符號對照表](basic_defaults.md#m4.4sk)。
+
+<mark>3</mark>製作圖例說明
+* 同樣地，在製作自訂符號的圖例說明，也是用到`S 圖間隔 k自訂符號名稱 大小 顏色 外框筆觸
+字間隔 文字`的模式來完成。
 
 上述的公式來自<mark>Smith and Wessel, 1990</mark>[^1]，有興趣的話，
 可以到註腳找到該文章題目，自行下載研讀。
 
+從圖中顯示，颱風中心在8月8號0時位在宜蘭附近山區，處在低氣壓區，可以明顯地在北部測站觀察到，
+逆時鐘的外旋氣旋，南部的測站也有此現象，惟多數測站以故障，測站數明顯少於北部。
+
 [^1]: Gridding with continuous curvature splines in tension (W.H.F. Smith and P. Wessel, 1990)
 
 ## 10.5 網格速度場
+延續上一節所使用的資料檔，來示範將表格資料透過`surface`轉成網格資料後，
+如何呈現網格速度場。
 
 成果圖
 <p align="center">
   <img src="fig/10_5_grid_vector_1.png"/>
 </p>
+
+批次檔
+```bash
+set ps=10_5_grid_vector.ps
+set data=D:\GMT_data\
+set cpt=sealand.cpt
+
+# 1. surface .xyz to .grd & makecpt
+awk "{print $1,$2,$3}" morakot_wind.gmt | ^
+gmt surface -R119.9/122.1/21.8/25.4 -I.1 -Gmorakot_wind_e.grd
+awk "{print $1,$2,$4}" morakot_wind.gmt | ^
+gmt surface -R -I.1 -Gmorakot_wind_n.grd
+gmt surface morakot_wind_scalar.gmt -R -I.1 -T.25 -Gmorakot_wind_scalar.grd
+gmt makecpt -C%cpt% -T0/10/.5 -D > tmp.cpt
+
+# 2. bathymetry & grdvector
+gmt psbasemap -R119.8/122.1/21.8/25.4 -JM15 -BWeSn -Bxa ^
+-Bya -P -K --MAP_FRAME_TYPE=PLAIN > %ps%
+gmt grdimage %data%tw_500_119.grd -R -JM -C%cpt% ^
+-I%data%tw_500shad_119.grd -M -K -O >> %ps%
+gmt pscoast -R -JM -Df -Gc -K -O >> %ps%
+gmt grdimage morakot_wind_scalar.grd -R -JM -Ctmp.cpt -K -O >> %ps%
+gmt grdvector morakot_wind_e.grd morakot_wind_n.grd -R -JM -Q+ea -W1 ^
+-G0 -S.4 -I.1 -K -O >> %ps%
+gmt pscoast -R -JM -Q -K -O >> %ps%
+gmt pscoast -R -JM -Df -W1 -K -O >> %ps%
+
+# 3. typhoon track & psscale
+awk "{print $3,$2}" morakot_track.dat | gmt psxy -R -JM -W2,255/205/0,- -K -O >> %ps%
+awk "$1 != 082009080800 {print $3,$2}" morakot_track.dat | ^
+gmt psxy -R -JM -SkHURRICANE/.5 -G232/178/14 -W.5 -K -O >> %ps%
+awk "$1 == 082009080800 {print $3,$2}" morakot_track.dat | ^
+gmt psxy -R -JM -SkHURRICANE/.7 -G218/41/28 -W.5 -K -O >> %ps%
+gmt psscale -Ctmp.cpt -Dx2/19.2+w5/.5+e+ml -Bxa2+l"Wind (m/s)" ^
+-F+g240+r.4+c.3 -K -O >> %ps%
+
+gmt psxy -R -J -T -O >> %ps%
+gmt psconvert %ps% -Tg -A -P
+del tmp*
+```
+學習到的指令:
 
 ## 10.6 習題
 
