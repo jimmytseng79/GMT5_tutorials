@@ -254,7 +254,10 @@ del tmp*
 
 ## 10.5 網格速度場
 延續上一節所使用的資料檔，來示範將表格資料透過`surface`轉成網格資料後，
-如何呈現網格速度場。
+如何呈現網格速度場。另外製作風速的純量檔，利用色階來呈現。
+
+使用的資料檔:
+- [莫拉克颱風風速純量](dat/morakot_wind_scalar.gmt)
 
 成果圖
 <p align="center">
@@ -302,10 +305,63 @@ del tmp*
 ```
 學習到的指令:
 
+* <mark>1</mark>將風速檔透過`surface`轉成網格資料
+  * 配合`grdvector`要的輸入檔案格式，分別將風速檔轉換東西向及南北向的網格檔。
+  * 為了`grdimage`繪圖所需，將風速的純量檔轉成網格檔。
+
+* <mark>2</mark>海底地形與網格速度場
+  * `grdvector`繪製網格向量場，輸入的資料格式為<mark>x軸方向的網格檔 y軸方向的網格檔</mark>
+    * `-A`將輸入的格式轉成<mark>長度 角度</mark>。
+    * `-C`根據向量長度決定顏色。
+    * `-G`向量顏色。
+    * `-I`x間隔/y間隔，必需是原始網格的整數倍。
+    * `-N`不剪裁地圖外的向量。
+    * `-S`向量長度的縮放比例。
+    * `-W`向量外框的筆觸。
+
+* <mark>3</mark>繪製海底路徑及色彩條。
+
+本節示範了與上一節不同的方式來呈現向量檔，透過將表格向量資料轉換網格資料，並繪製在地圖上，
+可以看到和上節得到差不多的結論，惟在使用`surface`需要多注意，要確認原始資料點的分佈情形及
+`-T`張量參數的使用，才不致於出現不尋常的極大極小區域，另外，善用色階來突顯想表達的重點。
+
 ## 10.6 習題
+美國國家海洋與大氣管理局(National Oceanic and Atmospheric Administration, NOAA)
+關注全球海洋與大氣的變化，也提供許多開放的資源供大家使用，本次習題將會利用其下的
+[全球海洋資料同化系統](https://www.esrl.noaa.gov/psd/data/gridded/data.godas.html#detail)
+(Global Ocean Data Assimilation System, GODAS)，此系統提供海水面高、鹽含量、洋流等等資料，
+將使用洋流資料來繪製出全球尺度的洋流系統。
+
+該系統所使用的檔案格式為netCDF，為一種資料壓縮的格式，慣用的副檔名為<mark>.nc</mark>，
+常用於地球科學相關領域，GMT內訂海岸線的檔案格式也為此格式。接下來，簡單介紹該檔案格式，
+它是一種self-described data format，意思是所有與資料有關的訊息都會被記錄在檔頭資訊裡，
+其中檔頭資訊中分成兩個，第一，Attributes，用來描述該<mark>.nc</mark>檔的標題、
+製作日期等等的文字敘述；第二，Dimension，是做為資料點對應的維度。接著資料點會被歸類在Variable中，
+而Variable可透過Dimension來描述。
+
+打個比方，Dimension中有4個維度，分別是時間、高程、經度、緯度，有一個Variable叫溫度，
+它可以用這4個維度來描述，如2009-01-01在東經120度、北緯20度、高程2000公尺時，溫度為15度。
+同理，有可能這個<mark>.nc</mark>檔中還有大氣壓這個Variable，但大氣壓只有提供地面的資料，
+所以只需時間、經度、緯度這三個維度來描述。
+
+了解檔案格式後，就交給python來處理，從<mark>.nc</mark>檔提取需要的資訊，整理成GMT使用的格式。
+本次習題希望利用下方兩筆資料，來繪製全球洋流的地圖。
+
+使用的資料檔:
+- [201701全球洋流東西向](dat/ucur_201701.xyz)
+- [201701全球洋流南北向](dat/vcur_201701.xyz)
+
+完成圖如下:
+<p align="center">
+  <img src="fig/10_6_ocean_current_1.png"/>
+</p>
 
 ## 10.7 參考批次檔
 列出本章節使用的批次檔，供讀者參考使用，檔案路經可能會有些許不同，再自行修改。
+* [10_3_vector](bat/10_3_vector.bat)
+* [10_4_morakot_wind](bat/10_4_morakot_wind.bat)
+* [10_5_grid_vector](bat/10_5_grid_vector.bat)
+* [10_6_ocean_current](bat/10_6_ocean_current.bat)
 
 ---
 
