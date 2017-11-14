@@ -332,7 +332,7 @@ del tmp*
 (Global Ocean Data Assimilation System, GODAS)，此系統提供海水面高、鹽含量、洋流等等資料，
 將使用洋流資料來繪製出全球尺度的洋流系統。
 
-該系統所使用的檔案格式為netCDF，為一種資料壓縮的格式，慣用的副檔名為<mark>.nc</mark>，
+該系統所使用的檔案格式為<mark>netCDF</mark>，為一種資料壓縮的格式，慣用的副檔名為<mark>.nc</mark>，
 常用於地球科學相關領域，GMT內訂海岸線的檔案格式也為此格式。接下來，簡單介紹該檔案格式，
 它是一種self-described data format，意思是所有與資料有關的訊息都會被記錄在檔頭資訊裡，
 其中檔頭資訊中分成兩個，第一，Attributes，用來描述該<mark>.nc</mark>檔的標題、
