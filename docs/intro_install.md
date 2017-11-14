@@ -19,7 +19,7 @@ GMT建立於1988年，由Paul Wessel和Walter H.F. Smith共同開發，
 其目的是為了提供科學家在資料處理及地圖製作的工具，
 而現在所用的全球版本(GMT2)，是在1991年秋天所公開的。
 隨著時間的飛逝，GMT儼然成為多數研究人員所必會的一套工具，
-特別是在做地球及海洋科學方面的研究者，會透過此工具來做為成果展示。
+特別是在做地球科學方面的研究者，會透過此工具來做為成果展示。
 現今公開的穩定版本是5.4.2，GMT6已在測試階段，
 [詳細的版本資訊](https://www.soest.hawaii.edu/gmt/gmt/gmt_releases.html)。
 
@@ -27,8 +27,8 @@ GMT建立於1988年，由Paul Wessel和Walter H.F. Smith共同開發，
   <img src="fig/2_GMT5_Summit_2016.jpg"/>
 </p>
 
-目前由圖中五位共同維護。Joaquim Luis、Walter H.F. Smith、Remko Scharroo、
-Florian Wobbe 和 Paul Wessel。
+目前由圖中五位共同維護。由左自右分別是，Joaquim Luis、Walter H.F. Smith、
+Paul Wessel、Remko Scharroo和Florian Wobbe。
 
 ## 2.2 為什麼使用GMT?
 大多數科學家的研究流程，取得原始資料->分析計算->圖象化，
@@ -59,7 +59,7 @@ GMT是跨平台的軟體，可以在Linux、Windows及MAC下運行，但推薦�
 * GMT是在Linux下開發在移植到Windows，所以Windows版本會有相對多的Bug
 * Linux自帶的數據處理工具: `gawk`、`cut`、`paste`等
 
-GMT的安裝已經非常人性化了，官網也提供個平台的安裝教學，
+GMT的安裝已經非常人性化了，官網也提供各平台的安裝教學，
 而其安裝檔的連結則放在[下載頁面](http://gmt.soest.hawaii.edu/projects/gmt/wiki/Download)，
 這邊簡單介紹各版本的安裝方式:
 
@@ -86,7 +86,8 @@ make install
 * MAC: 透過`.dmg`檔安裝
 
 上面指令欄提到的**dcw**及**gshhg**，內容為一些常用的地理資料，一樣放在下載頁面中，
-你需要先下載且指定檔案位置(Windows可在安裝選項中勾選)，以下是**dcw**及**gshhg**的簡介:
+你需要先下載後，將資料放置在指定檔案位置(Windows可在安裝選項中勾選)，
+以下是**dcw**及**gshhg**的簡介:
 
 * <mark>DCW</mark>(**Digital Chart of the World**): 提供一些基本的向量形式資料，像是國界、
 人口密集地、道路、水文資料、地標、植被等等。

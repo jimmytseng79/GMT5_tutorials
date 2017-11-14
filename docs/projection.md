@@ -189,9 +189,9 @@ Linux及MAC則使用<mark>\</mark>。
 * 連續的指令單一化: 要把一行行指令打在指令環境底下，要排序或是更改都會變得十分麻煩，
 這時後就需要有個檔案(.bat)可以彙整這些指令，透過執行批次檔來達到一行行指令的輸入。
 * 簡易的資料處理: 在GMT的資料輸入檔，常常會需要特定欄位的資料，而往往拿到的資料檔，是有非常多欄位是用不到的，
-不可能每次都改寫資料檔，這時後就可以調用awk，來達到簡單的數據資料處理。
+不可能每次都改寫資料檔，這時後就可以調用`awk`，來達到簡單的數據資料處理。
 
-筆者在編譯此教程是預設在Windows環境底下，但為了處理資料方便，另外安裝了[Gawk for Windows](http://gnuwin32.sourceforge.net/packages/gawk.htm)，
+編者在編譯此教程是預設在Windows環境底下，但為了處理資料方便，另外安裝了[Gawk for Windows](http://gnuwin32.sourceforge.net/packages/gawk.htm)，
 並把執行檔(bin)路徑加入系統環境變數下，設定方式可[參考此網頁](https://openhome.cc/Gossip/JavaEssence/WhatPath.html)，
 如果你熟悉使用Linux其他指令，也可以安裝[Cygwin](https://www.cygwin.com/)。
 
@@ -269,7 +269,7 @@ gmt psconvert %ps% -Tg -A -P
 由羅賓森(Arthur H. Robinson)博士在1963年提出，此方法不等積、不等角，使用筆直的緯線及空間均勻分佈的經線，
 加上對經緯度線乘上一個插值表，來實現視覺上平衡。本節將製作全球行政分區地圖，
 透過`pscoast -E+l > CountryCode.txt`可以將各國的國碼及國名輸出成一個檔案，透過Python做了隨機排序及整檔，
-輸出這次範例所需要的[資料檔](dat/CountryCode.dat)，但要如何利用這個檔案，幫不同國家上色呢？
+輸出這次範例所需要的資料檔，但要如何利用這個檔案，幫不同國家上色呢？
 本節將會使用到`setlocal`讓批次檔現可以接受一個選項引數，
 `ENABLEDELAYEDEXPANSION`啟用延遲環境變數擴充功能，來批次設定國家的顏色。讓我們來看成果及批次檔吧！
 

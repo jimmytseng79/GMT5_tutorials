@@ -12,7 +12,7 @@ rem set /p T=<tmp
 rem makecpt -C%cpt% %T% -Z > tmp.cpt
 gmt grdimage %data%ETOPO1_Bed_g_gmt5.grd -R -JM17 -BWeSn -Ba ^
 -Ctmp.cpt -I%data%ETOPO1_Bed_g_gmt5_shad.grd -K > %ps%
-gmt psscale -Ctmp.cpt -Dx19/1.5+w10/.5+e+ml -Bxa1000+l"Bathymetry" -By+l"km" -K -O >> %ps%
+gmt psscale -Ctmp.cpt -Dx19/1.5+w10/.5+e+ml -Bxa1000+l"Bathymetry" -By+l"m" -K -O >> %ps%
 
 rem 2. Topography
 gmt pscoast -R -JM -Di -W1 -G189/204/150 -K -O >> %ps%
@@ -23,7 +23,7 @@ gmt makecpt -C%ucpt% -T0/%maxz%/500 -D -Z > tmp.cpt
 rem gmt grd2cpt %data%tw_40.grd -C%cpt% -R > tmp.cpt
 gmt grdimage %data%tw_40.grd -R -JM -Ctmp.cpt -I%data%tw_40shad.grd -K -O >> %ps%
 gmt pscoast -R -JM -Df -Q -K -O >> %ps%
-gmt psscale -Ctmp.cpt -Dx22.5/1.5+w10/.5+e+ml -Bxa500+l"Topography" -By+l"km" -K -O >> %ps%
+gmt psscale -Ctmp.cpt -Dx22.5/1.5+w10/.5+e+ml -Bxa500+l"Topography" -By+l"m" -K -O >> %ps%
 
 gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P

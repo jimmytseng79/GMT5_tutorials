@@ -46,13 +46,16 @@
 
 用實際例子來說明檔案格式的差異，本章將會使用到政府資料開放平台中的[20公尺網格數值地形模組資料](https://data.gov.tw/dataset/35430)，
 其中的不分福_全台及澎湖的資料，下載下來的<mark>.tif</mark>檔，透過一般的編譯器打開，如下圖:
+
 <p align="center">
   <img src="fig/7_3_binaryView.png"/>
 </p>
+
 顯示出一推看不懂的亂碼，但如何想簡單的得知這個檔案理面的資料資訊，可以使用
 ```bash
 gmt grdinfo 檔名
 ```
+
 讀取<mark>Penghu_20m.tif</mark>，可得到資訊如下:
 ```bash
 Penghu_20m.tif: Title: Grid imported via GDAL
@@ -66,24 +69,27 @@ Penghu_20m.tif: z_min: -999 z_max: 70.5 name: z
 Penghu_20m.tif: scale_factor: 1 add_offset: 0
 +proj=tmerc +lat_0=0 +lon_0=121 +k=0.9999 +x_0=250000 +y_0=0 +ellps=GRS80 +units=m +no_defs
 ```
+
 從這些資訊可以得知標題、X、Y、Z軸的範圍和間距，放大倍率(scale_factor)等等的訊息。
 但這檔案要提供給GMT使用，會遇到兩個問題，第一，檔案格式為<mark>Geotiff</mark>，
-利用[GDAL](http://www.gdal.org/index.html)(地理空間資料抽象化文庫, Geospatial Data Abstraction Library)提供的轉檔程式<mark>gdal_translate</mark>，
-透過指令，
+利用[GDAL](http://www.gdal.org/index.html)(地理空間資料抽象化文庫, Geospatial Data Abstraction Library)
+提供的轉檔程式<mark>gdal_translate</mark>，透過指令，
 ```bash
 gdal_translate -of XYZ [input.tif] [output.xyz]
 ```
+
 將<mark>.tif</mark>檔轉換成<mark>.xyz</mark>檔。第二，由於內政部提供的檔案其座標系是<mark>TWD97</mark>，
 而GMT繪製地圖慣用在<mark>WGS84座標系</mark>，因此需要做座標系轉換，透過Python，將檔案轉成WGS84座標系，
 完成後再將<mark>.xyz</mark>檔轉換成<mark>.grd檔</mark>。
 ```bash
 gmt xyz2grd [input.xyz] -R119.0/119.9/21.8/25.4 -I0.6s/0.6s -G[output.grd]
 ```
+
 其中
 * `-R`是給定檔案的X、Y軸範圍。
-* `-I`給與X、Y軸的間隔，後面的英文字代表單位。
+* `-I`給與X、Y軸的間隔，後面的英文字代表單位，可參考[4-4距離的單位](basic_defaults.md#m4.4d)。
   * **m**對應角分。
-  * **m**對應角秒。
+  * **s**對應角秒。
   * **e**對應公尺。
   * **k**對應公里。
 * `-G`給予輸出檔名稱。
@@ -195,7 +201,7 @@ gmt psconvert %ps% -Tg -A -P
 導致了大量的等高線繪製於此，為了避免此現象發生，可以再畫一次海的顏色，也可以透過`pscoast -Gc`及`-Q`，
 來限制等高線繪製的範圍。
 
-`-A`、`-C`、`-W`，其詳細的設定方式，像是**+f**、**+p**都和前兩張提到的方式一樣，透過上述的簡介
+`-A`、`-C`、`-W`，其詳細的設定方式，像是**+f**、**+p**都和前兩章提到的方式一樣，透過上述的簡介
 配合指令檔，就可以理解左右兩圖的差異。唯`-Q`是較特別的選項，有時後等高線的資料點數不多，
 造成繪製在圖上是一點一點的，有礙觀瞻，透過限制最小資料點數，將可避免這現象的發生。
 
@@ -297,10 +303,11 @@ del tmp*
 
 <mark>4</mark> 呼叫BB'線段經緯度，畫出線及加上註解。
 
-<mark>5</mark> 當在製作小區域地圖時，往往需要利用全區域的小張地圖來框繪出小區域的範圍。
+<mark>5</mark> 當在製作小區域地圖時，往往需要利用全區域的小張地圖來框繪出小區域的範圍
+，有兩種方式。
 * `psbasemap`
   * `-D`x軸最小/x軸最大/y軸最小/y軸最大。
-  * `-D`參考點模式，可參考[6-6](xy_figure.md#m6.6)。
+  * `-D`參考點模式，可參考[6-6極軸](xy_figure.md#m6.6)中`pslegend -D`。
     * **+w**x軸寬度/y軸寬度，外框的寬度
     * **+j**指定insert map的參考點
     * **+o**x軸偏移量/y軸偏移量
@@ -360,10 +367,11 @@ del tmp*
 可[參考5-5](projection.md#m5.5)，編者另有安裝<mark>Cygwin</mark>。
 
 ## 7.6 習題
-玉山為東亞第一高峰，其海拔3952公尺，其景色優美、氣勢磅礡，吸引大量登山客前往。利用維基百科玉山主峰以及其他
-四個至高點(北峰、東峰、南峰、西峰)，來繪製玉山區域的等高線圖，以及主峰到其餘四峰的高度剖面。
+玉山為東亞第一高峰，其海拔3952公尺，其景色優美、氣勢磅礡，吸引大量登山客前往。利用維基百科中玉山主峰以及
+其他四個至高點(北峰、東峰、南峰、西峰)，來繪製玉山區域的等高線圖，以及主峰到其餘四峰的高度剖面。
 
-[玉山區域網格檔](dat/yuShan.grd)的製作可參考7-3的方式，或者直接使用前面連結下載。
+使用的資料檔:
+- [玉山區域網格檔](dat/yuShan.grd)的製作可參考7-3的方式，或者直接使用前面連結下載。
 
 完成圖如下:
 <p align="center">

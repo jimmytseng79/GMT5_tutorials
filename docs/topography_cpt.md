@@ -37,7 +37,7 @@
 ## 8.3 簡介色階檔
 色階的概念是將某一區段的資料用一種顏色來表示，這種技巧被應用在很多方面，像是熱影像圖、地形圖等等。
 GMT在安裝的時後，同時有提供一些色階檔作為使用，這些檔案被安裝在<mark>GMT根目錄/share/cpt</mark>，
-將打開<mark>abyss.cpt</mark>，裡面的內容:
+打開<mark>abyss.cpt</mark>，裡面的內容:
 ```bash
 #       $Id$
 #
@@ -60,11 +60,13 @@ N gray
 一開始`#`之後的文字為註解，通常會紀錄設計者名稱、設計目的、使用的顏色模型，接著檔案的格式為四欄，
 第一欄是起始範圍；第二欄色碼；第三欄是結束範圍；第四欄色碼，所以在-8000至-7000就是以黑色來表示，
 在檔案的最下面**B**、**F**、**N**分別代表背景色(Background color)、前景色(Foreground color)及無值的顏色(NaN color)，
-簡單地說，就是小於範圍中最小值所用的顏色、大於範圍中最大值值所用的顏色及無資料時所使用的顏色。
+簡單地說，就是小於範圍中最小值所用的顏色、大於範圍中最大值所用的顏色及無資料時所使用的顏色。
 來看GMT有提供的色階檔畫出來的樣子:
+
 <p align="center">
   <img src="fig/8_3_cpt_1.png"/>
 </p>
+
 圖中列出36個GMT默認提供的色階檔(GMT version 5.2.1)，將每個色階做正規化的步驟，上方色階代表顏色連續的色階檔，
 下方則是顏色離散的色階檔(間隔0.25)，如果原始的色階檔就不連續，那做出來就是不連續的色階檔。
 而兩者檔案中，有什麼差別呢？
@@ -104,11 +106,11 @@ N	127.5
   * `-Z`製作連續的色階
 
 學會了如何改寫色階檔之後，就是如何調整範圍，來配合資料，達到良好呈獻效果。此外，推薦一個網站，
-[cpt-city](http://soliton.vm.bytemark.co.uk/pub/cpt-city/)，裡面收集了大量的現成色階檔，供使用參考。
+[cpt-city](http://soliton.vm.bytemark.co.uk/pub/cpt-city/)，裡面收集了大量的現成色階檔，供參考使用。
 
 ## 8.4 地形圖
 陽明山國家公園是以大屯山火山群為主的火山地型，規劃了眾多的景點，供民眾認識火山地形、地貌。
-本節將利用陽明山區域的20公尺數值地形，配合GMT內建安裝的數值檔，來演示不同的色階檔，
+本節將利用陽明山區域的20公尺數值地形，配合GMT內建安裝的數值檔，來展示不同的色階檔，
 對繪製地形圖所帶來的影響。
 切割的範圍`121.27/121.85/25.05/25.35`，可以自行練習`grdcut`，或者直接下載下方載點，
 
@@ -160,7 +162,7 @@ del tmp*
   * `-C`輸入色階檔。
   * `-M`黑白畫面!!
 * `psscale`繪製色彩條(color bar):
-  * `B`調整刻度間距。
+  * `-B`調整刻度間距。
   * `-C`輸入色階檔。
   * `-D`調整色彩條的位置。
     * 參考點X位移/Y位移，其餘參考點設定可[參考6-6](xy_figure.md#m6.6)
@@ -229,7 +231,7 @@ gmt makecpt -C%dcpt% -T%minz%/0/1000 -D -Z > tmp.cpt
 # makecpt -C%cpt% %T% -Z > tmp.cpt
 gmt grdimage %data%ETOPO1_Bed_g_gmt5.grd -R -JM17 -BWeSn -Ba ^
 -Ctmp.cpt -K > %ps%
-gmt psscale -Ctmp.cpt -Dx19/1.5+w10/.5+e+ml -Bxa1000+l"Bathymetry" -By+l"km" -K -O >> %ps%
+gmt psscale -Ctmp.cpt -Dx19/1.5+w10/.5+e+ml -Bxa1000+l"Bathymetry" -By+l"m" -K -O >> %ps%
 
 # 2. Topography
 gmt pscoast -R -JM -Di -W1 -G189/204/150 -K -O >> %ps%
@@ -240,7 +242,7 @@ gmt makecpt -C%ucpt% -T0/%maxz%/500 -D -Z > tmp.cpt
 # gmt grd2cpt %data%tw_40.grd -C%cpt% -R > tmp.cpt
 gmt grdimage %data%tw_40.grd -R -JM -Ctmp.cpt -K -O >> %ps%
 gmt pscoast -R -JM -Df -Q -K -O >> %ps%
-gmt psscale -Ctmp.cpt -Dx22.5/1.5+w10/.5+e+ml -Bxa500+l"Topography" -By+l"km" -K -O >> %ps%
+gmt psscale -Ctmp.cpt -Dx22.5/1.5+w10/.5+e+ml -Bxa500+l"Topography" -By+l"m" -K -O >> %ps%
 
 gmt psxy -R -JM -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
