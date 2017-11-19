@@ -10,6 +10,7 @@
 8. [第四章: 地形圖與色階](/topography_cpt.md)
 9. [第五章: 地震活動性與機制解](/seismicity_meca.md)
 10. [第六章: 向量與速度場](/vector_velocity.md)
+11. [第七章: 台灣地理資訊](/taiwan_geography.md)
 
 ---
 
@@ -27,10 +28,10 @@
 
 ## 10.2 學習的指令與概念
 
-* `psvelo`: 在地圖上繪製向量場
-* `psxy`: 繪製線、多邊形、符號
 * `surface`: 利用可調整張力的連續彎曲曲線(adjustable tension continuous curvature splines)來網格化表格式資料
 * `grdvector`: 繪製網格向量場
+* `psvelo`: 在地圖上繪製向量場
+* `psxy`: 繪製線、多邊形、符號
 
 ## 10.3 向量
 在開始學習將向量繪製在地圖上之前，首先先熟習GMT在繪製箭頭上的語法，使用的模組是`psxy`，

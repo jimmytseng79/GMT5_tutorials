@@ -10,6 +10,7 @@
 8. [第四章: 地形圖與色階](/topography_cpt.md)
 9. [第五章: 地震活動性與機制解](/seismicity_meca.md)
 10. [第六章: 向量與速度場](/vector_velocity.md)
+11. [第七章: 台灣地理資訊](/taiwan_geography.md)
 
 ---
 
@@ -31,8 +32,8 @@
 * `grdimage`: 繪製色階地圖
 * `grdinfo`: 從網格檔中獲取資訊
 * `grd2cpt`: 利用網格檔資料建立色階檔
-* `psscale`: 繪製色彩條
 * `makecpt`: 製作色階檔
+* `psscale`: 繪製色彩條
 
 ## 8.3 簡介色階檔
 色階的概念是將某一區段的資料用一種顏色來表示，這種技巧被應用在很多方面，像是熱影像圖、地形圖等等。

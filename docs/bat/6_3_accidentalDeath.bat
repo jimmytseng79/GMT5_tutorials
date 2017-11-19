@@ -7,10 +7,10 @@ gmt psbasemap -R0/100/0/450 -JX20/15 -Bxa5+l"Age" -Bya50+l"Deaths (count)" ^
 rem 繪製垂直虛線
 echo 15 0 > area
 echo 15 450 >> area
-gmt psxy area -R -JX -W1.5,180/180/255,-. -K -O >> %ps%
+gmt psxy area -R -JX -W1.5,180/180/255,- -K -O >> %ps%
 echo 75 0 > area
 echo 75 450 >> area
-gmt psxy area -R -JX -W1.5,255/180/180,-. -K -O >> %ps%
+gmt psxy area -R -JX -W1.5,255/180/180,- -K -O >> %ps%
 
 rem 繪製死亡人數資料點
 awk "$3==1 {print $1, $2}" dead105.dat | gmt psxy -R -JX -Sd.4 ^

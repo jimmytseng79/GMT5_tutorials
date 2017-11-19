@@ -10,6 +10,7 @@
 8. [第四章: 地形圖與色階](/topography_cpt.md)
 9. [第五章: 地震活動性與機制解](/seismicity_meca.md)
 10. [第六章: 向量與速度場](/vector_velocity.md)
+11. [第七章: 台灣地理資訊](/taiwan_geography.md)
 
 ---
 
@@ -26,11 +27,11 @@
 
 ## 6.2 學習的指令與概念
 
+* `gmtset`: GMT地圖參數
 * `psbasemap`: 繪製圖框(Frame)、刻度(Tick)、標籤(Label)等等
 * `pstext`: 在圖上進行排版文字
 * `psxy`: 繪製線、多邊形、符號
 * `pslegend`: 繪製圖例、說明
-* `gmtset`: GMT地圖參數
 * Winodws中批次檔`batch`常用指令
 
 ## 6.3 線性軸(-Jx -JX)
