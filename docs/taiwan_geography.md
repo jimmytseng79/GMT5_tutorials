@@ -244,8 +244,12 @@ del tmp* gmt.conf
   詳細內容請參考[4-4特殊字元或符號](basic_defaults#m4.4fs)。
 
 ## 11.6 斷層分佈及型態
+繪製由中央地質調查所提供的33條斷層分佈，並分類成第一類活動斷層、
+第二類活動斷層及存疑、掩埋與否。
 
 使用的資料檔:
+- [斷層分佈資料](dat/CGS_fault.gmt)
+- [斷層編號](dat/fault_label_fix.dat)
 
 完成圖如下:
 <p align="center">
@@ -254,8 +258,84 @@ del tmp* gmt.conf
 
 批次檔
 ```bash
+set ps=11_6_cgs_fault.ps
+set data=D:\GMT_data\
+set cpt=gebco.cpt
+
+# 1. topographic map
+gmt psbasemap -R119.7/122.1/21.8/25.4 -JM15 -BWeSn -Ba -P -K > %ps%
+gmt pscoast -R -JM -Df -Gc -K -O >> %ps%
+gmt grdimage %data%tw_40.grd -R -JM -C%cpt% -I%data%tw_40shad.grd -M -K -O >> %ps%
+gmt pscoast -R -JM -Df -Q -K -O >> %ps%
+gmt pscoast -R -JM -Df -W1 -K -O >> %ps%
+
+# 2. fault type
+gmt psxy %data%CGS_fault.gmt -R -JM -Sqn1:+Lh+T"fault_label.dat" > tmp
+gmt gmtconvert %data%CGS_fault.gmt -S"1 1 |" > tmp
+gmt psxy tmp -R -JM -W2,red -K -O >> %ps%
+gmt gmtconvert %data%CGS_fault.gmt -S"1 2 |" > tmp
+gmt psxy tmp -R -JM -W2,red,3_3:0p -K -O >> %ps%
+gmt gmtconvert %data%CGS_fault.gmt -S"2 1 |" > tmp
+gmt psxy tmp -R -JM -W2,255/193/37 -K -O >> %ps%
+gmt gmtconvert %data%CGS_fault.gmt -S"2 2 |" > tmp
+gmt psxy tmp -R -JM -W2,255/193/37,3_3:0p -K -O >> %ps%
+
+# 3. fault numbers in map
+awk "$4<=25 {print $0}" fault_label_fix.dat | ^
+gmt pstext -R -JM -F+a -D.2/-.2 -K -O >> %ps%
+awk "$4>=26 {print $0}" fault_label_fix.dat | ^
+gmt pstext -R -JM -F+a -D-.2/.2 -K -O >> %ps%
+
+# 4. fault numbers name
+gmt gmtconvert %data%CGS_fault.gmt -L > tmp
+sed -i 's\\"\\\\g' tmp
+awk "{print $7, $8, $2}" tmp > tmp2
+awk "NR !=1 {print 119.85, 25.35, $4}" fault_label_fix.dat > tmp1
+awk "NR==FNR{tmp1[$3]=$0; next} {$3=tmp1[$3]; print}" tmp2 tmp1 > tmp3
+awk "NR<=20 {print $1, $2-($5-1)*.07, $5, $3, $4}" tmp3 | ^
+gmt pstext -R -JM -F+f12p+jML -K -O >> %ps%
+awk "NR>=21 {print 122.05, $2-($5-1)*.07, $5, $3, $4}" tmp3 | ^
+gmt pstext -R -JM -F+f12p+jMR -D0/-7 -K -O >> %ps%
+
+# 5. legend set
+echo H 18 1 Legend > tmp
+echo D 0.2 1p >> tmp
+echo G .2 >> tmp
+echo S .6 - .8 0 3,red 1.3 Holocene active fault >> tmp
+echo S .6 - .8 0 3,255/193/37 1.3 Late Pleistoene active fault >> tmp
+echo S .6 - .8 0 3,black,3_3:0p 1.3 Fault concealed or inferred >> tmp
+gmt pslegend tmp -R -JM -C.1/.1 -Dx.1/.1+w5.8 -F+p1 ^
+--FONT_ANNOT_PRIMARY=10p --FONT_LABEL=14p -K -O >> %ps%
+
+gmt psxy -R -J -T -O >> %ps%
+gmt psconvert %ps% -Tg -A -P
+del tmp*
 ```
 學習到的指令:
+
+<mark>2</mark>斷層型態
+
+* `psxy ... -Sqn1:+Lh+T"fault_label.dat" ...`。
+  * `-Sq`繪製引用線(quoted line)，語法為<mark><-Sq[[d|D|f|l|L|n|N|s|S|x|X]info[:labelinfo]]></mark>。
+    * **n1**該線段中標籤出現次數，這裡表示出現一次
+    * **+Lh**提取每個區塊的檔頭資訊
+    * **+T**輸出經度、緯度、角度、檔頭資訊共四欄至<mark>fault_label.dat</mark>
+* `gmtconvert ... -S"1 1 |" ...`。
+  * `-S`從區塊文件中搜尋檔頭出現<mark>1 1 |</mark>字串的區塊。
+
+<mark>3</mark>將斷層編號繪製在地圖上
+
+* 手動選取<mark>fault_label.dat</mark>中較適合的編號位置，轉存成<mark>fault_label_fix.dat</mark>。
+* `pstext ... -F+a ...`。
+* **+a**讀取輸入檔中第三欄的資訊，作為寫字的角度。
+
+<mark>4</mark>編號及斷層名稱
+
+* `sed -i 's\\"\\\\g' tmp`，將`"`符號取代成無(刪除掉)。
+* `awk "NR==FNR{tmp1[$3]=$0; next} {$3=tmp1[$3]; print}" tmp2 tmp1 > tmp3`，
+利用比對編號來合併tmp1(經緯度)及tmp2(編號及名稱)這兩個檔案。
+
+#### 接下來是示範如何繪製不同的斷層型態。
 
 完成圖如下:
 <p align="center">
@@ -264,13 +344,68 @@ del tmp* gmt.conf
 
 批次檔
 ```bash
+set ps=11_6_fault_type.ps
+set data=D:\GMT_data\
+set cpt=dem3.cpt
+
+gmt psbasemap -R120.0/120.6/22.6/23.2 -JM15 -BWeSn -Ba -P -K --MAP_FRAME_TYPE=plain > %ps%
+gmt grdimage %data%tw_40.grd -R -JM -C%cpt% -I%data%tw_40shad.grd -K -O >> %ps%
+gmt pscoast -R -JM -Df -W1 -S200/200/255 -K -O >> %ps%
+
+# 新化 右移斷
+gmt gmtconvert %data%CGS_fault.gmt -S"Hsinhua Fault" > tmp
+gmt psxy tmp -R -JM -W4,red -Sf.5/.2+r+s+p1,red -K -O >> %ps%
+# 後甲里 逆移斷 西傾
+gmt gmtconvert %data%CGS_fault.gmt -S"Houchiali Fault" > tmp
+gmt psxy tmp -R -JM -W4,255/193/37 -Sf.4/.25+r+t+o.12+p1,255/193/37 -G255/193/37 -K -O >> %ps%
+# 左鎮 左移斷
+gmt gmtconvert %data%CGS_fault.gmt -S"Tsochen Fault" > tmp
+gmt psxy tmp -R -JM -Sf.7/.2+l+s+p1,255/193/37 -K -O >> %ps%
+gmt gmtconvert %data%CGS_fault.gmt -S"Tsochen Fault" > tmp
+gmt psxy tmp -R -JM -W4,255/193/37 -K -O >> %ps%
+# 小崗山 逆移斷 東傾
+gmt gmtconvert %data%CGS_fault.gmt -S"Hsiaokangshan Fault" > tmp
+gmt psxy tmp -R -JM -W4,255/193/37 -Sf.7/.25+l+t+o.12+p1,255/193/37 -G255/193/37 -K -O >> %ps%
+# 旗山斷層 逆移兼 東傾
+gmt gmtconvert %data%CGS_fault.gmt -S"Chishan Fault" > tmp
+gmt psxy tmp -R -JM -Sf.7/.25+l+t+o.12+p1,red -Gred -K -O >> %ps%
+gmt gmtconvert %data%CGS_fault.gmt -S"Chishan Fault" > tmp
+gmt psxy tmp -R -JM -W4,red -K -O >> %ps%
+
+awk "$4<=25 {print $0}" fault_label_fix.dat | ^
+gmt pstext -R -JM -F+10p+a -D.4/-.4 -K -O >> %ps%
+
+gmt gmtconvert -L %data%CGS_fault.gmt > tmp
+sed -i 's\\"\\\\g' tmp
+awk "{print $7, $8, $2}" tmp > tmp2
+awk "NR !=1 {print 120.01, 23.25, $4}" fault_label_fix.dat > tmp1
+awk "NR==FNR{tmp1[$3]=$0; next} {$3=tmp1[$3]; print}" tmp2 tmp1 > tmp3
+awk "NR>=19 && NR <=23 {print $1, $2-($5-1)*.02, $5, $3, $4}" tmp3 | ^
+gmt pstext -R -JM -F+f12p+jML -K -O >> %ps%
+
+gmt pscoast -R119.8/122.1/21.8/25.4 -JM3 -Df -W1 -B0 -S255 -G230 ^
+-X.1 -Y.1 -K -O --MAP_FRAME_TYPE=plain >> %ps%
+gmt psbasemap -R -JM -D120.0/120.6/22.5/23.2 -F+p2,red -K -O >> %ps%
+
+gmt psxy -R -J -T -O >> %ps%
+gmt psconvert %ps% -Tg -A -P
+del tmp*
 ```
 學習到的指令:
-
+* `psxy -Sf.7/.25+l+t+o.12+p1,red`在線段中側邊繪製一個圖案，
+用法是<mark>-Sfgap[/size][+l|+r][+b+c+f+s+t][+ooffset][+p[pen]]</mark>
+  * **+l**圖案繪製在線段左側；**+r**圖案繪製在線段右側。
+  * **+t**圖案是三角形、**+b**矩形、**+c**圓形、**+f**斷層、**+s**滑移箭頭。
+  * **+o**圖案起始的偏移量。
+  * **+p**圖案的邊框筆觸。
 
 ## 11.7 人口密度
+本章最後一小節，將利用人口密度資料，來示範區塊文件如何配合`psxy -C`指令，來完成人口密度分佈圖。
 
 使用的資料檔:
+- [鄉鎮人口密度](dat/country_popuDen_2016f.gmt)
+- [色階檔分隔條件](dat/range.txt)
+- [人口密度色階檔](dat/population_density.cpt)
 
 完成圖如下:
 <p align="center">
@@ -279,11 +414,70 @@ del tmp* gmt.conf
 
 批次檔
 ```bash
+set ps=11_7_population_density.ps
+set data=D:\GMT_data\
+set cpt=rainbow.cpt
+
+# population density map
+gmt psbasemap -R119.2/122.1/21.8/25.4 -JM15 -BWeSn -Ba -P -K --MAP_FRAME_TYPE=plain > %ps%
+gmt grdimage %data%tw_500_119.grd -R -JM -C%cpt% -I%data%tw_500shad_119.grd -M -K -O >> %ps%
+gmt pscoast -R -JM -Df -Gc -K -O >> %ps%
+# gmt makecpt -C%cpt% -Trange.txt -D -Fr > tmp.cpt
+# awk "{print $0}" range.txt | gmt makecpt -C%cpt% -E42 -D -Fr > tmp.cpt2
+gmt psxy %data%country_popuDen_2016f.gmt -R -JM ^
+-Cpopulation_density.cpt -L -K -O >> %ps%
+gmt psxy %data%city_2016.gmt -R -JM -W.5 -K -O >> %ps%
+gmt pscoast -R -JM -Df -Q -K -O >> %ps%
+gmt pscoast -R -JM -Df -W1 -K -O >> %ps%
+
+# legend set
+echo 119.2 25.4 > tmp
+echo 119.2 23.9 >> tmp
+echo 120.2 23.9 >> tmp
+echo 120.4 24.2 >> tmp
+echo 120.4 25.4 >> tmp
+gmt psxy tmp -R -JM -G255 -W1 -L -K -O >> %ps%
+awk "$1>=0 && $1< 1000 {print $0}" population_density.cpt > tmp.cpt
+gmt psscale -Ctmp.cpt -R -JM -Dx1.1/12.8+w7/.5 -A -S ^
+-K -O --FONT_ANNOT_PRIMARY=8p >> %ps%
+awk "$1>=1000 && $1< 8000 {print $0}" population_density.cpt > tmp.cpt
+gmt psscale -Ctmp.cpt -R -JM -Dx3.1/12.8+w7/.5 -A -S ^
+-K -O --FONT_ANNOT_PRIMARY=8p >> %ps%
+awk "$1>=8000 && $1< 40000 {print $0}" population_density.cpt > tmp.cpt
+gmt psscale -Ctmp.cpt -R -JM -Dx5.1/12.8+w7/.5 -A -S ^
+-K -O --FONT_ANNOT_PRIMARY=8p >> %ps%
+echo 119.22 24.00 Population Density (1\057km@+2@+) | ^
+gmt pstext -R -JM -F+14p,1+jML -K -O >> %ps%
+
+gmt psxy -R -J -T -O >> %ps%
+gmt psconvert %ps% -Tg -A -P
+del tmp*
 ```
 學習到的指令:
+* `#`符號開頭的兩行`makecpt ... -Trange.txt -Fr+c ...及... -E42 ...`。
+  * `-Trange.txt`用<mark>range.txt</mark>來指定色階檔分隔的依據。
+  * `-Fr`指定輸出為RGB格式。
+  * `-E42`讀取資料最後一欄，找出最大最小值，42表示色階分隔數量。
+* 會分兩次製作色階檔是因為，想製作非線性的間隔，先製作非線性排序的色階檔(tmp.cpt)，
+接著製作同範圍的線性色階檔(tmp.cpt2)，再手動將非線性排序的間隔取代線性色階檔的間隔，
+用此方式來達到非線性的色階檔。
+* 打開<mark>country_popuDen_2016f.gmt</mark>會發現，在區塊檔頭的地方，出現`-Z100`之類的訊息，
+原來GMT在讀取區塊檔頭資訊時，透過`-Z`會自動將這區塊內的資料賦予Z軸值為100，
+借此`-C`就會依照Z軸的值來填色，`-L`是確保區塊中資料是封閉多邊形。
+* `psscale ... -A -S ...`。
+  * `-A`讀取色階檔裡面的間隔當作刻度。
+  * `-S`不繪製色階中黑色的區隔線。
+* `echo 119.22 24.00 Population Density (1\057km@+2@+)`，
+<mark>\057</mark>對應特殊字元<mark>\</mark>，<mark>@+2@+</mark>則是寫出上標數字2。
 
 ## 11.8 參考批次檔
 列出本章節使用的批次檔，供讀者參考使用，檔案路經可能會有些許不同，再自行修改。
+* [11_3_taiwan_road](bat/11_3_taiwan_road.bat)
+* [11_4_region_border](bat/11_4_region_border.bat)
+* [11_5_drainage_area](bat/11_5_drainage_area.bat)
+* [11_6_cgs_fault](bat/11_6_cgs_fault.bat)
+* [11_6_fault_type](bat/11_6_fault_type.bat)
+* [11_7_population_density](bat/11_7_population_density.bat)
 
 ---
 
