@@ -115,7 +115,7 @@ GMT在讀取<mark>gmt.conf</mark>檔時，會優先讀取當前資料夾底下�
   <img src="fig/4_hachure_patterns.jpg"/>
 </p>
 
-* <mark>特殊字元或符號</mark>
+* <a name="m4.4fs"></a><mark><mark>特殊字元或符號</mark>
 
 <p align="center">
   <img src="fig/4_octal_code1.jpg"/>
