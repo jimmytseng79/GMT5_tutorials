@@ -114,6 +114,7 @@ gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp*
 ```
+
 學習到的指令:
 
 * `-Sv`笛卡爾向量(直線向量)，對應的資料格式<mark>x軸位置 y軸位置 角度 長度 (大小)</mark>，
@@ -205,6 +206,7 @@ gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp*
 ```
+
 學習到的指令:
 
 * `Surface`將xyz三欄的表格資料，
@@ -304,6 +306,7 @@ gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp*
 ```
+
 學習到的指令:
 
 * <mark>1</mark>將風速檔透過`surface`轉成網格資料

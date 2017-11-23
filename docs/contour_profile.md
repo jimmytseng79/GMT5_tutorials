@@ -118,6 +118,7 @@ gmt xyz2grd [input.xyz] -R119.0/119.9/21.8/25.4 -I0.6s/0.6s -G[output.grd]
 ```bash
 gmt grd2xyz input.grd > output.xyz
 ```
+
 將網格檔轉回<mark>.xyz</mark>檔。
 
 透過上述方式，成功地將內政部提供的數值高程檔轉換成GMT繪圖使用的格式，在這個範例中，
@@ -126,6 +127,7 @@ gmt grd2xyz input.grd > output.xyz
 ```bash
 gmt grdpaste input1.grd input2.grd -Goutput.grd -fg
 ```
+
 把兩個擁有共同邊界的網格檔給合併，`-f`是指定輸入及輸出資料的格式，
 * **-ff**給予浮點數格式
 * **-fg**地理座標系統
@@ -135,6 +137,7 @@ gmt grdpaste input1.grd input2.grd -Goutput.grd -fg
 ```bash
 gmt grdcut input.grd -Goutput.grd -R範圍
 ```
+
 將網格檔切割成較小的區域來做使用，接下來，繪製等高線圖的部份，將會使用以花東縱谷做為範圍切割的網格檔。
 資料壓縮的方式非常多種，無法在此一一介紹，編者以使用過的經驗作為分享，請見諒。
 

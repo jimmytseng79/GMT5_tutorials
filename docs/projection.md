@@ -67,14 +67,17 @@ GMT在投影法方面，分成兩部份，如下圖，一部份是地理投影�
 ```bash
 gmt pscoast
 ```
+
 會看到一連串關於`pscoast`的說明，如果你對各選項的意思已經了解，可以透過:
 ```bash
 gmt pscoast -
 ```
+
 你將只看到選項用法出現在影幕上。通常GMT指令的語法如下:
 ```bash
 gmt 模組 (輸入檔) [-選項1 -選項2 -選項3 ...] > 輸出檔名.ps
 ```
+
 簡單來說，先選定你要用的模組，給定輸入的資料，配合該模組底下的選項，來達到你要繪製的圖形，
 而<mark>-</mark>開頭會被GMT視作選項，沒有<mark>-</mark>開頭則被當做資料，所以其先後順序沒差，
 不過為養成好習慣，建議按照下面的範例來輸入每一行指令。
@@ -89,6 +92,7 @@ gmt psxy (輸入檔) -J -R [-選項1 -選項2 ...] -K -O >> 輸出檔名.ps
 # 最後1行
 gmt psxy (輸入檔) -J -R [-選項1 -選項2 ...] -O >> 輸出檔名.ps
 ```
+
 這樣的好處是，在debug時候，可以快速發現自己遺漏了哪個部份，而<mark>></mark>及<mark>>></mark>
 符號為輸出導向的符號，分別是「取代」與「累加」。
 
@@ -114,6 +118,7 @@ gmt psxy (輸入檔) -J -R [-選項1 -選項2 ...] -O >> 輸出檔名.ps
 ```bash
 gmt pscoast -R119.0/122.5/21.5/26.0 -JM18 -S0/0/255 -W1 > 5_3_taiwan.ps
 ```
+
 來看看結果的圖長什麼樣。
 <p align="center">
   <img src="fig/5_3_taiwan_1.png" width="702" height="496"/>
@@ -129,9 +134,11 @@ gmt pscoast -R119.0/122.5/21.5/26.0 -JM18 -S0/0/255 -W1 > 5_3_taiwan.ps
 ```bash
 gmt pscoast -R119.0/122.5/21.5/26.0 -JM18 -S0/0/255 -Gspringgreen2 -W1 -Df -P > 5_3_taiwan.ps
 ```
+
 <p align="center">
   <img src="fig/5_3_taiwan_2.png" width="496" height="702"/>
 </p>
+
 看起來，這圖已經有點起色了，但好像還缺少點什麼，例如地圖比例尺(map scale)、
 地圖方向標(map directional rose)、座標框架(map boundary frame and axes attributes)等等，
 這些我們將在下一節提到。
@@ -144,6 +151,7 @@ gmt pscoast -R119.0/122.5/21.5/26.0 -JM18 -S0/0/255 -Gspringgreen2 -W1 -Df -P > 
 ```bash
 gmt pscoast -R-130/-66/24/52 -JL-98/35/33/45/25 -S0/0/255 -Gspringgreen2 -W1 -Df > 5_4_unitedstate.ps
 ```
+
 其結果為
 <p align="center">
   <img src="fig/5_4_unitedstate_1.png" width="702" height="496"/>
@@ -176,6 +184,7 @@ gmt pscoast -R-130/-66/24/52 -JL-98/35/33/45/25 -A500 -BWESN ^
 -I1.5/1,41/143/194,solid -Tdg-70/27+w1.5+f2 -W1 -F+g255+r > ^
 5_4_unitedstate.ps
 ```
+
 <p align="center">
   <img src="fig/5_4_unitedstate_2.png" width="702" height="496"/>
 </p>
@@ -257,6 +266,7 @@ gmt psconvert %ps% -Tg -A -P
    .
    .
   ```
+
 可以看到兩點的經緯度透過<mark>></mark>分開，原來GMT會自動將<mark>></mark>內的資料視為同一組，藉由此方式，
 就輕鬆地完成兩機場之間的連線。`psxy`除了能畫符號，也能透過-W來繪製線。
 * 第9行: 將-R範圍改成之前星號的經緯度並在後面加上字母r，來放大想看的區域(GMT現無支援圓形的放大)，

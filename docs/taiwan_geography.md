@@ -100,6 +100,7 @@ gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp*
 ```
+
 學習到的指令:
 * `gmt psxy %data%TRA_rail.gmt -R -JM -W2.5,black,4_4:0p -K -O >> %ps%`
   * 之前有提到`-W`寬度,顏色,樣式，其中樣式可以用<mark>-</mark>,<mark>.</mark>符號來繪製虛線，
@@ -184,6 +185,7 @@ gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp*
 ```
+
 學習到的指令:
 * `gmtspatial -Q+p -o0,1`從多區塊文件中算出質心位置。
   * `-Q+p`假設每個區塊文件中的資料都是封閉多邊形，並計算出質心位置。
@@ -238,6 +240,7 @@ gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp* gmt.conf
 ```
+
 學習到的指令:
 * `echo 120.75 25.35 Mainstream \046 | gmt pstext`寫出特殊字元(&)。
   * <mark>\046</mark>可對應到<mark>&</mark>符號，
@@ -311,6 +314,7 @@ gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp*
 ```
+
 學習到的指令:
 
 <mark>2</mark>斷層型態
@@ -391,6 +395,7 @@ gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp*
 ```
+
 學習到的指令:
 * `psxy -Sf.7/.25+l+t+o.12+p1,red`在線段中側邊繪製一個圖案，
 用法是<mark>-Sfgap[/size][+l|+r][+b+c+f+s+t][+ooffset][+p[pen]]</mark>
@@ -453,6 +458,7 @@ gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp*
 ```
+
 學習到的指令:
 * `#`符號開頭的兩行`makecpt ... -Trange.txt -Fr+c ...及... -E42 ...`。
   * `-Trange.txt`用<mark>range.txt</mark>來指定色階檔分隔的依據。

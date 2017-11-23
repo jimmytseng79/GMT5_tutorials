@@ -122,6 +122,7 @@ gmt psxy -R -JM -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp*
 ```
+
 學習到的指令:
 
 <mark>1</mark>繪製地震活動性底圖
@@ -258,6 +259,7 @@ gmt psxy -R -JM -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp*
 ```
+
 學習到的指令:
 
 <mark>1</mark>繪製機制解底圖
@@ -386,6 +388,7 @@ gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp*
 ```
+
 學習到的指令:
 
 <mark>1</mark>繪製地震活動性及機制解底圖，利用前兩節與地形圖學到的方法，
