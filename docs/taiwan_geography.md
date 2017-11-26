@@ -10,7 +10,7 @@
 8. [第四章: 地形圖與色階](/topography_cpt.md)
 9. [第五章: 地震活動性與機制解](/seismicity_meca.md)
 10. [第六章: 向量與速度場](/vector_velocity.md)
-11. [第七章: 台灣地理資訊](/taiwan_geography.md)
+12. [第八章: 直方、圓餅、三元圖](/histo_pie_ternary.md)
 
 ---
 
@@ -487,6 +487,4 @@ del tmp*
 
 ---
 
-[上一章](/vector_velocity.md) -- [下一章](/taiwan_geography.md)
-
----
+[上一章](/vector_velocity.md) -- [下一章](/histo_pie_ternary.md)

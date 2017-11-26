@@ -11,6 +11,7 @@
 9. [第五章: 地震活動性與機制解](/seismicity_meca.md)
 10. [第六章: 向量與速度場](/vector_velocity.md)
 11. [第七章: 台灣地理資訊](/taiwan_geography.md)
+12. [第八章: 直方、圓餅、三元圖](/histo_pie_ternary.md)
 
 ---
 
