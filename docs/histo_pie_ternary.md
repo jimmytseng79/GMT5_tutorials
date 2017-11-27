@@ -25,12 +25,29 @@
 
 ## 12.2 學習的指令與概念
 
-## 10.3 直方圖
+## 12.3 直方圖
 
 成果圖
 
+<p align="center">
+  <img src="fig/12_3_population_histo_1.png"/>
+</p>
+
 批次檔
 ```bash
+set ps=12_3_population_histo.ps
+set cpt=haxby.cpt
+
+gmt makecpt -C%cpt% -T0/100/5 -D > tmp.cpt
+gmt pshistogram population_2016_b_2016.dat -R0/102.5/0/1.3e6 -JX-12/15 ^
+-BWeS+t"2016 Taiwan Age Distribution" -Bxa20f10+l"Age" -Bya+l"Male" ^
+-A -Ctmp.cpt -D+o-1.7 -W5 -L0.5 -K > %ps%
+gmt pshistogram population_2016_g_2016.dat -R -JX12/15 ^
+-BS -Bxa -Bya+l"Female" -A -Ctmp.cpt -D -W5 -L0.5 -X12 -K -O >> %ps%
+
+gmt psxy -R -J -T -O >> %ps%
+gmt psconvert %ps% -Tg -A -P
+del tmp*
 ```
 
 學習到的指令:
@@ -55,13 +72,13 @@
 
 學習到的指令:
 
-## 10.6 習題
+## 12.6 習題
 
 使用的資料檔:
 
 完成圖如下:
 
-## 10.7 參考批次檔
+## 12.7 參考批次檔
 列出本章節使用的批次檔，供讀者參考使用，檔案路經可能會有些許不同，再自行修改。
 
 ---
