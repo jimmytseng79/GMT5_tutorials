@@ -49,7 +49,7 @@ echo 13 9 -Sv.5+bt+e | gmt pstext -R -JX -F+f14p,1+jML -G255 -K -O >> %ps%
 echo 9 8 0 3 | gmt psxy -R -JX -Sv.5+b+ec -W1.5 -Gred -K -O >> %ps%
 echo 13 8 -Sv.5+b+ec | gmt pstext -R -JX -F+f14p,1+jML -G255 -K -O >> %ps%
 echo 9 7 0 3 | gmt psxy -R -JX -Sv.5+bi+eA -W1.5 -Gred -K -O >> %ps%
-echo 13 7 -Sv.5+b+eA | gmt pstext -R -JX -F+f14p,1+jML -G255 -K -O >> %ps%
+echo 13 7 -Sv.5+bi+eA | gmt pstext -R -JX -F+f14p,1+jML -G255 -K -O >> %ps%
 echo 9 6 0 3 | gmt psxy -R -JX -Sv.5+b+eI -W1.5 -Gred -K -O >> %ps%
 echo 13 6 -Sv.5+b+eI | gmt pstext -R -JX -F+f14p,1+jML -G255 -K -O >> %ps%
 echo 9 5 0 3 | gmt psxy -R -JX -Sv.5+b+e+r -W1.5 -Gred -K -O >> %ps%
