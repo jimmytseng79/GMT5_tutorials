@@ -27,7 +27,10 @@
 
 ## 12.2 學習的指令與概念
 
+* `makecpt`: 製作色階檔
 * `pshistogram`: 繪製直方圖
+* `psxy`: 繪製線、多邊形、符號
+* `awk`語法的示範
 
 ## 12.3 直方圖
 當拿到散亂的大筆一維資料時，通常第一時間想到的分類方式是透過設定區間，將資料分類，
@@ -96,14 +99,59 @@ del tmp*
 老人產業將會是下一個重要的課題，提早做好準備，或許能搶得一些先機。
 
 ## 12.4 圓餅圖
+當想呈現資料中各種種類中的數量佔總體數量多少時，常用到的就是圓餅圖，本節將利用
+交通部觀光局[觀光統計資料庫](http://stat.taiwan.net.tw/system/sheet_download.html)
+中歷年來臺旅客按居住地分的資料，來看看2016年來台旅客的國家分佈情形吧！
+
+透過Python，將資料按人數多至少排序且轉換成適合`gmt psxy -SW`的格式。
+
+使用的資料檔:
+- [2016來台觀光人數](dat/visitor_2016.gmt)
+- [觀光人數色階檔](dat/visitor.cpt)
 
 成果圖
 
+<p align="center">
+  <img src="fig/12_4_visitor_residence_1.png"/>
+</p>
+
 批次檔
 ```bash
+set ps=12_4_visitor_residence.ps
+set cpt=categorical.cpt
+
+# gmt makecpt -C%cpt% -T0/39/1 -Fr > tmp.cpt
+echo 10 10 0 360 | gmt psxy -R0/20/0/20 -JX15 -SW14 -W3 -K > %ps%
+gmt psxy visitor_2016.gmt -R -JX -Cvisitor.cpt -SW14 -K -O >> %ps%
+awk "NR==1 {print 14,13,$6}" visitor_2016.gmt | ^
+gmt pstext -R -JX -F+f14p,1 -N -K -O >> %ps%
+awk "NR==2 {print 13,5,$6}" visitor_2016.gmt | ^
+gmt pstext -R -JX -F+f14p,1 -N -K -O >> %ps%
+awk "NR==3 {print 7,5,$6}" visitor_2016.gmt | ^
+gmt pstext -R -JX -F+f14p,1 -N -K -O >> %ps%
+awk "{sum += $6} END {print 15,1,""Total:"""",sum}" visitor_2016.gmt | ^
+gmt pstext -R -JX -F+f16p,1+jML -N -K -O >> %ps%
+gmt psscale -R -JX -Cvisitor.cpt -D22/0+w15/1.2 -K -O >> %ps%
+
+gmt psxy -R -J -T -O >> %ps%
+gmt psconvert %ps% -Tg -A -P
+del tmp*
 ```
 
 學習到的指令:
+* `makecpt`製作色階檔，最常用於分類的色階檔為<mark>categorical.cpt</mark>，
+在給定色階的範圍，製作好色階檔後，手動開啟色階檔在每個分類後面加上`; 國家名稱`，
+這樣`psscale`的註解將會用國家名稱來取代編號。
+* `psxy -SW`繪製扇形，對應的輸入格式<mark>x座標 y座標 [顏色編號] 起始角度 結束角度</mark>。
+  * `-Sw`及`-SW`差別在於，前者起始是在x軸正向，逆時針旋轉；後者起始是在y軸正向，順時針旋轉。
+  * 在有`-C`的情況下，會讀取第三欄顏色編號的訊息。
+* `awk "{sum ...}"`計算特定欄的加總值，這邊是累加第六欄(旅客人數)的資料，在最後的時候(`END`)，
+才將訊息`print`出來。
+
+從官網統計的數據來看，2016各國觀光客來台人數最多的國家，是中國(約350萬)，
+依次下去是日本(約190萬)、香港(約160萬)，而來台觀光總人數已經來到約1070萬人次，
+圓餅圖也清楚地表示，光中國及日本的觀光客就已經超過總體人數的一半。
+GMT在圓餅圖上的功能甚少，但還是製作示範供大家參考。
 
 ## 12.5 三元圖
 
