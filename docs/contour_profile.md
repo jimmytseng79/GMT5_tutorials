@@ -272,7 +272,7 @@ gmt project -C%A_lon1%/%A_lat1% -E%A_lon2%/%A_lat2% -G0.1 -Q | ^
 gmt grdtrack -Geast_rift_valley.grd > tmp
 gmtinfo tmp -i2,3 -I1/10 > tmp1
 set /p pr=<tmp1
-gmtinfo tmp -i2 -Cmax -o1 > tmp1
+gmtinfo tmp -i2 -C -o1 > tmp1
 set /p md=<tmp1
 sed -i '1i %A_lon1% %A_lat1% 0 0' tmp
 sed -i '$a %A_lon2% %A_lat2% %md% 0' tmp
@@ -285,7 +285,7 @@ gmt project -C%B_lon1%/%B_lat1% -E%B_lon2%/%B_lat2% -G0.1 -Q | ^
 gmt grdtrack -Geast_rift_valley.grd > tmp
 gmtinfo tmp -i2,3 -I1/10 > tmp1
 set /p pr=<tmp1
-gmtinfo tmp -i2 -Cmax -o1 > tmp1
+gmtinfo tmp -i2 -C -o1 > tmp1
 set /p md=<tmp1
 sed -i '1i %B_lon1% %B_lat1% 0 0' tmp
 sed -i '$a %B_lon2% %B_lat2% %md% 0' tmp

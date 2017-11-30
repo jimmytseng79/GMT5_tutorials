@@ -35,7 +35,7 @@ gmt project -C120.954440/23.47000 -E120.959700/23.48740 -G0.01 -Q | ^
 gmt grdtrack -GyuShan.grd > tmp
 gmt gmtinfo tmp -i2,3 -I.01/10 > tmp1
 set /p pr=<tmp1
-gmt gmtinfo tmp -i2 -Cmax -o1 > tmp1
+gmt gmtinfo tmp -i2 -C -o1 > tmp1
 set /p md=<tmp1
 sed -i '1i 0 0 0 0' tmp
 sed -i '$a 0 0 %md% 0' tmp
@@ -48,7 +48,7 @@ gmt project -C120.954440/23.47000 -E120.965700/23.47080 -G0.01 -Q | ^
 gmt grdtrack -GyuShan.grd > tmp
 gmt gmtinfo tmp -i2,3 -I.01/10 > tmp1
 set /p pr=<tmp1
-gmt gmtinfo tmp -i2 -Cmax -o1 > tmp1
+gmt gmtinfo tmp -i2 -C -o1 > tmp1
 set /p md=<tmp1
 sed -i '1i 0 0 0 0' tmp
 sed -i '$a 0 0 %md% 0' tmp
@@ -60,7 +60,7 @@ gmt project -C120.954440/23.47000 -E120.958800/23.44660 -G0.01 -Q | ^
 gmt grdtrack -GyuShan.grd > tmp
 gmt gmtinfo tmp -i2,3 -I.01/10 > tmp1
 set /p pr=<tmp1
-gmt gmtinfo tmp -i2 -Cmax -o1 > tmp1
+gmt gmtinfo tmp -i2 -C -o1 > tmp1
 set /p md=<tmp1
 sed -i '1i 0 0 0 0' tmp
 sed -i '$a 0 0 %md% 0' tmp
@@ -72,7 +72,7 @@ gmt project -C120.954440/23.47000 -E120.933749/23.47186 -G0.01 -Q | ^
 gmt grdtrack -GyuShan.grd > tmp
 gmt gmtinfo tmp -i2,3 -I.01/10 > tmp1
 set /p pr=<tmp1
-gmt gmtinfo tmp -i2 -Cmax -o1 > tmp1
+gmt gmtinfo tmp -i2 -C -o1 > tmp1
 set /p md=<tmp1
 sed -i '1i 0 0 0 0' tmp
 sed -i '$a 0 0 %md% 0' tmp
