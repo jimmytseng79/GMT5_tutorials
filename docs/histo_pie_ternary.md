@@ -29,6 +29,7 @@
 
 * `makecpt`: 製作色階檔
 * `pshistogram`: 繪製直方圖
+* `psternary`: 繪製三元圖
 * `psxy`: 繪製線、多邊形、符號
 * `awk`語法的示範
 
@@ -154,8 +155,10 @@ del tmp*
 GMT在圓餅圖上的功能甚少，但還是製作示範供大家參考。
 
 ## 12.5 三元圖
-[海洋與大陸岩石的地球化學](http://georoc.mpch-mainz.gwdg.de/georoc/Start.asp)
-(Geochemistry of Rocks of the Oceans and Continents, GEOROC)
+三元圖是於表示三個資料元素之間的觀係，其座標單位並沒有限制，可以是元素含量、溫度等等不同的尺寸。
+本節將使用[海洋與大陸岩石的地球化學](http://georoc.mpch-mainz.gwdg.de/georoc/Start.asp)
+(Geochemistry of Rocks of the Oceans and Continents, GEOROC)中由各地火山採集的岩石樣本資料，
+理面包含了各種化合物或是元素的比例或重量，來看看不同地區火山的成分差異。
 
 使用的資料檔:
 - [火山組成資料](dat/volcano_composition.dat)
@@ -226,6 +229,19 @@ del tmp*
 ```
 
 學習到的指令:
+* `psternary`繪製三元圖。對應的輸入格式是<mark>資料一 資料二 資料三 量值</mark2>
+  * `-B`設定三邊邊框。用<mark>-Ba -Bb -Bc</mark>分別來設定。
+  * `-C`色階檔。配合`-S`有設定時，會自動讀取第四欄來繪製對應顏色。
+  * `-G`顏色。
+  * `-JX`只能給定一個寬度。
+  * `-L`設定三個角的標籤。用法是<mark>a角標籤/b角標籤/c角標籤</mark>。
+  * `-M`將資料轉到卡式座標系統中，並正規化。
+  * `-R`範圍。用法是<mark>a軸最小/a軸最大/b軸最小/b軸最大/c軸最小/c軸最大</mark>。
+  * `-S`符號，可參考之前[4-4符號對照表](basic_defaultsm4.4s)
+  * `-W`符號外框筆觸。
+
+選用三氧化二鋁、氧化鈣、氧化鎂作為資料的三個面向，搭配不同顏色及符號，
+利用火山組成成份的重量百分比，來知道不同地區的火山，其成分上的差異程度。
 
 ## 12.6 習題
 
