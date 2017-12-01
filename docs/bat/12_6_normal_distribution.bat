@@ -9,7 +9,7 @@ awk "{print $3}" normal_distribution.dat | ^
 gmt pshistogram -R -JX -W.1 -G200/255/200 -N0+p2,green -K -O >> %ps%
 awk "{print $4}" normal_distribution.dat | ^
 gmt pshistogram -R -JX -W.1 -G200/200/255 -N0+p2,blue -K -O >> %ps%
-gmt psbasemap -R -JX -BWeSn+t"Noraml Distribution" -Ba -K -O >> %ps%
+gmt psbasemap -R -JX -BWeSn+t"Normal Distribution" -Ba -K -O >> %ps%
 
 rem legend set
 echo S .4 - .4 0 2,0 .8 \265=0, @~s@~=0.1 > tmp
