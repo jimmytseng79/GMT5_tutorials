@@ -54,6 +54,8 @@ set ps=12_3_population_histo.ps
 set cpt=haxby.cpt
 
 gmt makecpt -C%cpt% -T0/100/5 -D > tmp.cpt
+
+# histogram
 gmt pshistogram population_2016_b.dat -R0/102.5/0/1.3e6 -JX-12/15 ^
 -BWeS+t"2016 Taiwan Age Distribution" -Bxa20f10+l"Age" -Bya+l"Male" ^
 -A -Ctmp.cpt -D+o-1.7 -W5 -L0.5 -K > %ps%
@@ -122,6 +124,8 @@ set ps=12_4_visitor_residence.ps
 set cpt=categorical.cpt
 
 # gmt makecpt -C%cpt% -T0/39/1 -Fr > tmp.cpt
+
+# pie chart
 echo 10 10 0 360 | gmt psxy -R0/20/0/20 -JX15 -SW14 -W3 -K > %ps%
 gmt psxy visitor_2016.gmt -R -JX -Cvisitor.cpt -SW14 -K -O >> %ps%
 awk "NR==1 {print 14,13,$6}" visitor_2016.gmt | ^
@@ -244,13 +248,35 @@ del tmp*
 利用火山組成成份的重量百分比，來知道不同地區的火山，其成分上的差異程度。
 
 ## 12.6 習題
+常態分佈(Normal distribution)又稱高斯分佈(Gaussian distribution)，
+在數理、工程等領域都時常用到的機率分佈，其機率密度函數(Probability Density Function, PDF)為
+
+<p align="center">
+  <img src="fig/eq_ProbabilityDensityFunction.png"/>
+</p>
+
+分佈的情形由平均數及標準差來決定，通常標準常態分佈是指平均數為0，標準差為1。
+本次習題希望透過隨機變量x，及替換平均數和標準差，代入上述公式，得到資料點後，
+利用`pshistogram`來繪製四種不同型態的常態分佈。
+
+資料點數為100，四種平均數及標準差分別為0, 0.1 | 2, 0.3 | 0, 0.7 | -2, 0.5，
+可嘗試自行代入公式製作資料，也可以使用下方提供的資料。
 
 使用的資料檔:
+- [常態分佈數據](dat/normal_distribution.dat)
 
 完成圖如下:
 
+<p align="center">
+  <img src="fig/12_6_normal_distribution_1.png"/>
+</p>
+
 ## 12.7 參考批次檔
 列出本章節使用的批次檔，供讀者參考使用，檔案路經可能會有些許不同，再自行修改。
+* [12_3_population_histo](bat/12_3_population_histo.bat)
+* [12_4_visitor_residence](bat/12_4_visitor_residence.bat)
+* [12_5_volcano_compo](bat/12_5_volcano_compo.bat)
+* [12_6_normal_distribution](bat/12_6_normal_distribution.bat)
 
 ---
 
