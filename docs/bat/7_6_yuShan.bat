@@ -23,7 +23,7 @@ echo 120.954440 23.47000 > tmp1
 echo 120.933749 23.47186 >> tmp1
 gmt psxy tmp1 -R -JM -W5,0/163/224 -K -O >> %ps%
 gmt psxy tmp -R -JM -St.7 -G254/173/119 -W1 -K -O >> %ps%
-gmt pstext tmp -R -JM -F+12p -G255 -D0/.6 -K -O >> %ps%
+gmt pstext tmp -R -JM -F+f12p -G255 -D0/.6 -K -O >> %ps%
 
 gmt pscoast -R119.9/122.1/21.8/25.4 -JM3 -Bwesn -Ba -Df -W1 -S255 -G230 ^
 -K -O --MAP_FRAME_TYPE=inside >> %ps%
