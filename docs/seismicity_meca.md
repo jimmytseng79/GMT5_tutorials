@@ -353,7 +353,7 @@ gmt project focal_mechanism.gmt -C%lon1%/%lat1% -E%lon2%/%lat2% ^
 awk "{if ($6>=-20 && $6<20) print $1,$2,$3,$4,$5,$6,$7,$8,$9}" focal_profile.gmt | ^
 gmt psmeca -R -JM -Sa.5 -Gyellow -K -O >> %ps%
 # right-lateral strike-slip
-awk "{if ($$6>=160 || 6<-160) print $1,$2,$3,$4,$5,$6,$7,$8,$9}" focal_profile.gmt | ^
+awk "{if ($6>=160 || $6<-160) print $1,$2,$3,$4,$5,$6,$7,$8,$9}" focal_profile.gmt | ^
 gmt psmeca -R -JM -Sa.5 -Gyellow -K -O >> %ps%
 # reverse fault
 awk "{if ($6>=20 && $6<160) print $1,$2,$3,$4,$5,$6,$7,$8,$9}" focal_profile.gmt | ^
@@ -368,7 +368,7 @@ echo %lon1% %lat1% A | gmt pstext -R -JM -F+f16p,1,darkgreen -G230 -K -O >> %ps%
 echo %lon2% %lat2% A'| gmt pstext -R -JM -F+f16p,1,darkgreen -G230 -K -O >> %ps%
 
 echo 120.4 25.6 Profile Width: %width1%/%width2% km | ^
-gmt pstext -R -JM -F+14p,1+jML -K -O >> %ps%
+gmt pstext -R -JM -F+f14p,1+jML -K -O >> %ps%
 
 # 4. seismicity profile
 gmt psbasemap -R0/100/21/26 -JX6/13.56 -BwESn -Bxa+l"Depth (km)" ^
@@ -377,7 +377,7 @@ awk "{print $3,$2,$3,exp($4)*0.002}" catalog_profile.gmt | ^
 gmt psxy -R -JX -Ctmp.cpt -Sc -K -O >> %ps%
 awk "{if ($6>=-20 && $6<20) print $3,$2,$3,$4,$5,$6,$7,$8,$9}" focal_profile.gmt | ^
 gmt psmeca -R -JX -Sa.5 -Gyellow -K -O >> %ps%
-awk "{if ($$6>=160 || 6<-160) print $3,$2,$3,$4,$5,$6,$7,$8,$9}" focal_profile.gmt | ^
+awk "{if ($6>=160 || $6<-160) print $3,$2,$3,$4,$5,$6,$7,$8,$9}" focal_profile.gmt | ^
 gmt psmeca -R -JX -Sa.5 -Gyellow -K -O >> %ps%
 awk "{if ($6>=20 && $6<160) print $3,$2,$3,$4,$5,$6,$7,$8,$9}" focal_profile.gmt | ^
 gmt psmeca -R -JX -Sa.5 -Gred -K -O >> %ps%
