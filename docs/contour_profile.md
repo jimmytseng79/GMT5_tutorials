@@ -173,7 +173,7 @@ gmt pscoast -R121.33/121.68/23.55/24.1 -JM10 -BWeSn -Bxa.2 -Bya.2 ^
 -Df -W1 -G194/250/216 -S175/243/255 -X13 -K -O >> %ps%
 gmt pscoast -R -JM -Df -Gc -K -O >> %ps%
 gmt grdcontour east_rift_valley.grd -R -JM -C250 -A1000+an+f12p+g255/153/199 ^
--Gd15c -Wc.5,255/110/110 -Wa1,180/13/13 -Q180 -K -O >> %ps%
+-Gd15c -Wc.5,255/110/110 -Wa1,180/13/13 -Q180 -L0/2000 -K -O >> %ps%
 gmt pscoast -R -JM -Q -K -O >> %ps%
 
 gmt psxy -R -JM -T -O >> %ps%
@@ -196,6 +196,7 @@ gmt psconvert %ps% -Tg -A -P
     * **f**給一個檔案ffile.d，依照檔案中的位置，繪製註解
     * 依照線段來取決，**l**起始/結束，用,來區分每條線，**L**使用大圓路徑
     * **n**給一條線中等距標籤的數量
+  * **-L**低值/高值，限制範圍。
   * **-W**等高線的屬性，**-Wa**設定有註解的等高線；**-Wc**設定無註解的等高線。
   * **-Q**省略資料點小於多少的等高線。
 * 第11行: `pscoast -Gc`開啟海岸線切割模式。
