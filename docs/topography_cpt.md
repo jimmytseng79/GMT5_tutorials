@@ -141,16 +141,16 @@ echo 121.3 25.32 1. | gmt pstext -R -JM -F+f24p -G250 -K -O >> %ps%
 
 # 2. discrete 0~1200 dem1.cpt
 makecpt -C%cpt% -T0/1200/100 > tmp.cpt
-gmt grdimage yangmingShan.grd -R121.27/121.85/25.05/25.35 -JM13 -BWeSn -Ba -Ctmp.cpt ^
+gmt grdimage yangmingShan.grd -R -JM -BWeSn -Ba -Ctmp.cpt ^
 -M -Y-9 -K -O >> %ps%
 gmt pscoast -R -JM -Df -W1 -S34/201/237 -K -O >> %ps%
 gmt psscale -Ctmp.cpt -Dx14/0+w7/.5 -Ba200+l"Elevation (m)" -M -K -O >> %ps%
 echo 121.3 25.32 2. | gmt pstext -R -JM -F+f24p -G250 -K -O >> %ps%
 
-# 3. continuous 0~1200 dem1.cpt
+# 3. continuous 200~1200 dem1.cpt
 makecpt -C%cpt% -T0/1200/100 -Z > tmp.cpt
-gmt grdimage yangmingShan.grd -R121.27/121.85/25.05/25.35 -JM13 -BWeSn -Ba -Ctmp.cpt ^
--Y-9 -K -O >> %ps%
+gmt grdclip yangmingShan.grd -R -Sb200/NaN -Gtmp.grd
+gmt grdimage tmp.grd -R -JM -BWeSn -Ba -Ctmp.cpt -Q -Y-9 -K -O >> %ps%
 gmt pscoast -R -JM -Df -W1 -S34/201/237 -K -O >> %ps%
 gmt psscale -Ctmp.cpt -Dx14/0+w7/.5 -Ba200+l"Elevation (m)" -I -K -O >> %ps%
 echo 121.3 25.32 3. | gmt pstext -R -JM -F+f24p -G250 -K -O >> %ps%
@@ -166,6 +166,7 @@ del tmp*
 * `grdimage`投影網格或是影像(images)至地圖上:
   * `-C`輸入色階檔。
   * `-M`黑白畫面!!
+  * `-Q`當資料點為NaN(無值)時，變成透明色。
 * `psscale`繪製色彩條(color bar):
   * `-B`調整刻度間距。
   * `-C`輸入色階檔。
@@ -191,12 +192,21 @@ del tmp*
 <mark>2</mark> 將色階檔範圍改成0至1200，間距100，變成離散的色階檔，加上`-M`讓地圖與色彩條都變成黑白模式。
 
 <mark>3</mark> 將色階檔範圍改成0至1200，間距100，`-Z`變成連續的色階檔，`-I`開啟色彩條照明效果。
+這裡使用`grdclip`將高度200以下的資料設定為NaN，配合`grdimage -Q`，讓高度200以下的地區，以透明著色。
+詳細的`grdclip`模組介紹。
+* `grdclip`剪切網格檔的範圍。
+  * `-G`輸出檔名。
+  * `-R`範圍。
+  * `-Sa`上界值/取代數值，當數值超過上界時，用取代數值取代。
+  * `-Sb`下界值/取代數值，用法如上。
+  * `-Si`下界值/上界值/取代數值，用法如上，可以重覆使用，來設定特定數值範圍。
+  * `-Sr`舊值/取代數值，當數值等於舊值時，用取代數值取代。
 
 第一張圖使用原始dem1.cpt的範圍只有到800公尺，而陽明山區域最高海拔可至約1110公尺，
 導致在高度上並沒有辦法完整呈現山頭的資訊。第二張圖，將dem1.cpt的範圍改至1200後，並改成離散化的色階，
 山頭的資訊有較明顯的呈現，但河川的訊息變得不太明顯，示範用黑白模式是由於地形圖往往是製圖的背景，
 而黑白模式可以有效表達地形差異，又不會又不會搶走之後想表達主題的光彩。第三張圖，
-則是改善一、二兩張圖的缺點，較完整地呈現該地區的地形。
+則是針對200公尺以上的區域，較完整地呈現該地區的地形。
 
 ## 8.5 地形暈渲面
 Hillshading暈渲法(或稱陰影法)，是一種地形圖的表示方式，應用光影的原裡，
