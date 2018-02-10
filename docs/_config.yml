@@ -1,6 +1,4 @@
 theme: jekyll-theme-leap-day
 encoding: utf-8
-name: "GMT5 Tutorial"
-navbar:
-    title: "GMT5 Tutorial"
-    description: "GMT5 教程 | 編者: Po-Chin Tseng"
+title: "GMT5 Tutorial"
+description: "GMT5 教程 | 編者: Po-Chin Tseng"
