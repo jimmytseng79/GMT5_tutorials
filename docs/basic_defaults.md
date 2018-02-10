@@ -1,13 +1,3 @@
-<html lang="zh-Hant-TW">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="description" content="GMT5 tutorials">
-  <meta name="keywords" content="GMT5,toturials,Taiwan">
-  <meta name="author" content="Jimmy Tseng">
-
-  <title>GMT5 Tutorials</title>
-</head>
 
 ### 目錄
 1. [總覽](/index.md)
