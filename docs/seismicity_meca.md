@@ -458,11 +458,14 @@ del tmp*
 
 ## 9.7 參考批次檔
 列出本章節使用的批次檔，供讀者參考使用，檔案路經可能會有些許不同，再自行修改。
-* [9_3_seismicity](bat/9_3_seismicity.bat)
-* [9_4_focal_mechanism](bat/9_4_focal_mechanism.bat)
-* [9_4_taiwan_focal](bat/9_4_taiwan_focal.bat)
-* [9_5_focal_profile](bat/9_5_focal_profile.bat)
-* [9_6_after6m_meinong](bat/9_6_after6m_meinong.bat)
+
+|Batch|Csh|
+|-----|-----|
+|[9_3_seismicity](bat/9_3_seismicity.bat)|[9_3_seismicity](csh/9_3_seismicity.csh)|
+|[9_4_focal_mechanism](bat/9_4_focal_mechanism.bat)|[9_4_focal_mechanism](csh/9_4_focal_mechanism.csh)|
+|[9_4_taiwan_focal](bat/9_4_taiwan_focal.bat)|[9_4_taiwan_focal](bat/9_4_taiwan_focal.csh)|
+|[9_5_focal_profile](bat/9_5_focal_profile.bat)|[9_5_focal_profile](bat/9_5_focal_profile.csh)|
+|[9_6_after6m_meinong](bat/9_6_after6m_meinong.bat)|[9_6_after6m_meinong](bat/9_6_after6m_meinong.csh)|
 
 ---
 
