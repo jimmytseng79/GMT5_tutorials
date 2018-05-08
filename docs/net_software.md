@@ -16,6 +16,7 @@
 10. [第六章: 向量與速度場](/vector_velocity.md)
 11. [第七章: 台灣地理資訊](/taiwan_geography.md)
 12. [第八章: 直方、圓餅、三元圖](/histo_pie_ternary.md)
+13. [第九章: 三維空間圖](/three_dimension.md)
 
 ---
 
