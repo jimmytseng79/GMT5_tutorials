@@ -21,8 +21,9 @@
 ---
 
 ## 13. 三維空間視圖
-在統計圖表中，除了之前介紹的折線圖、點散佈圖等，還有一些是平常生活中也常會使用到的，
-本章將依序介紹GMT是如何繪製直方圖、圓餅圖及三元圖。
+本章將展示如何在GMT中繪製三維空間的圖，其中包含利用`psxyz`來繪製多面體圖形及三維柱狀圖，
+`grdview`來繪製三維透視圖。當製作立體圖的時候，透過觀看視角的調整，
+將能給讀者更全面的資訊及更好的視覺享受。
 
 ## 13.1 目的
 本章將學習如何繪製
@@ -32,11 +33,17 @@
 
 ## 13.2 學習的指令與概念
 
+* `gmtconvert`: 處理多區塊式文件
 * `grdview`: 繪製三維透視圖
+* `psbasemap`: 繪製圖框、刻度、標籤等等
+* `pstext`: 三維空間中寫字
 * `psxyz`: 繪製三維空間中的點、線、面
+* `awk`語法的示範
 
 ## 13.3 多面體圖
-TODO
+本節將在三維的座標系統中，去繪製幾種不同的多面體，讓讀者能熟習三維的語法。其中`psxyz`與
+`psxy`最大的差別，在輸入的表格中，多了要輸入z軸的位置，而透過[多面體的各端點座標](http://www.rwgrayprojects.com/Lynn/Coordinates/coord01.html)，
+將此網站的資料整理成GMT的區塊文件(segment file)，利用點與點連接，來完成多種多面體。
 
 使用的資料檔:
 - [多面體_點](dat/polyhedron_vertex.gmt)
@@ -56,7 +63,7 @@ set ps=13_3_3d_polyhedron.ps
 gmt psbasemap -R-15/15/-15/15/-12/12 -JX15 -JZ12 -p220/25 ^
 -BWeSnZ -Bxa5f2.5 -By5f2.5 -Bz2 -K > %ps%
 
-rem Tetrahedron 8
+# Tetrahedron 8
 gmt gmtconvert polyhedron_face.gmt -S"Tetrahedron 8 |" > tmp
 awk "NR %%4 != 1 {print $1-10, $2-10, $3-7.5}" tmp > tmp1
 awk "{print $0} NR %%3 == 0 {print "">""""}" tmp1 > tmp2
@@ -69,7 +76,7 @@ gmt gmtconvert polyhedron_vertex.gmt -S"Tetrahedron 8 |" > tmp
 awk "NR != 1 {print $1-10, $2-10, $3-7.5}" tmp > tmp1
 gmt psxyz tmp1 -R -J -JZ -p -Sc.3 -G173/0/0 -K -O >> %ps%
 
-rem Cube 3
+# Cube 3
 gmt gmtconvert polyhedron_face.gmt -S"Cube 3 |" > tmp
 awk "NR %%4 != 1 {print $1+5, $2-10, $3-7.5}" tmp > tmp1
 awk "{print $0} NR %%3 == 0 {print "">""""}" tmp1 > tmp2
@@ -82,7 +89,7 @@ gmt gmtconvert polyhedron_vertex.gmt -S"Cube 3 |" > tmp
 awk "NR != 1 {print $1+5, $2-10, $3-7.5}" tmp > tmp1
 gmt psxyz tmp1 -R -J -JZ -p -Sc.3 -G0/1/138 -K -O >> %ps%
 
-rem Octahedron 3
+# Octahedron 3
 gmt gmtconvert polyhedron_face.gmt -S"Octahedron 3 |" > tmp
 awk "NR %%4 != 1 {print $1-10, $2+5, $3-5}" tmp > tmp1
 awk "{print $0} NR %%3 == 0 {print "">""""}" tmp1 > tmp2
@@ -95,7 +102,7 @@ gmt gmtconvert polyhedron_vertex.gmt -S"Octahedron 3 |" > tmp
 awk "NR != 1 {print $1-10, $2+5, $3-5}" tmp > tmp1
 gmt psxyz tmp1 -R -J -JZ -p -Sc.3 -G0/93/79 -K -O >> %ps%
 
-rem Rhombic Dodecahedron 3
+# Rhombic Dodecahedron 3
 gmt gmtconvert polyhedron_face.gmt -S"Rhombic Dodecahedron 3 |" > tmp
 awk "NR %%4 != 1 {print $1+4, $2+5, $3-5}" tmp > tmp1
 awk "{print $0} NR %%3 == 0 {print "">""""}" tmp1 > tmp2
@@ -108,7 +115,7 @@ gmt gmtconvert polyhedron_vertex.gmt -S"Rhombic Dodecahedron 3 |" > tmp
 awk "NR != 1 {print $1+4, $2+5, $3-5}" tmp > tmp1
 gmt psxyz tmp1 -R -J -JZ -p -Sc.3 -G173/201/0 -K -O >> %ps%
 
-rem Icosahedron
+# Icosahedron
 gmt gmtconvert polyhedron_face.gmt -S"Icosahedron |" > tmp
 awk "NR %%4 != 1 {print $1-10, $2+10, $3+5}" tmp > tmp1
 awk "{print $0} NR %%3 == 0 {print "">""""}" tmp1 > tmp2
@@ -121,7 +128,7 @@ gmt gmtconvert polyhedron_vertex.gmt -S"Icosahedron |" > tmp
 awk "NR != 1 {print $1-10, $2+10, $3+5}" tmp > tmp1
 gmt psxyz tmp1 -R -J -JZ -p -Sc.3 -G189/0/219 -K -O >> %ps%
 
-rem Rhombic Triacontahedron
+# Rhombic Triacontahedron
 gmt gmtconvert polyhedron_face.gmt -S"Rhombic Triacontahedron |" > tmp
 awk "NR %%4 != 1 {print $1+6, $2+10, $3+5}" tmp > tmp1
 awk "{print $0} NR %%3 == 0 {print "">""""}" tmp1 > tmp2
@@ -134,7 +141,7 @@ gmt gmtconvert polyhedron_vertex.gmt -S"Rhombic Triacontahedron |" > tmp
 awk "NR != 1 {print $1+6, $2+10, $3+5}" tmp > tmp1
 gmt psxyz tmp1 -R -J -JZ -p -Sc.3 -G0/147/72 -K -O >> %ps%
 
-rem 120 Polyhedron
+# 120 Polyhedron
 gmt gmtconvert polyhedron_face.gmt -S"120 Polyhedron |" > tmp
 awk "NR %%4 != 1 {print $1+20, $2+8, $3-4}" tmp > tmp1
 awk "{print $0} NR %%3 == 0 {print "">""""}" tmp1 > tmp2
@@ -147,7 +154,7 @@ gmt gmtconvert polyhedron_vertex.gmt -S"120 Polyhedron |" > tmp
 awk "NR != 1 {print $1+20, $2+8, $3-4}" tmp > tmp1
 gmt psxyz tmp1 -R -J -JZ -p -Sc.3 -G5 -N -K -O >> %ps%
 
-rem text
+# text
 echo 7 -11 Tetrahedron | gmt pstext -R -J -JZ -p180/90 -F+f14p+a28 -K -O >> %ps%
 echo 18 -7.5 Cube | gmt pstext -R -J -JZ -p -F+f14p+a10 -N -K -O >> %ps%
 echo -1.5 -3.5 Octahedron | gmt pstext -R -J -JZ -p -F+f14p+a55 -N -K -O >> %ps%
@@ -165,17 +172,152 @@ del tmp*
 * `psbasemap`繪製座標系的軸。
   * `-Jz|Z`設定z軸的尺寸，語法如同`-Jx`。
   * `-p`設定觀看圖片的角度，對應的輸入格式<mark>平面角度 俯視角度</mark>。
+* `gmtconvert -S`搜尋區塊文件中，符合特定字串的區塊。
 * `psxyz`繪製三維空間中的點線面。語法與`psxy`一樣，唯一差別在從2維座標點變成輸入3維的座標點。
+* `pstext`透過`-p180/90`讓文字變成在xz平面書寫(原本是在xy平面)，
+以及用`-F+a`來調整文字的角度。
+
+[多面體的各端點座標](http://www.rwgrayprojects.com/Lynn/Coordinates/coord01.html)
+網站中提到的字母p為黃金比例(Golden Ratio)，一般而言為1.618，編者以這個數值來製作
+多面體的端點座標，接著分別繪製多面體的點(vertice)、線(edges)、平面(faces)。
+除了上面示範中的多面體，也可以自行改變`gmtconvert -S`後面的字串，
+來繪製其他種類的多面體，透過該網站，共整理了28種。
 
 ## 13.4 柱狀圖
+TODO
 
-## 12.5 三維透視圖
+使用的資料檔:
+- [鑽井岩心資料](dat/core.gmt)
+
+成果圖
+
+<p align="center">
+  <img src="fig/13_4_3d_bar_1.png"/>
+</p>
+
+批次檔
+```bash
+set ps=13_4_3d_bar.ps
+set data=D:\GMT_data\
+set C=gray
+set FS=green
+set CS=cyan
+set G=red
+
+gmt grdimage %data%tw_20.grd -R120.62/120.69/24.03/24.13/0/100 -JM12 -JZ10 -p205/35 ^
+-BWeSnZ -Bxa.03 -Bya.04 -Bz10+l"Depth (m)" -Cdem1.cpt -I%data%tw_20shad.grd -K > %ps%
+gmt psxy %data%taiwan_river_tributary.gmt -R -JM -JZ -p -W1,72/92/199 -K -O >> %ps%
+gmt psxy %data%taiwan_river_mainstream.gmt -R -JM -JZ -p -W1,30/34/170 -K -O >> %ps%
+
+# 061851G1
+awk "{if ($3==""061851G1"""") print $0}" core.gmt > tmp
+awk "{print $1,$2,$4,0}" tmp | gmt psxyz -R -JM -JZ -p -So.3 -G%C% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6,$4}" tmp | gmt psxyz -R -JM -JZ -p -So.3b -G%CS% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8,$4+$6}" tmp | gmt psxyz -R -JM -JZ -p -So.3b -G%C% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8+$10,$4+$6+$8}" tmp | ^
+gmt psxyz -R -JM -JZ -p -So.3b -G%CS% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8+$10+$12,$4+$6+$8+$10}" tmp | ^
+gmt psxyz -R -JM -JZ -p -So.3b -G%C% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8+$10+$12+$14,$4+$6+$8+$10+$12}" tmp | ^
+gmt psxyz -R -JM -JZ -p -So.3b -G%G% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8+$10+$12+$14+$16,$4+$6+$8+$10+$12+$14}" tmp | ^
+gmt psxyz -R -JM -JZ -p -So.3b -G%CS% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$3}" tmp | gmt pstext -R -JM -JZ -p -F+f12p=2p,white -D0/-.5 -K -O >> %ps%
+awk "{print $1,$2,$3}" tmp | gmt pstext -R -JM -JZ -p -F+f12p -D0/-.5 -K -O >> %ps%
+
+# 062051G1
+awk "{if ($3==""062051G1"""") print $0}" core.gmt > tmp
+awk "{print $1,$2,$4,0}" tmp | gmt psxyz -R -JM -JZ -p -So.3 -G%G% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6,$4}" tmp | gmt psxyz -R -JM -JZ -p -So.3b -G%FS% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8,$4+$6}" tmp | gmt psxyz -R -JM -JZ -p -So.3b -G%C% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8+$10,$4+$6+$8}" tmp | ^
+gmt psxyz -R -JM -JZ -p -So.3b -G%G% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8+$10+$12,$4+$6+$8+$10}" tmp | ^
+gmt psxyz -R -JM -JZ -p -So.3b -G%C% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$3}" tmp | gmt pstext -R -JM -JZ -p -F+f12p=2p,white -D0/-.5 -K -O >> %ps%
+awk "{print $1,$2,$3}" tmp | gmt pstext -R -JM -JZ -p -F+f12p -D0/-.5 -K -O >> %ps%
+
+# 061552G1
+awk "{if ($3==""061552G1"""") print $0}" core.gmt > tmp
+awk "{print $1,$2,$4,0}" tmp | gmt psxyz -R -JM -JZ -p -So.3 -G%CS% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6,$4}" tmp | gmt psxyz -R -JM -JZ -p -So.3b -G%C% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8,$4+$6}" tmp | gmt psxyz -R -JM -JZ -p -So.3b -G%G% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8+$10,$4+$6+$8}" tmp | ^
+gmt psxyz -R -JM -JZ -p -So.3b -G%CS% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8+$10+$12,$4+$6+$8+$10}" tmp | ^
+gmt psxyz -R -JM -JZ -p -So.3b -G%G% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8+$10+$12+$14,$4+$6+$8+$10+$12}" tmp | ^
+gmt psxyz -R -JM -JZ -p -So.3b -G%CS% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8+$10+$12+$14+$16,$4+$6+$8+$10+$12+$14}" tmp | ^
+gmt psxyz -R -JM -JZ -p -So.3b -G%G% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8+$10+$12+$14+$16+$18,$4+$6+$8+$10+$12+$14+$16}" tmp | ^
+gmt psxyz -R -JM -JZ -p -So.3b -G%FS% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$3}" tmp | gmt pstext -R -JM -JZ -p -F+f12p=2p,white -D0/-.5 -K -O >> %ps%
+awk "{print $1,$2,$3}" tmp | gmt pstext -R -JM -JZ -p -F+f12p -D0/-.5 -K -O >> %ps%
+
+# 061553G1
+awk "{if ($3==""061553G1"""") print $0}" core.gmt > tmp
+awk "{print $1,$2,$4,0}" tmp | gmt psxyz -R -JM -JZ -p -So.3 -G%G% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6,$4}" tmp | gmt psxyz -R -JM -JZ -p -So.3b -G%CS% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8,$4+$6}" tmp | gmt psxyz -R -JM -JZ -p -So.3b -G%G% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8+$10,$4+$6+$8}" tmp | ^
+gmt psxyz -R -JM -JZ -p -So.3b -G%FS% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8+$10+$12,$4+$6+$8+$10}" tmp | ^
+gmt psxyz -R -JM -JZ -p -So.3b -G%G% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8+$10+$12+$14,$4+$6+$8+$10+$12}" tmp | ^
+gmt psxyz -R -JM -JZ -p -So.3b -G%C% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8+$10+$12+$14+$16,$4+$6+$8+$10+$12+$14}" tmp | ^
+gmt psxyz -R -JM -JZ -p -So.3b -G%CS% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8+$10+$12+$14+$16+$18,$4+$6+$8+$10+$12+$14+$16}" tmp | ^
+gmt psxyz -R -JM -JZ -p -So.3b -G%G% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8+$10+$12+$14+$16+$18+$20,$4+$6+$8+$10+$12+$14+$16+$18}" tmp | ^
+gmt psxyz -R -JM -JZ -p -So.3b -G%FS% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$3}" tmp | gmt pstext -R -JM -JZ -p -F+f12p=2p,white -D0/-.5 -K -O >> %ps%
+awk "{print $1,$2,$3}" tmp | gmt pstext -R -JM -JZ -p -F+f12p -D0/-.5 -K -O >> %ps%
+
+# 061551G1
+awk "{if ($3==""061551G1"""") print $0}" core.gmt > tmp
+awk "{print $1,$2,$4,0}" tmp | gmt psxyz -R -JM -JZ -p -So.3 -G%G% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6,$4}" tmp | gmt psxyz -R -JM -JZ -p -So.3b -G%C% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8,$4+$6}" tmp | gmt psxyz -R -JM -JZ -p -So.3b -G%FS% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8+$10,$4+$6+$8}" tmp | ^
+gmt psxyz -R -JM -JZ -p -So.3b -G%C% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8+$10+$12,$4+$6+$8+$10}" tmp | ^
+gmt psxyz -R -JM -JZ -p -So.3b -G%CS% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8+$10+$12+$14,$4+$6+$8+$10+$12}" tmp | ^
+gmt psxyz -R -JM -JZ -p -So.3b -G%G% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$4+$6+$8+$10+$12+$14+$16,$4+$6+$8+$10+$12+$14}" tmp | ^
+gmt psxyz -R -JM -JZ -p -So.3b -G%FS% -W.5 -K -O >> %ps%
+awk "{print $1,$2,$3}" tmp | gmt pstext -R -JM -JZ -p -F+f12p=2p,white -D0/-.5 -K -O >> %ps%
+awk "{print $1,$2,$3}" tmp | gmt pstext -R -JM -JZ -p -F+f12p -D0/-.5 -K -O >> %ps%
+
+# legend
+echo C %C% > tmp
+echo L - - L Clay >> tmp
+echo C %FS% >> tmp
+echo L - - L Fine Sand >> tmp
+echo C %CS% >> tmp
+echo L - - L Coarse Sand >> tmp
+echo C %G% >> tmp
+echo L - - L Gravel >> tmp
+gmt pslegend tmp -R -JM -JZ -p -Dx7.7/.5+w4 -F+g0+p1+s-6p/-4p/gray20@40 -K -O >> %ps%
+
+gmt psxy -R -J -JZ -T -O >> %ps%
+gmt psconvert %ps% -Tg -A -P
+del tmp*
+```
+
+學習到的指令:
+* `psxyz`
+
+## 13.5 三維透視圖
 
 ## 13.6 習題
 
 ## 13.7 參考批次檔
 列出本章節使用的批次檔，供讀者參考使用，檔案路經可能會有些許不同，再自行修改。
 * [13_3_3d_polyhedron](bat/13_3_3d_polyhedron.bat)
+* [13_4_3d_bar](bat/13_4_3d_bar.bat)
 
 ---
 
