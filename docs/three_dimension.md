@@ -16,7 +16,7 @@
 10. [第六章: 向量與速度場](/vector_velocity.md)
 11. [第七章: 台灣地理資訊](/taiwan_geography.md)
 12. [第八章: 直方、圓餅、三元圖](/histo_pie_ternary.md)
-13. [第九章: 三維空間圖](/three_dimension.md)
+13. [第九章: 三維空間視圖](/three_dimension.md)
 
 ---
 
@@ -180,6 +180,7 @@ del tmp*
 [多面體的各端點座標](http://www.rwgrayprojects.com/Lynn/Coordinates/coord01.html)
 網站中提到的字母p為黃金比例(Golden Ratio)，一般而言為1.618，編者以這個數值來製作
 多面體的端點座標，接著分別繪製多面體的點(vertice)、線(edges)、平面(faces)。
+透過`awk`可以改變邊長來造成圖形的縮放，或是加減數值來移動多面體的位置，
 除了上面示範中的多面體，也可以自行改變`gmtconvert -S`後面的字串，
 來繪製其他種類的多面體，透過該網站，共整理了28種。
 
@@ -322,6 +323,51 @@ del tmp*
 如果再配合化石等其他資料，就可以清楚地勾勒出這地區的地層分佈。
 
 ## 13.5 三維透視圖
+
+使用的資料檔:
+- 請參考[8-5地形暈眩圖]((topography_cpt.md#m8.5))，下載全球一角分的數值地形圖。
+
+成果圖
+
+<p align="center">
+  <img src="fig/13_5_3d_perspective_1.png"/>
+</p>
+
+批次檔
+```bash
+set data=D:\GMT_data\
+set ps=13_5_3d_perspective.ps
+set R=-80/-70/-56/-48
+
+gmt gmtset MAP_FRAME_TYPE plain FONT_ANNOT_PRIMARY 8p FONT_LABEL 10p PS_MEDIA A3
+
+gmt grdcut %data%ETOPO1_Bed_g_gmt5.grd -R%R% -Gtmp.grd
+gmt grdcut %data%ETOPO1_Bed_g_gmt5_shad.grd -R%R% -Gtmp_shad.grd
+
+# -Qi -N
+gmt grdview tmp.grd -Itmp_shad.grd -R%R%/-6000/2000 -JL-75/-52.5/-59/-45/7.5 -JZ2 -p210/40 ^
+-Cibcao.cpt -N-6000+glightgray -Qi500 -Ba -Bza4000f2000+l"Topo (m)" -BWeSnZ+t"-Qi -N" -K > %ps%
+
+# -Qi & grdcontour
+gmt grdcontour tmp.grd -R -J -JZ -p -C500 -A1000 -Ba -BWeSn -K -O -Y11 >> %ps%
+gmt grdview tmp.grd -Itmp_shad.grd -R%R%/-6000/2000 -J -JZ -p -Cibcao.cpt ^
+-Qi500 -Ba -Bza4000f2000+l"Topo (m)" -BwesnZ+t"-Qi & grdcontour" -K -O -Y3 >> %ps%
+
+# -Qs -Wc
+gmt grdview tmp.grd -Itmp_shad.grd -R%R%/-6000/2000 -J -JZ -p -Cibcao.cpt ^
+-Qs -Ba -Bza4000f2000+l"Topo (m)" -BWeSnZ+t"-Qs -Wc" -Wc.5 -K -O -X13 -Y-3 >> %ps%
+
+# -Qm -N -Wm -Wf
+gmt grdsample tmp.grd -I10k -Gtmp10.grd
+gmt grdsample tmp_shad.grd -I10k -Gtmp10_shad.grd
+gmt grdview tmp10.grd -Itmp10_shad.grd -R%R%/-6000/2000 -JL -JZ2 -p -Cibcao.cpt ^
+-N-6000+glightgray -Qm -Ba -Bz2000+l"Topo (m)" -BWeSnZ+t"-Qm -N -Wm -Wf" ^
+-Wm.5 -Wf.75,red -K -O -Y-11 >> %ps%
+
+gmt psxy -R -J -Jz -T -O >> %ps%
+gmt psconvert %ps% -Tg -A -P
+del tmp*
+```
 
 ## 13.6 習題
 
