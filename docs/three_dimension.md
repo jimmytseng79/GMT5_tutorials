@@ -361,7 +361,7 @@ gmt grdview tmp.grd -Itmp_shad.grd -R%R%/-6000/2000 -J -JZ -p -Cibcao.cpt ^
 gmt grdsample tmp.grd -I10k -Gtmp10.grd
 gmt grdsample tmp_shad.grd -I10k -Gtmp10_shad.grd
 gmt grdview tmp10.grd -Itmp10_shad.grd -R%R%/-6000/2000 -JL -JZ2 -p -Cibcao.cpt ^
--N-6000+glightgray -Qm -Ba -Bz2000+l"Topo (m)" -BWeSnZ+t"-Qm -N -Wm -Wf" ^
+-N-6000+glightgray -Qm -Ba -Bza4000f2000+l"Topo (m)" -BWeSnZ+t"-Qm -N -Wm -Wf" ^
 -Wm.5 -Wf.75,red -K -O -Y-11 >> %ps%
 
 gmt psxy -R -J -Jz -T -O >> %ps%
