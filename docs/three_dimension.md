@@ -325,7 +325,7 @@ del tmp*
 ## 13.5 三維透視圖
 
 使用的資料檔:
-- 請參考[8-5地形暈眩圖]((topography_cpt.md#m8.5))，下載全球一角分的數值地形圖。
+- 請參考[8-5地形暈眩圖](topography_cpt.md#m8.5)，下載全球一角分的數值地形圖。
 
 成果圖
 
@@ -375,7 +375,8 @@ del tmp*
 列出本章節使用的批次檔，供讀者參考使用，檔案路經可能會有些許不同，再自行修改。
 * [13_3_3d_polyhedron](bat/13_3_3d_polyhedron.bat)
 * [13_4_3d_bar](bat/13_4_3d_bar.bat)
+* [13_5_3d_perspective](bat/13_5_3d_perspective.bat)
 
 ---
 
-[上一章](/histo_pie_ternary.md) -- [下一章](/3d_dimension.md)
+[上一章](/histo_pie_ternary.md) -- [下一章](/three_dimension.md)

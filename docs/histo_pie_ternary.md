@@ -285,4 +285,4 @@ del tmp*
 
 ---
 
-[上一章](/taiwan_geography.md) -- [下一章](/histo_pie_ternary.md)
+[上一章](/taiwan_geography.md) -- [下一章](/three_dimension.md)
