@@ -55,14 +55,14 @@
 </p>
 
 批次檔
-```bat
+```bash
 set ps=6_3_accidentalDeath.ps
 
-rem 製作底圖框架
+# 製作底圖框架
 gmt psbasemap -R0/100/0/450 -JX20/15 -Bxa5+l"Age" -Bya50+l"Deaths (count)" ^
 -BWeSn+t"2016 Taiwan Accidental Deaths" -K > %ps%
 
-rem 繪製垂直虛線
+# 繪製垂直虛線
 echo 15 0 > area
 echo 15 450 >> area
 gmt psxy area -R -JX -W1.5,180/180/255,- -K -O >> %ps%
@@ -70,13 +70,13 @@ echo 75 0 > area
 echo 75 450 >> area
 gmt psxy area -R -JX -W1.5,255/180/180,- -K -O >> %ps%
 
-rem 繪製死亡人數資料點
+# 繪製死亡人數資料點
 awk "$3==1 {print $1, $2}" dead105.dat | gmt psxy -R -JX -Sd.4 ^
 -G30/34/170 -W1 -K -O >> %ps%
 awk "$3==2 {print $1, $2}" dead105.dat | gmt psxy -R -JX -Sc.4 ^
 -G208/0/111 -W1 -K -O >> %ps%
 
-rem 圖例框與圖例說明
+# 圖例框與圖例說明
 echo 1 385 > area
 echo 15.5 385 >> area
 echo 15.5 445 >> area
@@ -87,7 +87,7 @@ echo 6 430 Male | gmt pstext -R -JX -F+f14+jML -K -O >> %ps%
 echo 3 400 | gmt psxy -R -JX -Sc.4 -G208/0/111 -W1 -K -O >> %ps%
 echo 6 400 Female | gmt pstext -R -JX -F+f14+jML -O >> %ps%
 
-rem 轉成.png檔，刪除暫存資料
+# 轉成.png檔，刪除暫存資料
 gmt psconvert %ps% -Tg -A -P
 del area
 ```
@@ -164,10 +164,10 @@ del area
 </p>
 
 批次檔
-```bat
+```bash
 set ps=6_4_richter_magnitude.ps
 
-rem 製作左側圖
+# 製作左側圖
 gmt psbasemap -R0/9.99/1e0/9.99e9 -JX9/15l -BWeSn -Bxa1+l"Richter Mag." ^
 -Bya1pf3+l"Maximum Amp. (Microns)" -K > %ps%
 gmt psxy richter_magnitude.dat -R -JX -W1 -K -O >> %ps%
@@ -176,7 +176,7 @@ echo 6.6 6.6e5 2016 Meinong >> tmp
 gmt psxy tmp -R -JX -Sc.6 -G0 -K -O >> %ps%
 gmt pstext tmp -R -JX -F+f14p+jMR -D-.6/0 -K -O >> %ps%
 
-rem 製作右側圖
+# 製作右側圖
 gmt psbasemap -R0/9.99/1e-2/9.99 -JX9/15p2 -BWeSn -Bxa1+l"Magnitude" ^
 -Bya1f.2g1+l"Log of Maximum Amp. (Microns)" -X12 -K -O >> %ps%
 gmt psxy richter_magnitude_log.dat -R -JX -W1 -K -O >> %ps%
@@ -236,10 +236,10 @@ del tmp
 </p>
 
 批次檔
-```bat
+```bash
 set ps=6_5_C0V250_morakot.ps
 
-rem 設定圖框、刻度、標題等等
+# 設定圖框、刻度、標題等等
 gmt gmtset ^
 FORMAT_DATE_MAP = yyyy/mm/dd ^
 MAP_FRAME_PEN = 3p ^
@@ -248,12 +248,12 @@ FONT_ANNOT_PRIMARY = 16p,4,black ^
 FONT_LABEL = 20p,4,black ^
 FONT_TITLE = 26p,4,black
 
-rem 繪製雨量長條圖
+# 繪製雨量長條圖
 gmt psbasemap -R2009-08-06T/2009-08-15T/0/150 -JX20/12 ^
 -BW+t"Station: C0V250"+g225 -Bxa2D -Bya30+l"Rainfall (mm)" -K > %ps%
 awk "{print $1,$2}" C0V250_rain.dat | gmt psxy -R -JX -Sb.1 -G0/14/203 -K -O >> %ps%
 
-rem 繪製累積雨量折線圖
+# 繪製累積雨量折線圖
 awk "{print $1,$3}" C0V250_rain.dat | gmt psxy -R2009-08-06T/2009-08-15T/0/2200 ^
 -JX -W3.5,242/51/51 -K -O >> %ps%
 gmt psbasemap -R -JX -BESn -Bxa2D+l"Time (Year/Mon/Day)" ^
@@ -306,30 +306,30 @@ del gmt.conf
 </p>
 
 批次檔
-```bat
+```bash
 set ps=6_6_season_wind.ps
 
 gmt psbasemap -R0/360/0/5 -JPa17 -BN+g230 -Bxa20 -Byg1 -K > %ps%
-rem 466920, Taipei
+# 466920, Taipei
 awk "$4==466920 {print $3, $2}" summer_wind.dat | gmt psxy -R -JP -Sc.3 -G161/216/132 -K -O >> %ps%
 awk "$4==466920 {print $3, $2}" winter_wind.dat | gmt psxy -R -JP -Sc.3 -G42/99/246 -K -O >> %ps%
-rem 467490, Taichung
+# 467490, Taichung
 awk "$4==467490 {print $3, $2}" summer_wind.dat | gmt psxy -R -JP -Ss.3 -G161/216/132 -K -O >> %ps%
 awk "$4==467490 {print $3, $2}" winter_wind.dat | gmt psxy -R -JP -Ss.3 -G42/99/246 -K -O >> %ps%
-rem 467410, Tainan
+# 467410, Tainan
 awk "$4==467410 {print $3, $2}" summer_wind.dat | gmt psxy -R -JP -St.3 -G161/216/132 -K -O >> %ps%
 awk "$4==467410 {print $3, $2}" winter_wind.dat | gmt psxy -R -JP -St.3 -G42/99/246 -K -O >> %ps%
-rem 467660, Taitung
+# 467660, Taitung
 awk "$4==467660 {print $3, $2}" summer_wind.dat | gmt psxy -R -JP -Sn.3 -G161/216/132 -K -O >> %ps%
 awk "$4==467660 {print $3, $2}" winter_wind.dat | gmt psxy -R -JP -Sn.3 -G42/99/246 -K -O >> %ps%
-rem wind speed label
+# wind speed label
 echo -90 1 1 m/s > tmp
 echo -90 2 2 m/s >> tmp
 echo -90 3 3 m/s >> tmp
 echo -90 4 4 m/s >> tmp
 gmt pstext tmp -R -JP -F+f14p -G230 -K -O >> %ps%
 
-rem legend set
+# legend set
 echo H 24 Times-Roman Legend > tmp
 echo D 0.4 1p >> tmp
 echo G .2 >> tmp

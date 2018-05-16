@@ -60,12 +60,12 @@
 </p>
 
 顯示出一推看不懂的亂碼，但如何想簡單的得知這個檔案理面的資料資訊，可以使用
-```bat
+```bash
 gmt grdinfo 檔名
 ```
 
 讀取<mark>Penghu_20m.tif</mark>，可得到資訊如下:
-```bat
+```bash
 Penghu_20m.tif: Title: Grid imported via GDAL
 Penghu_20m.tif: Command:
 Penghu_20m.tif: Remark:
@@ -82,14 +82,14 @@ Penghu_20m.tif: scale_factor: 1 add_offset: 0
 但這檔案要提供給GMT使用，會遇到兩個問題，第一，檔案格式為<mark>Geotiff</mark>，
 利用[GDAL](http://www.gdal.org/index.html)(地理空間資料抽象化文庫, Geospatial Data Abstraction Library)
 提供的轉檔程式<mark>gdal_translate</mark>，透過指令，
-```bat
+```bash
 gdal_translate -of XYZ [input.tif] [output.xyz]
 ```
 
 將<mark>.tif</mark>檔轉換成<mark>.xyz</mark>檔。第二，由於內政部提供的檔案其座標系是<mark>TWD97</mark>，
 而GMT繪製地圖慣用在<mark>WGS84座標系</mark>，因此需要做座標系轉換，透過Python，將檔案轉成WGS84座標系，
 完成後再將<mark>.xyz</mark>檔轉換成<mark>.grd檔</mark>。
-```bat
+```bash
 gmt xyz2grd [input.xyz] -R119.0/119.9/21.8/25.4 -I0.6s/0.6s -G[output.grd]
 ```
 
@@ -122,7 +122,7 @@ gmt xyz2grd [input.xyz] -R119.0/119.9/21.8/25.4 -I0.6s/0.6s -G[output.grd]
   * **+r**網格檔的註解。
 
 同樣的，也可以透過
-```bat
+```bash
 gmt grd2xyz input.grd > output.xyz
 ```
 
@@ -131,7 +131,7 @@ gmt grd2xyz input.grd > output.xyz
 透過上述方式，成功地將內政部提供的數值高程檔轉換成GMT繪圖使用的格式，在這個範例中，
 一般<mark>.xyz</mark>的檔案大小約為420MB，轉換成<mark>.grd</mark>的格式後，變成4.61MB，大大地節省硬碟空間。
 使用一樣的做法，把台灣本島的數值高程也轉換成功後，不希望之後畫圖都要分開讀取台灣本島以及澎湖，所以使用:
-```bat
+```bash
 gmt grdpaste input1.grd input2.grd -Goutput.grd -fg
 ```
 
@@ -141,7 +141,7 @@ gmt grdpaste input1.grd input2.grd -Goutput.grd -fg
 * **-fc**卡式座標系統
 
 當然一次讀取這麼大的數值資料，會耗費很長的時間，因此可以利用GMT提供的網格切割指令:
-```bat
+```bash
 gmt grdcut input.grd -Goutput.grd -R範圍
 ```
 
@@ -166,15 +166,15 @@ gmt grdcut input.grd -Goutput.grd -R範圍
 </p>
 
 批次檔
-```bat
+```bash
 set ps=7_4_east_rift_valley.ps
 
-rem left figure without clip
+# left figure without clip
 gmt pscoast -R121.33/121.68/23.55/24.1 -JM10 -BWeSn -Bxa.2 -Bya.2 ^
 -Df -W1 -G194/250/216 -S175/243/255 -K > %ps%
 gmt grdcontour east_rift_valley.grd -R -JM -C250 -A1000+f12p -K -O >> %ps%
 
-rem right figure with clip
+# right figure with clip
 gmt pscoast -R121.33/121.68/23.55/24.1 -JM10 -BWeSn -Bxa.2 -Bya.2 ^
 -Df -W1 -G194/250/216 -S175/243/255 -X13 -K -O >> %ps%
 gmt pscoast -R -JM -Df -Gc -K -O >> %ps%
@@ -227,8 +227,8 @@ gmt psconvert %ps% -Tg -A -P
 </p>
 
 批次檔
-```bat
-rem 1. set two profile start point and end point
+```bash
+# 1. set two profile start point and end point
 set ps=7_5_elevation_profile.ps
 set Alon1=121.38
 set Alat1=24.07
@@ -239,7 +239,7 @@ set Blat1=24.06
 set Blon2=121.47
 set Blat2=24.0
 
-rem 2. contour basemap
+# 2. contour basemap
 gmt pscoast -R121.33/121.68/23.55/24.1 -JM10 -BWeSn -Bxa.2 -Bya.2 ^
 -Df -W1 -G194/250/216 -S175/243/255 -K --MAP_FRAME_TYPE=plain > %ps%
 gmt pscoast -R -JM -Df -Gc -K -O >> %ps%
@@ -247,7 +247,7 @@ gmt grdcontour east_rift_valley.grd -R -JM -C250 -A1000+f10p ^
 -Wc.5,150 -Wa1,30 -Q180 -K -O >> %ps%
 gmt pscoast -R -JM -Q -K -O >> %ps%
 
-rem 3. AA' line
+# 3. AA' line
 echo %Alon1% %Alat1% > tmp
 echo %Alon2% %Alat2% >> tmp
 gmt psxy tmp -R -JM -W2,238/91/78 -K -O >> %ps%
@@ -258,7 +258,7 @@ echo %Alon2% %Alat2% A' > tmp
 gmt psxy tmp -R -JM -Sc.8 -G238/91/78 -W1 -K -O >> %ps%
 gmt pstext tmp -R -JM -F+f16p,0,blue -K -O >> %ps%
 
-rem 4. BB' line
+# 4. BB' line
 echo %Blon1% %Blat1% > tmp
 echo %Blon2% %Blat2% >> tmp
 gmt psxy tmp -R -JM -W2,234/235/128 -K -O >> %ps%
@@ -269,12 +269,12 @@ echo %Blon2% %Blat2% B' > tmp
 gmt psxy tmp -R -JM -Sc.8 -G234/235/128 -W1 -K -O >> %ps%
 gmt pstext tmp -R -JM -F+f16p -K -O >> %ps%
 
-rem 5. insert map
+# 5. insert map
 gmt pscoast -R119.9/122.1/21.8/25.4 -JM3 -Bwesn -Ba -Df -W1 -S255 -G230 ^
 -X7 -K -O --MAP_FRAME_TYPE=inside >> %ps%
 gmt psbasemap -R -JM -D121.33/121.68/23.55/24.1 -F+p2 -K -O >> %ps%
 
-rem 6. AA' profile
+# 6. AA' profile
 gmt project -C%Alon1%/%Alat1% -E%Alon2%/%Alat2% -G0.1 -Q | ^
 gmt grdtrack -Geast_rift_valley.grd > tmp
 gmtinfo tmp -i2,3 -I1/10 > tmp1
@@ -287,7 +287,7 @@ awk "{print $3, $4}" tmp | gmt psxy %pr% -JX12/6 -W2 -G238/91/78 -X5 -Y.5 -K -O 
 gmt psbasemap -R -JX -BwESn+t"AA' Profile" -Bxa+l"Distance (km)" ^
 -Bya+l"Elevation (m)" -K -O --FONT_TITLE=24p,0,blue >> %ps%
 
-rem 7. BB' profile
+# 7. BB' profile
 gmt project -C%Blon1%/%Blat1% -E%Blon2%/%Blat2% -G0.1 -Q | ^
 gmt grdtrack -Geast_rift_valley.grd > tmp
 gmtinfo tmp -i2,3 -I1/10 > tmp1

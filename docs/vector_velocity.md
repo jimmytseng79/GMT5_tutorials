@@ -51,12 +51,12 @@
 </p>
 
 批次檔
-```bat
+```bash
 set ps=10_3_vector.ps
 
 gmt psbasemap -R0/19/0/15 -JX19/15 -BWESN -Bag1 -K > %ps%
 
-rem 1. -Sv
+# 1. -Sv
 echo 2 1 0 1.5 | gmt psxy -R -JX -Sv.5+e -W1.5 -Gred -K -O >> %ps%
 echo 1.8 1 0\260 | gmt pstext -R -JX -F+f14p,1+jMR -G255 -K -O >> %ps%
 echo 2 1.5 90 1.5 | gmt psxy -R -JX -Sv.5+e -W1.5 -Gred -K -O >> %ps%
@@ -67,7 +67,7 @@ echo 2 5.5 270 1.5 | gmt psxy -R -JX -Sv.5+e -W1.5 -Gred -K -O >> %ps%
 echo 2.2 5 270\260 | gmt pstext -R -JX -F+f14p,1+jML -G255 -K -O >> %ps%
 echo 1.25 6.25 -Sv | gmt pstext -R -JX -F+f18p,1+jML -G255 -K -O >> %ps%
 
-rem 2. -SV
+# 2. -SV
 echo 6 1 0 1.5 | gmt psxy -R -JX -SV.5+e -W1.5 -Gred -K -O >> %ps%
 echo 5.8 1.5 0\260 | gmt pstext -R -JX -F+f14p,1+jMR -G255 -K -O >> %ps%
 echo 6 3.0 90 1.5 | gmt psxy -R -JX -SV.5+e -W1.5 -Gred -K -O >> %ps%
@@ -78,7 +78,7 @@ echo 6 5.5 270 1.5 | gmt psxy -R -JX -SV.5+e -W1.5 -Gred -K -O >> %ps%
 echo 6.2 5.5 270\260 | gmt pstext -R -JX -F+f14p,1+jML -G255 -K -O >> %ps%
 echo 5.25 6.25 -SV | gmt pstext -R -JX -F+f18p,1+jML -G255 -K -O >> %ps%
 
-rem 3. -Sm
+# 3. -Sm
 echo 1 7 2 0 90 | gmt psxy -R -JX -Sm0.2i+e -W1.5 -Gred -K -O >> %ps%
 echo 1 7.5 0~90\260 | gmt pstext -R -JX -F+f14p,1+jML -G255 -K -O >> %ps%
 echo 5 9 2 270 450 | gmt psxy -R -JX -Sm0.2i+e -W1.5 -Gred -K -O >> %ps%
@@ -87,7 +87,7 @@ echo 3 12 2 0 270 | gmt psxy -R -JX -Sm0.2i+e -W1.5 -Gred -K -O >> %ps%
 echo 3 12 0~270\260 | gmt pstext -R -JX -F+f14p,1+jMC -G255 -K -O >> %ps%
 echo 3.5 9.5 -Sm | gmt pstext -R -JX -F+f18p,1+jML -G255 -K -O >> %ps%
 
-rem 4. vector type
+# 4. vector type
 echo 9 14 0 3 | gmt psxy -R -JX -Sv.5+ba+ea -W1.5 -Gred -K -O >> %ps%
 echo 13 14 -Sv.5+ba+ea | gmt pstext -R -JX -F+f14p,1+jML -G255 -K -O >> %ps%
 echo 9 13 0 3 | gmt psxy -R -JX -Sv.5+ba+ea -W1.5 -Gred -K -O --MAP_VECTOR_SHAPE=-2 >> %ps%
@@ -169,14 +169,14 @@ del tmp*
 </p>
 
 批次檔
-```bat
+```bash
 set ps=10_4_morakot_wind.ps
 set data=D:\GMT_data\
 set cpt=gebco.cpt
 
 gmt surface morakot_presure.gmt -R119/123/21/26 -I.01  -Gmorakot_presure.grd
 
-rem 1. topography & presure contour
+# 1. topography & presure contour
 gmt psbasemap -R119/123/21/26 -JM15 -BWeSn -Bxa -Bya -P -K > %ps%
 gmt grdimage %data%ETOPO1_Bed_g_gmt5.grd -R -JM -C%cpt% ^
 -I%data%ETOPO1_Bed_g_gmt5_shad.grd -M -K -O >> %ps%
@@ -187,7 +187,7 @@ gmt pscoast -R -JM -Q -K -O >> %ps%
 gmt pscoast -R -JM -Df -W1 -K -O >> %ps%
 gmt grdcontour morakot_presure.grd -R -JM -A100 -C50 -K -O >> %ps%
 
-rem 2. typhoon track & wind
+# 2. typhoon track & wind
 gmt psvelo morakot_wind.gmt -R -JM -Se.3/.01/0 -G36/64/254 -A+ea+a45 -W1,36/64/254 -K -O >> %ps%
 awk "{print $3,$2}" morakot_track.dat | gmt psxy -R -JM -W2,255/205/0,- -K -O >> %ps%
 awk "$1 != 082009080800 {print $3,$2}" morakot_track.dat | ^
@@ -195,7 +195,7 @@ gmt psxy -R -JM -SkHURRICANE/.5 -G232/178/14 -W.5 -K -O >> %ps%
 awk "$1 == 082009080800 {print $3,$2}" morakot_track.dat | ^
 gmt psxy -R -JM -SkHURRICANE/.7 -G218/41/28 -W.5 -K -O >> %ps%
 
-rem 3. legend set
+# 3. legend set
 echo H 18 1 Legend > tmp
 echo D 0.4 1p >> tmp
 echo G .2 >> tmp
@@ -276,12 +276,12 @@ del tmp*
 </p>
 
 批次檔
-```bat
+```bash
 set ps=10_5_grid_vector.ps
 set data=D:\GMT_data\
 set cpt=sealand.cpt
 
-rem 1. surface .xyz to .grd & makecpt
+# 1. surface .xyz to .grd & makecpt
 awk "{print $1,$2,$3}" morakot_wind.gmt | ^
 gmt surface -R119.9/122.1/21.8/25.4 -I.1 -Gmorakot_wind_e.grd
 awk "{print $1,$2,$4}" morakot_wind.gmt | ^
@@ -289,7 +289,7 @@ gmt surface -R -I.1 -Gmorakot_wind_n.grd
 gmt surface morakot_wind_scalar.gmt -R -I.1 -T.25 -Gmorakot_wind_scalar.grd
 gmt makecpt -C%cpt% -T0/10/.5 -D > tmp.cpt
 
-rem 2. bathymetry & grdvector
+# 2. bathymetry & grdvector
 gmt psbasemap -R119.8/122.1/21.8/25.4 -JM15 -BWeSn -Bxa ^
 -Bya -P -K --MAP_FRAME_TYPE=PLAIN > %ps%
 gmt grdimage %data%tw_500_119.grd -R -JM -C%cpt% ^
@@ -301,7 +301,7 @@ gmt grdvector morakot_wind_e.grd morakot_wind_n.grd -R -JM -Q+ea -W1 ^
 gmt pscoast -R -JM -Q -K -O >> %ps%
 gmt pscoast -R -JM -Df -W1 -K -O >> %ps%
 
-rem 3. typhoon track & psscale
+# 3. typhoon track & psscale
 awk "{print $3,$2}" morakot_track.dat | gmt psxy -R -JM -W2,255/205/0,- -K -O >> %ps%
 awk "$1 != 082009080800 {print $3,$2}" morakot_track.dat | ^
 gmt psxy -R -JM -SkHURRICANE/.5 -G232/178/14 -W.5 -K -O >> %ps%

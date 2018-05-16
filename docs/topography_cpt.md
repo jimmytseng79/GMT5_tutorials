@@ -134,18 +134,18 @@ N	127.5
 </p>
 
 批次檔
-```bat
+```bash
 set ps=8_4_yangmingShan.ps
 set cpt=dem1.cpt
 
-rem 1. use default dem1.cpt
+# 1. use default dem1.cpt
 gmt grdimage yangmingShan.grd -R121.27/121.85/25.05/25.35 -JM13 -BWeSn -Ba ^
 -C%cpt% -P -Y21 -K > %ps%
 gmt pscoast -R -JM -Df -W1 -S34/201/237 -K -O >> %ps%
 gmt psscale -C%cpt% -Dx14/0+w7/.5+e -Ba100+l"Elevation (m)" -K -O >> %ps%
 echo 121.3 25.32 1. | gmt pstext -R -JM -F+f24p -G250 -K -O >> %ps%
 
-rem 2. discrete 0~1200 dem1.cpt
+# 2. discrete 0~1200 dem1.cpt
 makecpt -C%cpt% -T0/1200/100 > tmp.cpt
 gmt grdimage yangmingShan.grd -R -JM -BWeSn -Ba -Ctmp.cpt ^
 -M -Y-9 -K -O >> %ps%
@@ -153,7 +153,7 @@ gmt pscoast -R -JM -Df -W1 -S34/201/237 -K -O >> %ps%
 gmt psscale -Ctmp.cpt -Dx14/0+w7/.5 -Ba200+l"Elevation (m)" -M -K -O >> %ps%
 echo 121.3 25.32 2. | gmt pstext -R -JM -F+f24p -G250 -K -O >> %ps%
 
-rem 3. continuous 200~1200 dem1.cpt
+# 3. continuous 200~1200 dem1.cpt
 makecpt -C%cpt% -T0/1200/100 -Z > tmp.cpt
 gmt grdclip yangmingShan.grd -R -Sb200/NaN -Gtmp.grd
 gmt grdimage tmp.grd -R -JM -BWeSn -Ba -Ctmp.cpt -Q -Y-9 -K -O >> %ps%
@@ -237,30 +237,30 @@ Hillshading暈渲法(或稱陰影法)，是一種地形圖的表示方式，應�
 </p>
 
 批次檔
-```bat
+```bash
 set ps=8_5_ryukyu_trench_n.ps
 set data=D:\GMT_data\
 set dcpt=colomia_d.cpt
 set ucpt=colomia_u.cpt
 
-rem 1. Bathymetry
+# 1. Bathymetry
 gmt grdinfo %data%ETOPO1_Bed_g_gmt5.grd -R121.2/132.0/22.88/31.0 -C -I1 > tmp
 for /f %%i in ('awk "{print $6}" tmp') do set minz=%%i
 gmt makecpt -C%dcpt% -T%minz%/0/1000 -D -Z > tmp.cpt
-rem grdinfo %data%ETOPO1_Bed_g_gmt5.grd -R -T500 > tmp
-rem set /p T=<tmp
-rem makecpt -C%cpt% %T% -Z > tmp.cpt
+# grdinfo %data%ETOPO1_Bed_g_gmt5.grd -R -T500 > tmp
+# set /p T=<tmp
+# makecpt -C%cpt% %T% -Z > tmp.cpt
 gmt grdimage %data%ETOPO1_Bed_g_gmt5.grd -R -JM17 -BWeSn -Ba ^
 -Ctmp.cpt -K > %ps%
 gmt psscale -Ctmp.cpt -Dx19/1.5+w10/.5+e+ml -Bxa1000+l"Bathymetry" -By+l"m" -K -O >> %ps%
 
-rem 2. Topography
+# 2. Topography
 gmt pscoast -R -JM -Di -W1 -G189/204/150 -K -O >> %ps%
 gmt pscoast -R -JM -Df -Gc -K -O >> %ps%
 gmt grdinfo %data%tw_40.grd -R -C -I1 > tmp
 for /f %%i in ('awk "{print $7}" tmp') do set maxz=%%i
 gmt makecpt -C%ucpt% -T0/%maxz%/500 -D -Z > tmp.cpt
-rem gmt grd2cpt %data%tw_40.grd -C%cpt% -R > tmp.cpt
+# gmt grd2cpt %data%tw_40.grd -C%cpt% -R > tmp.cpt
 gmt grdimage %data%tw_40.grd -R -JM -Ctmp.cpt -K -O >> %ps%
 gmt pscoast -R -JM -Df -Q -K -O >> %ps%
 gmt psscale -Ctmp.cpt -Dx22.5/1.5+w10/.5+e+ml -Bxa500+l"Topography" -By+l"m" -K -O >> %ps%
@@ -300,7 +300,7 @@ del tmp*
 列出這些的使用方法，供作參考。
 
 接下來，將介紹陰影檔的製作方式，使用的指令是`grdgradient`，範例如下:
-```bat
+```bash
 grdgradient ETOPO1_Bed_g_gmt5.grd -Nt1 -A300 -GETOPO1_Bed_g_gmt5_shad.grd
 ```
 

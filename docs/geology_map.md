@@ -50,10 +50,10 @@ TODO
 </p>
 
 批次檔
-```bat
+```bash
 set ps=14_3_bit_harchure_patterns.ps
 
-rem -Gpdpi/pattern[:Bcolor[Fcolor]]
+# -Gpdpi/pattern[:Bcolor[Fcolor]]
 echo .2 23.3 Demonstration of -Gp | gmt pstext -R0/16/0/24 -JX16/24 -F+f18p,1+jML -P -K > %ps%
 echo 2 21 3 1.5 | gmt psxy -R -JX -Sr -Gp100/24 -W.5 -K -O >> %ps%
 echo 6 21 3 1.5 | gmt psxy -R -JX -Sr -Gp300/24 -W.5 -K -O >> %ps%
@@ -65,7 +65,7 @@ echo 8.5 22.1 -Gp500/24:Fblue >> tmp
 echo 11.8 22.1 -Gp300/24:BblackFyellow >> tmp
 gmt pstext tmp -R -JX -F+f10p+jML -K -O >> %ps%
 
-rem Sedimentary Rock
+# Sedimentary Rock
 echo .3 19 Sedimentary Lithology Patterns | gmt pstext -R -JX -F+f14p,1+jML -K -O >> %ps%
 echo 2 17.5 3 1.5 | gmt psxy -R -JX -Sr -Gp200/24:B230 -W.5 -K -O >> %ps%
 echo 6 17.5 3 1.5 | gmt psxy -R -JX -Sr -Gp200/43:B230 -W.5 -K -O >> %ps%
@@ -97,7 +97,7 @@ echo 10 14.0 Dolostone or dolomite >> tmp
 echo 14 14.0 Breccia >> tmp
 gmt pstext tmp -R -JX -F+f9p+jMC -K -O >> %ps%
 
-rem Igneous rock
+# Igneous rock
 echo .3 12.4 Igneous and Vein-matter Lithology Patterns | gmt pstext -R -JX -F+f14p,1+jML -K -O >> %ps%
 echo 2 10.9 3 1.5 | gmt psxy -R -JX -Sr -Gp200/29:B245/99/165 -W.5 -K -O >> %ps%
 echo 6 10.9 3 1.5 | gmt psxy -R -JX -Sr -Gp200/47:B245/99/165 -W.5 -K -O >> %ps%
@@ -131,15 +131,15 @@ TODO
 </p>
 
 批次檔
-```bat
+```bash
 set ps=14_4_se_geo.ps
 
-rem basemap and geology color
+# basemap and geology color
 gmt pscoast -R88/165/-16/28 -JL140.0/0.0/-10.0/15.0/25 -Ba10g2.5 -Df ^
 -A5000 -W.5 -G245/246/246 -S234/246/253 -K > %ps%
 gmt psxy geo3bl_lonlat.gmt -R -JL -W.1,red -Crock_unit.cpt -L -K -O >> %ps%
 
-rem 3 specified rock type
+# 3 specified rock type
 gmt gmtconvert geo3bl_lonlat.gmt -S"|v|" > tmp
 awk "{print $1,""p400/28:F50B""""$2,$3,""p400/28:F50B""""$4}" rock_unit.cpt > tmp.cpt
 gmt psxy tmp -R -JL -Ctmp.cpt -W.1,red -L -K -O >> %ps%
@@ -152,7 +152,7 @@ gmt gmtconvert geo3bl_lonlat.gmt -S"|w|" > tmp
 awk "{print $1,""p400/44:F50B""""$2,$3,""p400/44:F50B""""$4}" rock_unit.cpt > tmp.cpt
 gmt psxy tmp -R -JL -Ctmp.cpt -W.1,red -L -K -O >> %ps%
 
-rem legend part
+# legend part
 echo 0 0 > tmp
 echo 10 0 >> tmp
 echo 10 10 >> tmp

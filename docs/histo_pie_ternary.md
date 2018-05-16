@@ -55,13 +55,13 @@
 </p>
 
 批次檔
-```bat
+```bash
 set ps=12_3_population_histo.ps
 set cpt=haxby.cpt
 
 gmt makecpt -C%cpt% -T0/100/5 -D > tmp.cpt
 
-rem histogram
+# histogram
 gmt pshistogram population_2016_b.dat -R0/102.5/0/1.3e6 -JX-12/15 ^
 -BWeS+t"2016 Taiwan Age Distribution" -Bxa20f10+l"Age" -Bya+l"Male" ^
 -A -Ctmp.cpt -D+o-1.7 -W5 -L0.5 -K > %ps%
@@ -125,13 +125,13 @@ del tmp*
 </p>
 
 批次檔
-```bat
+```bash
 set ps=12_4_visitor_residence.ps
 set cpt=categorical.cpt
 
-rem gmt makecpt -C%cpt% -T0/39/1 -Fr > tmp.cpt
+# gmt makecpt -C%cpt% -T0/39/1 -Fr > tmp.cpt
 
-rem pie chart
+# pie chart
 echo 10 10 0 360 | gmt psxy -R0/20/0/20 -JX15 -SW14 -W3 -K > %ps%
 gmt psxy visitor_2016.gmt -R -JX -Cvisitor.cpt -SW14 -K -O >> %ps%
 awk "NR==1 {print 14,13,$6}" visitor_2016.gmt | ^
@@ -180,10 +180,10 @@ GMT在圓餅圖上的功能甚少，但還是製作示範供大家參考。
 </p>
 
 批次檔
-```bat
+```bash
 set ps=12_5_volcano_compo.ps
 
-rem ternary diagram
+# ternary diagram
 gmt gmtconvert volcano_composition.dat -S"ctranew_york_kimberlites" | ^
 awk "NR!=1{print $2,$3,$4}" | ^
 gmt psternary -R0/35/0/50/0/50 -JX15 -Baag+l"Weight Percent (\045)" ^
@@ -218,7 +218,7 @@ gmt gmtconvert volcano_composition.dat -S"USTICA_ISLAND" | ^
 awk "NR!=1 {print $2,$3,$4}" | ^
 gmt psternary -R -JX -Ba -Sg.3 -G255/194.44/228.5 -K -O >> %ps%
 
-rem legend set
+# legend set
 echo H 16 1 Legend > tmp
 echo D 0.4 1p >> tmp
 echo G .2 >> tmp
