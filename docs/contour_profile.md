@@ -17,6 +17,7 @@
 11. [第七章: 台灣地理資訊](/taiwan_geography.md)
 12. [第八章: 直方、圓餅、三元圖](/histo_pie_ternary.md)
 13. [第九章: 三維空間視圖](/three_dimension.md)
+14. [第十章: 地質圖](/geology_map.md)
 
 ---
 

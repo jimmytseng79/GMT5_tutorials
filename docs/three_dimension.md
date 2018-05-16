@@ -17,6 +17,7 @@
 11. [第七章: 台灣地理資訊](/taiwan_geography.md)
 12. [第八章: 直方、圓餅、三元圖](/histo_pie_ternary.md)
 13. [第九章: 三維空間視圖](/three_dimension.md)
+14. [第十章: 地質圖](/geology_map.md)
 
 ---
 
@@ -323,6 +324,7 @@ del tmp*
 如果再配合化石等其他資料，就可以清楚地勾勒出這地區的地層分佈。
 
 ## 13.5 三維透視圖
+TODO
 
 使用的資料檔:
 - 請參考[8-5地形暈眩圖](topography_cpt.md#m8.5)，下載全球一角分的數值地形圖。
@@ -370,6 +372,7 @@ del tmp*
 ```
 
 ## 13.6 習題
+TODO
 
 ## 13.7 參考批次檔
 列出本章節使用的批次檔，供讀者參考使用，檔案路經可能會有些許不同，再自行修改。
@@ -379,4 +382,4 @@ del tmp*
 
 ---
 
-[上一章](/histo_pie_ternary.md) -- [下一章](/three_dimension.md)
+[上一章](/histo_pie_ternary.md) -- [下一章](/geology_map.md)

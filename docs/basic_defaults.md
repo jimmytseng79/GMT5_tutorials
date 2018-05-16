@@ -17,6 +17,7 @@
 11. [第七章: 台灣地理資訊](/taiwan_geography.md)
 12. [第八章: 直方、圓餅、三元圖](/histo_pie_ternary.md)
 13. [第九章: 三維空間視圖](/three_dimension.md)
+14. [第十章: 地質圖](/geology_map.md)
 
 ---
 
@@ -117,7 +118,7 @@ GMT在讀取<mark>gmt.conf</mark>檔時，會優先讀取當前資料夾底下�
   <img src="fig/4_text_placement.jpg"/>
 </p>
 
-* <mark>地質圖案</mark>(bit and hachure patterns)
+* <a name="m4.4g"></a><mark>地質圖案</mark>(bit and hachure patterns)
 
 <p align="center">
   <img src="fig/4_hachure_patterns.jpg"/>
