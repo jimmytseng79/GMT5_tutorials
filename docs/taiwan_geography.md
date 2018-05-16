@@ -61,11 +61,11 @@
 </p>
 
 批次檔
-```bash
+```bat
 set ps=11_3_taiwan_road.ps
 set data=D:\GMT_data\road\
 
-# 1. road map
+rem 1. road map
 gmt psbasemap -R119.8/122.1/21.8/25.4 -JM15 -BWeSn -Ba -P -K > %ps%
 gmt pscoast -R -JM -Df -W1 -G80 -S159/229/255 -K -O >> %ps%
 gmt psxy %data%provincial_highway.gmt -R -JM -W.4,green -K -O >> %ps%
@@ -77,7 +77,7 @@ gmt psxy %data%THSRC_rail.gmt -R -JM -W3,red -K -O >> %ps%
 gmt psxy %data%THSRC_rail.gmt -R -JM -W3,black,8_8:0p -K -O >> %ps%
 gmt psxy %data%THSRC_station.gmt -R -JM -Ss.5 -W.5 -Gred -K -O >> %ps%
 
-# 2. legend set
+rem 2. legend set
 echo 119.83 25.37 > tmp
 echo 119.83 24.75 >> tmp
 echo 120.60 24.75 >> tmp
@@ -127,12 +127,12 @@ del tmp*
 </p>
 
 批次檔
-```bash
+```bat
 set ps=11_4_region_border.ps
 set data=D:\GMT_data\
 set cpt=gebco.cpt
 
-# Taiwan
+rem Taiwan
 gmt psbasemap -R119.2/122.1/21.8/25.4 -Jm6 -BWeSn -Ba -P -K > %ps%
 gmt grdimage %data%tw_500_119.grd -R -Jm -C%cpt% -I%data%tw_500shad_119.grd -M -K -O >> %ps%
 gmt pscoast -R -Jm -Df -Gc -K -O >> %ps%
@@ -153,7 +153,7 @@ awk "NR==FNR{tmp1[NR]=$0; next} {print tmp1[FNR], $2,$3,$4}" tmp1 tmp2 > tmp
 gmt pstext tmp -R -Jm -F+f12p=2p,white -K -O >> %ps%
 gmt pstext tmp -R -Jm -F+f12p -K -O >> %ps%
 
-# Kinmen
+rem Kinmen
 gmt psbasemap -R118.17/118.55/24.35/24.58 -Jm12 -Bwesn -B0 ^
 -X.2 -Y17 -K -O --MAP_FRAME_TYPE=plain >> %ps%
 gmt pscoast -R -Jm -Df -W1 -G220 -S250 -K -O >> %ps%
@@ -172,7 +172,7 @@ awk "NR==FNR{tmp1[NR]=$0; next} {print tmp1[FNR], $2,$3,$4}" tmp1 tmp2 > tmp
 gmt pstext tmp -R -Jm -F+f12p=2p,white -K -O >> %ps%
 gmt pstext tmp -R -Jm -F+f12p -K -O >> %ps%
 
-# Lienchiang
+rem Lienchiang
 gmt psbasemap -R119.86/120.11/25.91/26.30 -Jm -Bwesn -B0 ^
 -X5 -Y1 -K -O --MAP_FRAME_TYPE=plain >> %ps%
 gmt pscoast -R -Jm -Df -W1 -G220 -S250 -K -O >> %ps%
@@ -218,12 +218,12 @@ del tmp*
 </p>
 
 批次檔
-```bash
+```bat
 set ps=11_5_drainage_area.ps
 set data=D:\GMT_data\
 set cpt=gebco.cpt
 
-# mainstream
+rem mainstream
 gmt gmtset MAP_FRAME_TYPE=plain
 gmt psbasemap -R119.8/122.1/21.8/25.4 -JM10 -BWeSn -Ba -K > %ps%
 gmt grdimage %data%tw_500_119.grd -R -JM -C%cpt% -I%data%tw_500shad_119.grd -M -K -O >> %ps%
@@ -235,7 +235,7 @@ gmt psxy %data%taiwan_river_mainstream.gmt -R -JM -W1,30/34/170 -K -O >> %ps%
 echo 119.87 25.2 Mainstream | gmt pstext -R -JM -F+f18p,2+jML -K -O >> %ps%
 gmt psbasemap -R -JM -D120.7/121.5/24.6/25.4 -F+p2,red -K -O >> %ps%
 
-# mainstream & tributary
+rem mainstream & tributary
 gmt psbasemap -R120.7/121.5/24.6/25.4 -JM12 -BwESn -Ba -X12 -K -O >> %ps%
 gmt pscoast -R -JM -Df -W1 -S235 -K -O >> %ps%
 gmt psxy %data%taiwan_river_tributary.gmt -R -JM -W.5,72/92/199 -K -O >> %ps%
@@ -267,19 +267,19 @@ del tmp* gmt.conf
 </p>
 
 批次檔
-```bash
+```bat
 set ps=11_6_cgs_fault.ps
 set data=D:\GMT_data\
 set cpt=gebco.cpt
 
-# 1. topographic map
+rem 1. topographic map
 gmt psbasemap -R119.7/122.1/21.8/25.4 -JM15 -BWeSn -Ba -P -K > %ps%
 gmt pscoast -R -JM -Df -Gc -K -O >> %ps%
 gmt grdimage %data%tw_40.grd -R -JM -C%cpt% -I%data%tw_40shad.grd -M -K -O >> %ps%
 gmt pscoast -R -JM -Df -Q -K -O >> %ps%
 gmt pscoast -R -JM -Df -W1 -K -O >> %ps%
 
-# 2. fault type
+rem 2. fault type
 gmt psxy %data%CGS_fault.gmt -R -JM -Sqn1:+Lh+T"fault_label.dat" > tmp
 gmt gmtconvert %data%CGS_fault.gmt -S"1 1 |" > tmp
 gmt psxy tmp -R -JM -W2,red -K -O >> %ps%
@@ -290,13 +290,13 @@ gmt psxy tmp -R -JM -W2,255/193/37 -K -O >> %ps%
 gmt gmtconvert %data%CGS_fault.gmt -S"2 2 |" > tmp
 gmt psxy tmp -R -JM -W2,255/193/37,3_3:0p -K -O >> %ps%
 
-# 3. fault numbers in map
+rem 3. fault numbers in map
 awk "$4<=25 {print $0}" fault_label_fix.dat | ^
 gmt pstext -R -JM -F+a -D.2/-.2 -K -O >> %ps%
 awk "$4>=26 {print $0}" fault_label_fix.dat | ^
 gmt pstext -R -JM -F+a -D-.2/.2 -K -O >> %ps%
 
-# 4. fault numbers name
+rem 4. fault numbers name
 gmt gmtconvert %data%CGS_fault.gmt -L > tmp
 sed -i 's\\"\\\\g' tmp
 awk "{print $7, $8, $2}" tmp > tmp2
@@ -307,7 +307,7 @@ gmt pstext -R -JM -F+f12p+jML -K -O >> %ps%
 awk "NR>=21 {print 122.05, $2-($5-1)*.07, $5, $3, $4}" tmp3 | ^
 gmt pstext -R -JM -F+f12p+jMR -D0/-7 -K -O >> %ps%
 
-# 5. legend set
+rem 5. legend set
 echo H 18 1 Legend > tmp
 echo D 0.2 1p >> tmp
 echo G .2 >> tmp
@@ -354,7 +354,7 @@ del tmp*
 </p>
 
 批次檔
-```bash
+```bat
 set ps=11_6_fault_type.ps
 set data=D:\GMT_data\
 set cpt=dem3.cpt
@@ -363,21 +363,21 @@ gmt psbasemap -R120.0/120.6/22.6/23.2 -JM15 -BWeSn -Ba -P -K --MAP_FRAME_TYPE=pl
 gmt grdimage %data%tw_40.grd -R -JM -C%cpt% -I%data%tw_40shad.grd -K -O >> %ps%
 gmt pscoast -R -JM -Df -W1 -S200/200/255 -K -O >> %ps%
 
-# 新化 右移斷
+rem 新化 右移斷
 gmt gmtconvert %data%CGS_fault.gmt -S"Hsinhua Fault" > tmp
 gmt psxy tmp -R -JM -W4,red -Sf.5/.2+r+s+p1,red -K -O >> %ps%
-# 後甲里 逆移斷 西傾
+rem 後甲里 逆移斷 西傾
 gmt gmtconvert %data%CGS_fault.gmt -S"Houchiali Fault" > tmp
 gmt psxy tmp -R -JM -W4,255/193/37 -Sf.4/.25+r+t+o.12+p1,255/193/37 -G255/193/37 -K -O >> %ps%
-# 左鎮 左移斷
+rem 左鎮 左移斷
 gmt gmtconvert %data%CGS_fault.gmt -S"Tsochen Fault" > tmp
 gmt psxy tmp -R -JM -Sf.7/.2+l+s+p1,255/193/37 -K -O >> %ps%
 gmt gmtconvert %data%CGS_fault.gmt -S"Tsochen Fault" > tmp
 gmt psxy tmp -R -JM -W4,255/193/37 -K -O >> %ps%
-# 小崗山 逆移斷 東傾
+rem 小崗山 逆移斷 東傾
 gmt gmtconvert %data%CGS_fault.gmt -S"Hsiaokangshan Fault" > tmp
 gmt psxy tmp -R -JM -W4,255/193/37 -Sf.7/.25+l+t+o.12+p1,255/193/37 -G255/193/37 -K -O >> %ps%
-# 旗山斷層 逆移兼 東傾
+rem 旗山斷層 逆移兼 東傾
 gmt gmtconvert %data%CGS_fault.gmt -S"Chishan Fault" > tmp
 gmt psxy tmp -R -JM -Sf.7/.25+l+t+o.12+p1,red -Gred -K -O >> %ps%
 gmt gmtconvert %data%CGS_fault.gmt -S"Chishan Fault" > tmp
@@ -425,24 +425,24 @@ del tmp*
 </p>
 
 批次檔
-```bash
+```bat
 set ps=11_7_population_density.ps
 set data=D:\GMT_data\
 set cpt=rainbow.cpt
 
-# population density map
+rem population density map
 gmt psbasemap -R119.2/122.1/21.8/25.4 -JM15 -BWeSn -Ba -P -K --MAP_FRAME_TYPE=plain > %ps%
 gmt grdimage %data%tw_500_119.grd -R -JM -C%cpt% -I%data%tw_500shad_119.grd -M -K -O >> %ps%
 gmt pscoast -R -JM -Df -Gc -K -O >> %ps%
-# gmt makecpt -C%cpt% -Trange.txt -D -Fr > tmp.cpt
-# awk "{print $0}" range.txt | gmt makecpt -C%cpt% -E42 -D -Fr > tmp.cpt2
+rem gmt makecpt -C%cpt% -Trange.txt -D -Fr > tmp.cpt
+rem awk "{print $0}" range.txt | gmt makecpt -C%cpt% -E42 -D -Fr > tmp.cpt2
 gmt psxy %data%country_popuDen_2016f.gmt -R -JM ^
 -Cpopulation_density.cpt -L -K -O >> %ps%
 gmt psxy %data%city_2016.gmt -R -JM -W.5 -K -O >> %ps%
 gmt pscoast -R -JM -Df -Q -K -O >> %ps%
 gmt pscoast -R -JM -Df -W1 -K -O >> %ps%
 
-# legend set
+rem legend set
 echo 119.2 25.4 > tmp
 echo 119.2 23.9 >> tmp
 echo 120.2 23.9 >> tmp

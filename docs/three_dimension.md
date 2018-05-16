@@ -58,13 +58,13 @@
 </p>
 
 批次檔
-```bash
+```bat
 set ps=13_3_3d_polyhedron.ps
 
 gmt psbasemap -R-15/15/-15/15/-12/12 -JX15 -JZ12 -p220/25 ^
 -BWeSnZ -Bxa5f2.5 -By5f2.5 -Bz2 -K > %ps%
 
-# Tetrahedron 8
+rem Tetrahedron 8
 gmt gmtconvert polyhedron_face.gmt -S"Tetrahedron 8 |" > tmp
 awk "NR %%4 != 1 {print $1-10, $2-10, $3-7.5}" tmp > tmp1
 awk "{print $0} NR %%3 == 0 {print "">""""}" tmp1 > tmp2
@@ -77,7 +77,7 @@ gmt gmtconvert polyhedron_vertex.gmt -S"Tetrahedron 8 |" > tmp
 awk "NR != 1 {print $1-10, $2-10, $3-7.5}" tmp > tmp1
 gmt psxyz tmp1 -R -J -JZ -p -Sc.3 -G173/0/0 -K -O >> %ps%
 
-# Cube 3
+rem Cube 3
 gmt gmtconvert polyhedron_face.gmt -S"Cube 3 |" > tmp
 awk "NR %%4 != 1 {print $1+5, $2-10, $3-7.5}" tmp > tmp1
 awk "{print $0} NR %%3 == 0 {print "">""""}" tmp1 > tmp2
@@ -90,7 +90,7 @@ gmt gmtconvert polyhedron_vertex.gmt -S"Cube 3 |" > tmp
 awk "NR != 1 {print $1+5, $2-10, $3-7.5}" tmp > tmp1
 gmt psxyz tmp1 -R -J -JZ -p -Sc.3 -G0/1/138 -K -O >> %ps%
 
-# Octahedron 3
+rem Octahedron 3
 gmt gmtconvert polyhedron_face.gmt -S"Octahedron 3 |" > tmp
 awk "NR %%4 != 1 {print $1-10, $2+5, $3-5}" tmp > tmp1
 awk "{print $0} NR %%3 == 0 {print "">""""}" tmp1 > tmp2
@@ -103,7 +103,7 @@ gmt gmtconvert polyhedron_vertex.gmt -S"Octahedron 3 |" > tmp
 awk "NR != 1 {print $1-10, $2+5, $3-5}" tmp > tmp1
 gmt psxyz tmp1 -R -J -JZ -p -Sc.3 -G0/93/79 -K -O >> %ps%
 
-# Rhombic Dodecahedron 3
+rem Rhombic Dodecahedron 3
 gmt gmtconvert polyhedron_face.gmt -S"Rhombic Dodecahedron 3 |" > tmp
 awk "NR %%4 != 1 {print $1+4, $2+5, $3-5}" tmp > tmp1
 awk "{print $0} NR %%3 == 0 {print "">""""}" tmp1 > tmp2
@@ -116,7 +116,7 @@ gmt gmtconvert polyhedron_vertex.gmt -S"Rhombic Dodecahedron 3 |" > tmp
 awk "NR != 1 {print $1+4, $2+5, $3-5}" tmp > tmp1
 gmt psxyz tmp1 -R -J -JZ -p -Sc.3 -G173/201/0 -K -O >> %ps%
 
-# Icosahedron
+rem Icosahedron
 gmt gmtconvert polyhedron_face.gmt -S"Icosahedron |" > tmp
 awk "NR %%4 != 1 {print $1-10, $2+10, $3+5}" tmp > tmp1
 awk "{print $0} NR %%3 == 0 {print "">""""}" tmp1 > tmp2
@@ -129,7 +129,7 @@ gmt gmtconvert polyhedron_vertex.gmt -S"Icosahedron |" > tmp
 awk "NR != 1 {print $1-10, $2+10, $3+5}" tmp > tmp1
 gmt psxyz tmp1 -R -J -JZ -p -Sc.3 -G189/0/219 -K -O >> %ps%
 
-# Rhombic Triacontahedron
+rem Rhombic Triacontahedron
 gmt gmtconvert polyhedron_face.gmt -S"Rhombic Triacontahedron |" > tmp
 awk "NR %%4 != 1 {print $1+6, $2+10, $3+5}" tmp > tmp1
 awk "{print $0} NR %%3 == 0 {print "">""""}" tmp1 > tmp2
@@ -142,7 +142,7 @@ gmt gmtconvert polyhedron_vertex.gmt -S"Rhombic Triacontahedron |" > tmp
 awk "NR != 1 {print $1+6, $2+10, $3+5}" tmp > tmp1
 gmt psxyz tmp1 -R -J -JZ -p -Sc.3 -G0/147/72 -K -O >> %ps%
 
-# 120 Polyhedron
+rem 120 Polyhedron
 gmt gmtconvert polyhedron_face.gmt -S"120 Polyhedron |" > tmp
 awk "NR %%4 != 1 {print $1+20, $2+8, $3-4}" tmp > tmp1
 awk "{print $0} NR %%3 == 0 {print "">""""}" tmp1 > tmp2
@@ -155,7 +155,7 @@ gmt gmtconvert polyhedron_vertex.gmt -S"120 Polyhedron |" > tmp
 awk "NR != 1 {print $1+20, $2+8, $3-4}" tmp > tmp1
 gmt psxyz tmp1 -R -J -JZ -p -Sc.3 -G5 -N -K -O >> %ps%
 
-# text
+rem text
 echo 7 -11 Tetrahedron | gmt pstext -R -J -JZ -p180/90 -F+f14p+a28 -K -O >> %ps%
 echo 18 -7.5 Cube | gmt pstext -R -J -JZ -p -F+f14p+a10 -N -K -O >> %ps%
 echo -1.5 -3.5 Octahedron | gmt pstext -R -J -JZ -p -F+f14p+a55 -N -K -O >> %ps%
@@ -200,7 +200,7 @@ del tmp*
 </p>
 
 批次檔
-```bash
+```bat
 set ps=13_4_3d_bar.ps
 set data=D:\GMT_data\
 set C=gray
@@ -213,7 +213,7 @@ gmt grdimage %data%tw_20.grd -R120.62/120.69/24.03/24.13/0/100 -JM12 -JZ10 -p205
 gmt psxy %data%taiwan_river_tributary.gmt -R -JM -JZ -p -W1,72/92/199 -K -O >> %ps%
 gmt psxy %data%taiwan_river_mainstream.gmt -R -JM -JZ -p -W1,30/34/170 -K -O >> %ps%
 
-# 061851G1
+rem 061851G1
 awk "{if ($3==""061851G1"""") print $0}" core.gmt > tmp
 awk "{print $1,$2,$4,0}" tmp | gmt psxyz -R -JM -JZ -p -So.3 -G%C% -W.5 -K -O >> %ps%
 awk "{print $1,$2,$4+$6,$4}" tmp | gmt psxyz -R -JM -JZ -p -So.3b -G%CS% -W.5 -K -O >> %ps%
@@ -229,7 +229,7 @@ gmt psxyz -R -JM -JZ -p -So.3b -G%CS% -W.5 -K -O >> %ps%
 awk "{print $1,$2,$3}" tmp | gmt pstext -R -JM -JZ -p -F+f12p=2p,white -D0/-.5 -K -O >> %ps%
 awk "{print $1,$2,$3}" tmp | gmt pstext -R -JM -JZ -p -F+f12p -D0/-.5 -K -O >> %ps%
 
-# 062051G1
+rem 062051G1
 awk "{if ($3==""062051G1"""") print $0}" core.gmt > tmp
 awk "{print $1,$2,$4,0}" tmp | gmt psxyz -R -JM -JZ -p -So.3 -G%G% -W.5 -K -O >> %ps%
 awk "{print $1,$2,$4+$6,$4}" tmp | gmt psxyz -R -JM -JZ -p -So.3b -G%FS% -W.5 -K -O >> %ps%
@@ -241,7 +241,7 @@ gmt psxyz -R -JM -JZ -p -So.3b -G%C% -W.5 -K -O >> %ps%
 awk "{print $1,$2,$3}" tmp | gmt pstext -R -JM -JZ -p -F+f12p=2p,white -D0/-.5 -K -O >> %ps%
 awk "{print $1,$2,$3}" tmp | gmt pstext -R -JM -JZ -p -F+f12p -D0/-.5 -K -O >> %ps%
 
-# 061552G1
+rem 061552G1
 awk "{if ($3==""061552G1"""") print $0}" core.gmt > tmp
 awk "{print $1,$2,$4,0}" tmp | gmt psxyz -R -JM -JZ -p -So.3 -G%CS% -W.5 -K -O >> %ps%
 awk "{print $1,$2,$4+$6,$4}" tmp | gmt psxyz -R -JM -JZ -p -So.3b -G%C% -W.5 -K -O >> %ps%
@@ -259,7 +259,7 @@ gmt psxyz -R -JM -JZ -p -So.3b -G%FS% -W.5 -K -O >> %ps%
 awk "{print $1,$2,$3}" tmp | gmt pstext -R -JM -JZ -p -F+f12p=2p,white -D0/-.5 -K -O >> %ps%
 awk "{print $1,$2,$3}" tmp | gmt pstext -R -JM -JZ -p -F+f12p -D0/-.5 -K -O >> %ps%
 
-# 061553G1
+rem 061553G1
 awk "{if ($3==""061553G1"""") print $0}" core.gmt > tmp
 awk "{print $1,$2,$4,0}" tmp | gmt psxyz -R -JM -JZ -p -So.3 -G%G% -W.5 -K -O >> %ps%
 awk "{print $1,$2,$4+$6,$4}" tmp | gmt psxyz -R -JM -JZ -p -So.3b -G%CS% -W.5 -K -O >> %ps%
@@ -279,7 +279,7 @@ gmt psxyz -R -JM -JZ -p -So.3b -G%FS% -W.5 -K -O >> %ps%
 awk "{print $1,$2,$3}" tmp | gmt pstext -R -JM -JZ -p -F+f12p=2p,white -D0/-.5 -K -O >> %ps%
 awk "{print $1,$2,$3}" tmp | gmt pstext -R -JM -JZ -p -F+f12p -D0/-.5 -K -O >> %ps%
 
-# 061551G1
+rem 061551G1
 awk "{if ($3==""061551G1"""") print $0}" core.gmt > tmp
 awk "{print $1,$2,$4,0}" tmp | gmt psxyz -R -JM -JZ -p -So.3 -G%G% -W.5 -K -O >> %ps%
 awk "{print $1,$2,$4+$6,$4}" tmp | gmt psxyz -R -JM -JZ -p -So.3b -G%C% -W.5 -K -O >> %ps%
@@ -295,7 +295,7 @@ gmt psxyz -R -JM -JZ -p -So.3b -G%FS% -W.5 -K -O >> %ps%
 awk "{print $1,$2,$3}" tmp | gmt pstext -R -JM -JZ -p -F+f12p=2p,white -D0/-.5 -K -O >> %ps%
 awk "{print $1,$2,$3}" tmp | gmt pstext -R -JM -JZ -p -F+f12p -D0/-.5 -K -O >> %ps%
 
-# legend
+rem legend
 echo C %C% > tmp
 echo L - - L Clay >> tmp
 echo C %FS% >> tmp
@@ -336,7 +336,7 @@ TODO
 </p>
 
 批次檔
-```bash
+```bat
 set data=D:\GMT_data\
 set ps=13_5_3d_perspective.ps
 set R=-80/-70/-56/-48
@@ -346,20 +346,20 @@ gmt gmtset MAP_FRAME_TYPE plain FONT_ANNOT_PRIMARY 8p FONT_LABEL 10p PS_MEDIA A3
 gmt grdcut %data%ETOPO1_Bed_g_gmt5.grd -R%R% -Gtmp.grd
 gmt grdcut %data%ETOPO1_Bed_g_gmt5_shad.grd -R%R% -Gtmp_shad.grd
 
-# -Qi -N
+rem -Qi -N
 gmt grdview tmp.grd -Itmp_shad.grd -R%R%/-6000/2000 -JL-75/-52.5/-59/-45/7.5 -JZ2 -p210/40 ^
 -Cibcao.cpt -N-6000+glightgray -Qi500 -Ba -Bza4000f2000+l"Topo (m)" -BWeSnZ+t"-Qi -N" -K > %ps%
 
-# -Qi & grdcontour
+rem -Qi & grdcontour
 gmt grdcontour tmp.grd -R -J -JZ -p -C500 -A1000 -Ba -BWeSn -K -O -Y11 >> %ps%
 gmt grdview tmp.grd -Itmp_shad.grd -R%R%/-6000/2000 -J -JZ -p -Cibcao.cpt ^
 -Qi500 -Ba -Bza4000f2000+l"Topo (m)" -BwesnZ+t"-Qi & grdcontour" -K -O -Y3 >> %ps%
 
-# -Qs -Wc
+rem -Qs -Wc
 gmt grdview tmp.grd -Itmp_shad.grd -R%R%/-6000/2000 -J -JZ -p -Cibcao.cpt ^
 -Qs -Ba -Bza4000f2000+l"Topo (m)" -BWeSnZ+t"-Qs -Wc" -Wc.5 -K -O -X13 -Y-3 >> %ps%
 
-# -Qm -N -Wm -Wf
+rem -Qm -N -Wm -Wf
 gmt grdsample tmp.grd -I10k -Gtmp10.grd
 gmt grdsample tmp_shad.grd -I10k -Gtmp10_shad.grd
 gmt grdview tmp10.grd -Itmp10_shad.grd -R%R%/-6000/2000 -JL -JZ2 -p -Cibcao.cpt ^
