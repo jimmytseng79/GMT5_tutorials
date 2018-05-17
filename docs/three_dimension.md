@@ -36,6 +36,7 @@
 
 * `gmtconvert`: 處理多區塊式文件
 * `grdview`: 繪製三維透視圖
+* `grdsample`: 對網格檔重新取樣
 * `psbasemap`: 繪製圖框、刻度、標籤等等
 * `pstext`: 三維空間中寫字
 * `psxyz`: 繪製三維空間中的點、線、面
@@ -324,10 +325,14 @@ del tmp*
 如果再配合化石等其他資料，就可以清楚地勾勒出這地區的地層分佈。
 
 ## 13.5 三維透視圖
-TODO
+之前有展示如何透過顏色及陰影在平面上繪製地形圖，而本節則示範使用同樣的全球數值地形網格檔，
+來繪製三維的地形圖。百內國家公園(Parque Nacional Torres del Paine)，
+為智利南部的一座國家公園，以湛藍的冰河峽灣及湖泊景觀聞名，而透過三維透視圖，
+將可以把高聳的山脈依傍在海洋的景色，完美地展現出來。
 
 使用的資料檔:
 - 請參考[8-5地形暈眩圖](topography_cpt.md#m8.5)，下載全球一角分的數值地形圖。
+- [ibcao色階檔](dat/ibcao.cpt)
 
 成果圖
 
@@ -353,7 +358,7 @@ gmt grdview tmp.grd -Itmp_shad.grd -R%R%/-6000/2000 -JL-75/-52.5/-59/-45/7.5 -JZ
 # -Qi & grdcontour
 gmt grdcontour tmp.grd -R -J -JZ -p -C500 -A1000 -Ba -BWeSn -K -O -Y11 >> %ps%
 gmt grdview tmp.grd -Itmp_shad.grd -R%R%/-6000/2000 -J -JZ -p -Cibcao.cpt ^
--Qi500 -Ba -Bza4000f2000+l"Topo (m)" -BwesnZ+t"-Qi & grdcontour" -K -O -Y3 >> %ps%
+-Qi500+m -Ba -Bza4000f2000+l"Topo (m)" -BwesnZ+t"-Qi & grdcontour" -K -O -Y3 >> %ps%
 
 # -Qs -Wc
 gmt grdview tmp.grd -Itmp_shad.grd -R%R%/-6000/2000 -J -JZ -p -Cibcao.cpt ^
@@ -362,7 +367,7 @@ gmt grdview tmp.grd -Itmp_shad.grd -R%R%/-6000/2000 -J -JZ -p -Cibcao.cpt ^
 # -Qm -N -Wm -Wf
 gmt grdsample tmp.grd -I10k -Gtmp10.grd
 gmt grdsample tmp_shad.grd -I10k -Gtmp10_shad.grd
-gmt grdview tmp10.grd -Itmp10_shad.grd -R%R%/-6000/2000 -JL -JZ2 -p -Cibcao.cpt ^
+gmt grdview tmp10.grd -Itmp10_shad.grd -R%R%/-6000/2000 -JL -JZ -p -Cibcao.cpt ^
 -N-6000+glightgray -Qm -Ba -Bza4000f2000+l"Topo (m)" -BWeSnZ+t"-Qm -N -Wm -Wf" ^
 -Wm.5 -Wf.75,red -K -O -Y-11 >> %ps%
 
@@ -370,6 +375,28 @@ gmt psxy -R -J -Jz -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
 del tmp*
 ```
+
+學習到的指令:
+* `grdview`繪製三維透視圖或是網格表面。
+  * `-Q`模式選擇。
+    * **i**影像圖。後面接上dpi值，來調整解析程度，默認是100 dpi。
+    * **c**影像圖。用法與**i**一樣，但當節點值為NaN時，則用透明色表示。
+    * **m**網格圖。可在後面加上顏色，將取代原有的白色底色。
+    * **s**表面圖。如果後面加上**m**，則繪繪製網格線。
+  * `-N`在z方向繪製平面。後面接上高程值，**+g**可指定平面的顏色。
+  * `-W`格線的設定。格式為**-W種類**筆觸。
+    * **-Wc**設定網格或表面圖的等高線。
+    * **-Wm**設定網格的格線，搭配**-Qm**或**-Qsm**。
+    * **-Wf**設定z平面的外框線，搭配**-N**。
+
+先透過`gmtcut`將原本全球的網格檔切割成較小的目標區域檔，再來透過4種圖片來展示`grdview -Q`的模式差異，
+在右下角的網格圖中，由於本身全球一角分的解析度太高，所以透過`grdsample`將網格檔進行從新採樣，
+一般的用法是`grdsample 輸入網格檔 -I解析度 -G輸出檔`。
+
+三維透視圖是很好的影像呈現方式，可以一目了然地將地形的差異性表現出來，
+也可將**GMT**繪製的結果圖當做底圖，透過如**CorelDraw**等繪圖軟體進行修圖，來繪製地質模型，
+將可事半功倍。
+
 
 ## 13.6 習題
 TODO
