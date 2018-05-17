@@ -46,7 +46,7 @@
 * `xyz2grd`: 轉換ascii檔案格式至網格檔
 * `gdal_translate`轉檔程式
 
-## 7.3 簡介網格檔
+## <a name="m7.3"></a>7.3 簡介網格檔
 在開始學習繪製等高線圖之前，要先介紹GMT在繪製網格圖時所使用的檔案格式<mark>.grd</mark>，
 它是屬於<mark>netCDF</mark>檔案格式，全名被稱做網路通用數據格式(Net Common Data Form)，
 由於一般的10進位檔案格式(ascii)，相當地占用硬碟空間，因此常會將資料儲存成2進位的格式(binary)，
