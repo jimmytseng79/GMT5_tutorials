@@ -418,7 +418,7 @@ del tmp*
 * [13_3_3d_polyhedron](bat/13_3_3d_polyhedron.bat)
 * [13_4_3d_bar](bat/13_4_3d_bar.bat)
 * [13_5_3d_perspective](bat/13_5_3d_perspective.bat)
-* [13_6_3d_east_valley](bat/13_6_3d_east_coast.bat)
+* [13_6_3d_east_coast](bat/13_6_3d_east_coast.bat)
 
 ---
 
