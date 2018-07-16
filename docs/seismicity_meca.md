@@ -465,9 +465,9 @@ del tmp*
 |-----|-----|
 |[9_3_seismicity](bat/9_3_seismicity.bat)|[9_3_seismicity](csh/9_3_seismicity.csh)|
 |[9_4_focal_mechanism](bat/9_4_focal_mechanism.bat)|[9_4_focal_mechanism](csh/9_4_focal_mechanism.csh)|
-|[9_4_taiwan_focal](bat/9_4_taiwan_focal.bat)|[9_4_taiwan_focal](bat/9_4_taiwan_focal.csh)|
-|[9_5_focal_profile](bat/9_5_focal_profile.bat)|[9_5_focal_profile](bat/9_5_focal_profile.csh)|
-|[9_6_after6m_meinong](bat/9_6_after6m_meinong.bat)|[9_6_after6m_meinong](bat/9_6_after6m_meinong.csh)|
+|[9_4_taiwan_focal](bat/9_4_taiwan_focal.bat)|[9_4_taiwan_focal](csh/9_4_taiwan_focal.csh)|
+|[9_5_focal_profile](bat/9_5_focal_profile.bat)|[9_5_focal_profile](csh/9_5_focal_profile.csh)|
+|[9_6_after6m_meinong](bat/9_6_after6m_meinong.bat)|[9_6_after6m_meinong](csh/9_6_after6m_meinong.csh)|
 
 ---
 
