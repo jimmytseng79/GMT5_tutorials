@@ -27,7 +27,7 @@ gmt gmtconvert %data%CGS_fault.gmt -S"Chishan Fault" > tmp
 gmt psxy tmp -R -JM -W4,red -K -O >> %ps%
 
 awk "$4<=25 {print $0}" fault_label_fix.dat | ^
-gmt pstext -R -JM -F+10p+a -D.4/-.4 -K -O >> %ps%
+gmt pstext -R -JM -F+f12+a -D.4/-.4 -K -O >> %ps%
 
 gmt gmtconvert -L %data%CGS_fault.gmt > tmp
 sed -i 's\\"\\\\g' tmp

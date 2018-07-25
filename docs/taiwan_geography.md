@@ -384,7 +384,7 @@ gmt gmtconvert %data%CGS_fault.gmt -S"Chishan Fault" > tmp
 gmt psxy tmp -R -JM -W4,red -K -O >> %ps%
 
 awk "$4<=25 {print $0}" fault_label_fix.dat | ^
-gmt pstext -R -JM -F+10p+a -D.4/-.4 -K -O >> %ps%
+gmt pstext -R -JM -F+f12+a -D.4/-.4 -K -O >> %ps%
 
 gmt gmtconvert -L %data%CGS_fault.gmt > tmp
 sed -i 's\\"\\\\g' tmp
@@ -459,7 +459,7 @@ awk "$1>=8000 && $1< 40000 {print $0}" population_density.cpt > tmp.cpt
 gmt psscale -Ctmp.cpt -R -JM -Dx5.1/12.8+w7/.5 -A -S ^
 -K -O --FONT_ANNOT_PRIMARY=8p >> %ps%
 echo 119.22 24.00 Population Density (1\057km@+2@+) | ^
-gmt pstext -R -JM -F+14p,1+jML -K -O >> %ps%
+gmt pstext -R -JM -F+f12,0+jML -K -O >> %ps%
 
 gmt psxy -R -J -T -O >> %ps%
 gmt psconvert %ps% -Tg -A -P
